@@ -1,4 +1,4 @@
-# Elstar React Admin Template (Starter)
+# Wallet Admin APP
 
 This is starter version of Elstar React Admin Template, it included minimum core components and functionality setup of a template.
 
