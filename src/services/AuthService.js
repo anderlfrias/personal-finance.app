@@ -1,8 +1,9 @@
+import { URL } from 'constants/api.constant'
 import ApiService from './ApiService'
 
 export async function apiSignIn (data) {
     return ApiService.fetchData({
-        url: '/sign-in',
+        url: `${URL}/v1/user/login`,
         method: 'post',
         data
     })
