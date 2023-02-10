@@ -1,14 +1,8 @@
-import BaseService from './BaseService'
+import axios from 'axios'
 
 const ApiService = {
-    fetchData(param) {
-        return new Promise((resolve, reject) => {
-            BaseService(param).then(response => {
-                resolve(response)
-            }).catch(errors => {
-                reject(errors)
-            })
-        })
+    async fetchData(param) {
+        return axios(param)
     }
 }
 
