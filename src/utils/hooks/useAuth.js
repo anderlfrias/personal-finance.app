@@ -6,6 +6,7 @@ import appConfig from 'configs/app.config'
 import { REDIRECT_URL_KEY } from 'constants/app.constant'
 import { useNavigate } from 'react-router-dom'
 import useQuery from './useQuery'
+import jwt_decode from "jwt-decode";
 
 function useAuth() {
 
@@ -21,24 +22,25 @@ function useAuth() {
         try {
 			const resp = await apiSignIn(values)
 			console.log(resp)
-			// if (resp.data) {
-			// 	const { token } = resp.data
-			// 	dispatch(onSignInSuccess(token))
-			// 	if(resp.data.user) {
-			// 		dispatch(setUser(resp.data.user || { 
-			// 			avatar: '', 
-			// 			userName: 'Anonymous', 
-			// 			authority: ['USER'], 
-			// 			email: ''
-			// 		}))
-			// 	}
-			// 	const redirectUrl = query.get(REDIRECT_URL_KEY)
-			// 	navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath)
-            //     return {
-            //         status: 'success',
-            //         message: ''
-            //     }
-			// }
+			if (resp.data) {
+				const { token } = resp.data;
+				const decoded = jwt_decode(token);
+				const user = {
+					...decoded,
+					avatar: '',
+					authority: [decoded.role.toUpperCase()]
+				}
+				delete user.role;
+				console.log(user)
+				dispatch(onSignInSuccess(token))
+				dispatch(setUser(user))
+				const redirectUrl = query.get(REDIRECT_URL_KEY)
+				navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath)
+                return {
+                    status: 'success',
+                    message: ''
+                }
+			}
 		} catch (errors) {
 			return {
                 status: 'failed',
