@@ -9,7 +9,7 @@ export const themeConfig = {
     themeColor: 'indigo',
     direction: THEME_ENUM.DIR_LTR,
     mode: THEME_ENUM.MODE_LIGHT,
-    locale: 'en',
+    locale: 'es',
     primaryColorLevel: 600,
     cardBordered: true,
     panelExpand: false,

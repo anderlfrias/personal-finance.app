@@ -9,7 +9,7 @@ function useLocale() {
     const locale = useSelector((state) => state.theme.locale)
 
     useEffect(() => {
-        const formattedLang = locale.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase() }) 
+        const formattedLang = locale.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase() })
         if (locale !== i18n.language) {
             i18n.changeLanguage(formattedLang)
         }
@@ -17,7 +17,7 @@ function useLocale() {
 			dayjs.locale(formattedLang)
 		})
     }, [locale])
-                                              
+
     return locale
 }
 

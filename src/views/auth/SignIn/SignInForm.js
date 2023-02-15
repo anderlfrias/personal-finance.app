@@ -5,18 +5,22 @@ import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
+import { useTranslation } from 'react-i18next'
 
-const validationSchema = Yup.object().shape({
-	userName: Yup.string().required('Please enter your user name'),
-	password: Yup.string().required('Please enter your password'),
-	rememberMe: Yup.bool()
-})
 
 const SignInForm = props => {
+	const p = 'login.form' // This is the path to the translation file
+	const { t } = useTranslation()
 
-	const { 
-		disableSubmit = false, 
-		className, 
+	const validationSchema = Yup.object().shape({
+		userName: Yup.string().required(t(`${p}.username.error`)),
+		password: Yup.string().required(t(`${p}.password.error`)),
+		rememberMe: Yup.bool()
+	})
+
+	const {
+		disableSubmit = false,
+		className,
 		forgotPasswordUrl = '/forgot-password',
 		signUpUrl = '/sign-up'
 	} = props
@@ -44,9 +48,9 @@ const SignInForm = props => {
 			<Formik
 				// Remove this initial value
 				initialValues={{
-					userName: 'admin', 
-					password: '123Qwe', 
-					rememberMe: true 
+					userName: '',
+					password: '',
+					rememberMe: true
 				}}
 				validationSchema={validationSchema}
 				onSubmit={(values, { setSubmitting }) => {
@@ -61,43 +65,43 @@ const SignInForm = props => {
 					<Form>
 						<FormContainer>
 							<FormItem
-								label="User Name"
+								label={t(`${p}.username.label`)}
 								invalid={errors.userName && touched.userName}
 								errorMessage={errors.userName}
 							>
-								<Field 
-									type="text" 
-									autoComplete="off" 
-									name="userName" 
-									placeholder="User Name" 
-									component={Input} 
+								<Field
+									type="text"
+									autoComplete="off"
+									name="userName"
+									placeholder={t(`${p}.username.placeholder`)}
+									component={Input}
 								/>
 							</FormItem>
 							<FormItem
-								label="Password"
+								label={t(`${p}.password.label`)}
 								invalid={errors.password && touched.password}
 								errorMessage={errors.password}
 							>
 								<Field
-									autoComplete="off" 
-									name="password" 
-									placeholder="Password" 
-									component={PasswordInput} 
+									autoComplete="off"
+									name="password"
+									placeholder={t(`${p}.password.placeholder`)}
+									component={PasswordInput}
 								/>
 							</FormItem>
 							<div className="flex justify-between mb-6">
-								<Field className="mb-0" name="rememberMe" component={Checkbox} children="Remember Me" />
+								<Field className="mb-0" name="rememberMe" component={Checkbox} children={t(`${p}.remember`)} />
 								<ActionLink to={forgotPasswordUrl}>
-									Forgot Password?
+									{t(`${p}.forgotPassword`)}
 								</ActionLink>
 							</div>
 							<Button block loading={isSubmitting} variant="solid" type="submit">
-								{ isSubmitting ? 'Signing in...' : 'Sign In' }
+								{ isSubmitting ? t(`${p}.submit.loading`) : t(`${p}.submit.label`) }
 							</Button>
 							<div className="mt-4 text-center">
-								<span>Don't have an account yet? </span>
+								<span>{t(`${p}.register`)}</span>
 								<ActionLink to={signUpUrl}>
-									Sign up
+									{t(`${p}.registerLink`)}
 								</ActionLink>
 							</div>
 						</FormContainer>

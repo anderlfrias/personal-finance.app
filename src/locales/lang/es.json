@@ -1,0 +1,35 @@
+{
+    "nav": {
+        "home": "Inicio",
+        "singleMenuItem": "Menú"
+    },
+    "home": {
+        "title": "Inicio",
+        "welcome": "Bienvenido a la página de inicio de la aplicación de ejemplo de React"
+    },
+    "login": {
+        "title": "Iniciar sesión",
+        "subtitle": "Inicie sesión para acceder a la aplicación",
+        "form": {
+            "username": {
+                "label": "Nombre de usuario",
+                "placeholder": "Introduzca su nombre de usuario",
+                "error": "El nombre de usuario es obligatorio"
+            },
+            "password": {
+                "label": "Contraseña",
+                "placeholder": "Introduzca su contraseña",
+                "error": "La contraseña es obligatoria"
+            },
+            "remember": "Recuérdame",
+            "submit": {
+                "label": "Iniciar sesión",
+                "loading": "Iniciando sesión..."
+            },
+            "error": "Nombre de usuario o contraseña incorrectos",
+            "forgotPassword": "¿Ha olvidado su contraseña?",
+            "register": "¿No tiene una cuenta?",
+            "registerLink": "Regístrese"
+        }
+    }
+}

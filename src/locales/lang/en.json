@@ -16,5 +16,37 @@
                 "item2": "Group collapse menu item 2"
             }
         }
+    },
+    "home": {
+        "title": "Home",
+        "welcome": "Welcome to the home page"
+    },
+    "login": {
+        "title": "Welcome back",
+        "subtitle": "Please login to continue",
+        "form" : {
+            "username": {
+                "label": "Username",
+                "placeholder": "Enter your username",
+                "error": "Username is required"
+            },
+            "password": {
+                "label": "Password",
+                "placeholder": "Enter your password",
+                "error": "Password is required"
+            },
+            "remember": "Remember me",
+            "submit": {
+                "label": "Login",
+                "loading": "Logging in..."
+            },
+            "forgotPassword": "Forgot password?",
+            "register": "Don't have an account?",
+            "registerLink": "Sign up"
+        }
+    },
+    "errors": {
+        "unauthorized": "Unauthorized",
+        "failed_to_login": "Failed to login"
     }
 }

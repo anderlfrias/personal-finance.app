@@ -44,7 +44,7 @@ function useAuth() {
 		} catch (errors) {
 			return {
                 status: 'failed',
-                message: errors?.response?.data?.message || errors.toString()
+                message: errors?.response?.data?.message || errors.code
             }
 		}
     }
