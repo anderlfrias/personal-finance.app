@@ -1,11 +1,20 @@
 {
     "nav": {
         "home": "Inicio",
+        "wallet": "Billetera",
         "singleMenuItem": "Menú"
     },
     "home": {
         "title": "Inicio",
         "welcome": "Bienvenido a la página de inicio de la aplicación de ejemplo de React"
+    },
+    "wallet": {
+        "title": "Mis Cuentas",
+        "subtitle": "Aquí puede ver sus cuentas",
+        "button": {
+            "create": "Crear cuenta",
+            "import": "Importar cuenta"
+        }
     },
     "login": {
         "title": "Iniciar sesión",

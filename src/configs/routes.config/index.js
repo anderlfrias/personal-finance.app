@@ -12,6 +12,12 @@ export const protectedRoutes = [
         component: React.lazy(() => import('views/Home')),
         authority: [],
     },
+    {
+        key: 'wallet',
+        path: '/wallet',
+        component: React.lazy(() => import('views/wallet')),
+        authority: [],
+    },
     /** Example purpose only, please remove */
     {
         key: 'singleMenuItem',

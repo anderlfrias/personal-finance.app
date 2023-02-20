@@ -1,6 +1,7 @@
 {
     "nav": {
         "home": "Home",
+        "wallet": "Wallet",
         "singleMenuItem": "Single menu item",
         "collapseMenu": {
             "collapseMenu": "Collapse menu item",
@@ -20,6 +21,14 @@
     "home": {
         "title": "Home",
         "welcome": "Welcome to the home page"
+    },
+    "wallet": {
+        "title": "Wallet",
+        "subtitle": "This is the wallet page",
+        "button": {
+            "create": "Create wallet",
+            "import": "Import wallet"
+        }
     },
     "login": {
         "title": "Welcome back",
