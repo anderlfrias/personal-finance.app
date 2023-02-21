@@ -11,6 +11,7 @@ import i18n from 'i18next'
 import { HiCheck } from 'react-icons/hi'
 
 const languageList = [
+	{ label: 'Español', value: 'es', flag: 'sp'},
 	{ label: 'English', value: 'en', flag: 'us' },
 ]
 
