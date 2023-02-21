@@ -15,6 +15,16 @@ const navigationConfig = [
 		authority: [],
         subMenu: []
     },
+	{
+		key: 'wallet',
+		path: '/wallet',
+		title: 'Wallet',
+		translateKey: 'nav.wallet',
+		icon: 'wallet',
+		type: NAV_ITEM_TYPE_ITEM,
+		authority: [],
+		subMenu: []
+	},
     /** Example purpose only, please remove */
     {
         key: 'singleMenuItem',

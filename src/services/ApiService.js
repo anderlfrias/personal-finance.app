@@ -12,8 +12,6 @@ const getToken = () => {
 
 const accessToken = getToken()
 
-console.log(accessToken)
-
 const ApiService = {
     async fetchData(param) {
         return axios({

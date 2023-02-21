@@ -4,11 +4,13 @@ import {
 	HiOutlineDesktopComputer,
     HiOutlineTemplate,
     HiOutlineViewGridAdd,
-    HiOutlineHome
+    HiOutlineHome,
+    HiOutlineCreditCard
 } from 'react-icons/hi'
 
 const navigationIcon = {
     home: <HiOutlineHome />,
+    wallet: <HiOutlineCreditCard />,
     singleMenu: <HiOutlineViewGridAdd />,
     collapseMenu: <HiOutlineTemplate />,
     groupSingleMenu: <HiOutlineDesktopComputer />,
