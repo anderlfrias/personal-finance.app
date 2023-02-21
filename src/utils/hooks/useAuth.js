@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, initialState } from 'store/auth/userSlice'
-import { apiSignIn, apiSignOut, apiSignUp } from 'services/AuthService'
+import { apiSignIn, apiSignUp } from 'services/AuthService'
 import { onSignInSuccess, onSignOutSuccess } from 'store/auth/sessionSlice'
 import appConfig from 'configs/app.config'
 import { REDIRECT_URL_KEY } from 'constants/app.constant'
@@ -85,7 +85,6 @@ function useAuth() {
 	}
 
     const signOut = async () => {
-		await apiSignOut()
 		handleSignOut()
 	}
     
