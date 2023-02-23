@@ -7,7 +7,7 @@ const getToken = () => {
     const rawPersistData = localStorage.getItem(PERSIST_STORE_NAME)
     const persistData = deepParseJson(rawPersistData)
 
-    return persistData?.auth?.session?.token || ''
+    return persistData?.auth?.session?.token || null
 }
 
 const accessToken = getToken()
