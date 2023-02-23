@@ -87,7 +87,7 @@ function useAuth() {
     const signOut = async () => {
 		handleSignOut()
 	}
-    
+
     return {
         authenticated: token && signedIn,
         signIn,

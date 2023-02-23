@@ -28,6 +28,65 @@
         "button": {
             "create": "Create wallet",
             "import": "Import wallet"
+        },
+        "form": {
+            "title": "Wallet form",
+            "name": {
+                "label": "Name",
+                "placeholder": "Enter wallet name",
+                "error": {
+                    "required": "Wallet name is required",
+                    "min": "Wallet name must be at least 3 characters",
+                    "max": "Wallet name must be less than 50 characters"
+                }
+            },
+            "description": {
+                "label": "Description",
+                "placeholder": "Enter wallet description",
+                "error": {
+                    "min": "Wallet description must be at least 3 characters",
+                    "max": "Wallet description must be less than 256 characters"
+                }
+            },
+            "balance": {
+                "label": "Balance",
+                "placeholder": "Enter wallet balance",
+                "error": {
+                    "required": "Wallet balance is required"
+                }
+            },
+            "submit": {
+                "label": "Submit",
+                "loading": "Submitting..."
+            },
+            "cancel": "Cancel"
+        },
+        "table": {
+            "name": "Name",
+            "description": "Description",
+            "balance": "Balance",
+            "action": "Action",
+            "empty": "No wallets found"
+        },
+        "message":{
+            "success": {
+                "create": "Wallet created successfully",
+                "update": "Wallet updated successfully",
+                "delete": "Wallet deleted successfully"
+            },
+            "error": {
+                "create": "Failed to create wallet",
+                "update": "Failed to update wallet",
+                "delete": "Failed to delete wallet"
+            }
+        },
+        "confirm": {
+            "delete": {
+                "title": "Are you sure?",
+                "message": "This action cannot be undone",
+                "confirm": "Confirm",
+                "cancel": "Cancel"
+            }
         }
     },
     "login": {
@@ -53,6 +112,12 @@
             "register": "Don't have an account?",
             "registerLink": "Sign up"
         }
+    },
+    "message": {
+        "success": "Success",
+        "error": "Error",
+        "warning": "Warning",
+        "info": "Info"
     },
     "errors": {
         "unauthorized": "Unauthorized",
