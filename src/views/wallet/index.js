@@ -11,7 +11,7 @@ const { Tr, Th, Td, THead, TBody } = Table
 
 function Wallet() {
     const { t } = useTranslation()
-    const { getWallets, createWallet, updateWallet } = useWallet()
+    const { getWallets, createWallet, updateWallet, deleteWallet } = useWallet()
     const [wallets, setWallets] = useState([])
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [isOpenConfirm, setIsOpenConfirm] = useState(false)
@@ -84,7 +84,16 @@ function Wallet() {
         setIsOpenConfirm(true)
     }
 
-    const onConfirmDelete = () => {
+    const onConfirmDelete = async () => {
+        const resp = await deleteWallet(selectedWallet.id)
+        if (resp.status === 'success') {
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t('wallet.message.success.delete')})
+            fetchData()
+        }
+
+        if (resp.status === 'failed') {
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t('wallet.message.error.delete')})
+        }
         setIsOpenConfirm(false)
     }
 
