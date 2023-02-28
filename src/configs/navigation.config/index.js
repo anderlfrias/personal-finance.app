@@ -25,6 +25,16 @@ const navigationConfig = [
 		authority: [],
 		subMenu: []
 	},
+	{
+		key: 'category',
+		path: '/category',
+		title: 'Category',
+		translateKey: 'nav.category',
+		icon: 'category',
+		type: NAV_ITEM_TYPE_ITEM,
+		authority: [],
+		subMenu: []
+	},
     /** Example purpose only, please remove */
     {
         key: 'singleMenuItem',

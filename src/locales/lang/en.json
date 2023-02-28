@@ -2,6 +2,7 @@
     "nav": {
         "home": "Home",
         "wallet": "Wallet",
+        "category": "Category",
         "singleMenuItem": "Single menu item",
         "collapseMenu": {
             "collapseMenu": "Collapse menu item",
@@ -86,6 +87,65 @@
                 "message": "This action cannot be undone",
                 "confirm": "Confirm",
                 "cancel": "Cancel"
+            }
+        }
+    },
+    "category": {
+        "title": "Category",
+        "subtitle": "This is the category page",
+        "button": {
+            "create": "Create category",
+            "import": "Import category"
+        },
+        "table": {
+            "name": "Name",
+            "description": "Description",
+            "action": "Action",
+            "empty": "No categories found"
+        },
+        "form": {
+            "title": "Category form",
+            "name": {
+                "label": "Name",
+                "placeholder": "Enter category name",
+                "error": {
+                    "required": "Category name is required",
+                    "min": "Category name must be at least 3 characters",
+                    "max": "Category name must be less than 50 characters"
+                }
+            },
+            "description": {
+                "label": "Description",
+                "placeholder": "Enter category description",
+                "error": {
+                    "min": "Category description must be at least 3 characters",
+                    "max": "Category description must be less than 256 characters"
+                }
+            },
+            "submit": {
+                "label": "Submit",
+                "loading": "Submitting..."
+            },
+            "cancel": "Cancel"
+        },
+        "confirm": {
+            "delete": {
+                "title": "Are you sure?",
+                "message": "This action cannot be undone",
+                "confirm": "Confirm",
+                "cancel": "Cancel"
+            }
+        },
+        "message":{
+            "success": {
+                "create": "Category created successfully",
+                "update": "Category updated successfully",
+                "delete": "Category deleted successfully"
+            },
+            "error": {
+                "create": "Failed to create category",
+                "update": "Failed to update category",
+                "delete": "Failed to delete category"
             }
         }
     },

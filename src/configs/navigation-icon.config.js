@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-    HiOutlineColorSwatch, 
+    HiOutlineColorSwatch,
 	HiOutlineDesktopComputer,
     HiOutlineTemplate,
     HiOutlineViewGridAdd,
@@ -11,6 +11,7 @@ import {
 const navigationIcon = {
     home: <HiOutlineHome />,
     wallet: <HiOutlineCreditCard />,
+    category: <HiOutlineViewGridAdd />,
     singleMenu: <HiOutlineViewGridAdd />,
     collapseMenu: <HiOutlineTemplate />,
     groupSingleMenu: <HiOutlineDesktopComputer />,

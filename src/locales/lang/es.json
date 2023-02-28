@@ -1,7 +1,8 @@
 {
     "nav": {
         "home": "Inicio",
-        "wallet": "Billetera",
+        "wallet": "Cuentas",
+        "category": "Categorías",
         "singleMenuItem": "Menú"
     },
     "home": {
@@ -72,6 +73,65 @@
                 "create": "Error al crear la cuenta",
                 "update": "Error al actualizar la cuenta",
                 "delete": "Error al eliminar la cuenta"
+            }
+        }
+    },
+    "category": {
+        "title": "Mis Categorías",
+        "subtitle": "Aquí puede ver sus categorías",
+        "button": {
+            "create": "Crear categoría",
+            "import": "Importar categoría"
+        },
+        "table": {
+            "name": "Nombre",
+            "description": "Descripción",
+            "actions": "Acciones",
+            "empty": "No hay categorías"
+        },
+        "form": {
+            "title": "Datos de la categoría",
+            "name": {
+                "label": "Nombre",
+                "placeholder": "Introduzca el nombre de la categoría",
+                "error": {
+                    "required": "El nombre es obligatorio",
+                    "min": "El nombre debe tener al menos 3 caracteres",
+                    "max": "El nombre debe tener como máximo 50 caracteres"
+                }
+            },
+            "description": {
+                "label": "Descripción",
+                "placeholder": "Introduzca la descripción de la categoría",
+                "error": {
+                    "min": "La descripción debe tener al menos 3 caracteres",
+                    "max": "La descripción debe tener como máximo 256 caracteres"
+                }
+            },
+            "submit": {
+                "label": "Guardar",
+                "loading": "Guardando..."
+            },
+            "cancel": "Cancelar"
+        },
+        "confirm": {
+            "delete": {
+                "title": "Eliminar categoría",
+                "message": "¿Está seguro de que desea eliminar esta categoría?",
+                "cancel": "Cancelar",
+                "confirm": "Confirmar"
+            }
+        },
+        "message": {
+            "success": {
+                "create": "Categoría creada correctamente",
+                "update": "Categoría actualizada correctamente",
+                "delete": "Categoría eliminada correctamente"
+            },
+            "error": {
+                "create": "Error al crear la categoría",
+                "update": "Error al actualizar la categoría",
+                "delete": "Error al eliminar la categoría"
             }
         }
     },
