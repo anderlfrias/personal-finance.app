@@ -1,6 +1,7 @@
 {
     "nav": {
         "home": "Home",
+        "transaction": "Transaction",
         "wallet": "Wallet",
         "category": "Category",
         "singleMenuItem": "Single menu item",
@@ -22,6 +23,32 @@
     "home": {
         "title": "Home",
         "welcome": "Welcome to the home page"
+    },
+    "transaction": {
+        "title": "Transaction",
+        "subtitle": "This is the transaction page",
+        "button": {
+            "create": "Create transaction",
+            "import": "Import transaction"
+        },
+        "type": {
+            "income": "Income",
+            "expense": "Expense"
+        },
+        "summary": {
+            "title": "Summary",
+            "income": "Income",
+            "expense": "Expense",
+            "balance": "Balance"
+        },
+        "detail": {
+            "title": "Detail",
+            "date": "Date",
+            "wallet": "Wallet",
+            "category": "Category",
+            "type": "Type",
+            "amount": "Amount"
+        }
     },
     "wallet": {
         "title": "Wallet",

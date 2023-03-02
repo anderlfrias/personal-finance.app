@@ -10,10 +10,9 @@ const getToken = () => {
     return persistData?.auth?.session?.token || null
 }
 
-const accessToken = getToken()
-
 const ApiService = {
     async fetchData(param) {
+        const accessToken = getToken()
         return axios({
             ...param,
             headers: accessToken ? {

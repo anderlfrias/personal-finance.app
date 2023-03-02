@@ -1,6 +1,7 @@
 {
     "nav": {
         "home": "Inicio",
+        "transaction": "Transacciones",
         "wallet": "Cuentas",
         "category": "Categorías",
         "singleMenuItem": "Menú"
@@ -8,6 +9,33 @@
     "home": {
         "title": "Inicio",
         "welcome": "Bienvenido a la página de inicio de la aplicación de ejemplo de React"
+    },
+    "transaction": {
+        "title": "Mis Transacciones",
+        "subtitle": "Aquí puede ver sus transacciones",
+        "button": {
+            "create": "Crear transacción",
+            "import": "Importar transacción"
+        },
+        "type": {
+            "income": "Ingreso",
+            "expense": "Gasto"
+        },
+        "summary": {
+            "title": "Resumen",
+            "income": "Total de ingresos",
+            "expense": "Total de gastos",
+            "balance": "Saldo"
+        },
+        "detail": {
+            "title": "Detalle",
+            "date": "Fecha",
+            "type": "Tipo",
+            "wallet": "Cuenta",
+            "category": "Categoría",
+            "description": "Descripción",
+            "amount": "Cantidad"
+        }
     },
     "wallet": {
         "title": "Mis Cuentas",

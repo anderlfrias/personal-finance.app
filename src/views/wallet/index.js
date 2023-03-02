@@ -1,5 +1,5 @@
 import { ConfirmDialog, Loading } from 'components/shared';
-import { Button, Dialog, Table } from 'components/ui';
+import { Button, Card, Dialog, Table } from 'components/ui';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next'
 import { HiOutlineTrash, HiPencilAlt, HiPlusCircle } from 'react-icons/hi';
@@ -120,6 +120,7 @@ function Wallet() {
                     </Button>
                 </div>
 
+                <Card>
                 <Loading loading={isLoading}>
                 <Table>
                 <THead>
@@ -156,6 +157,7 @@ function Wallet() {
                 </TBody>
             </Table>
             </Loading>
+            </Card>
             </div>
 
             <Dialog
