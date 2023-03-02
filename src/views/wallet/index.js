@@ -1,8 +1,9 @@
-import { ConfirmDialog } from 'components/shared';
+import { ConfirmDialog, Loading } from 'components/shared';
 import { Button, Dialog, Table } from 'components/ui';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next'
 import { HiOutlineTrash, HiPencilAlt, HiPlusCircle } from 'react-icons/hi';
+import formatCurrency from 'utils/formatCurrency';
 import useWallet from 'utils/hooks/custom/useWallet';
 import openNotification from 'utils/openNotification';
 import WalletForm from './WalletForm';
@@ -17,10 +18,13 @@ function Wallet() {
     const [isOpenConfirm, setIsOpenConfirm] = useState(false)
     const [selectedWallet, setSelectedWallet] = useState(null)
     const [isEdit, setIsEdit] = useState(false)
+    const [ isLoading, setIsLoading ] = useState(false)
 
     const fetchData = useCallback(async() => {
+        setIsLoading(true)
         const resp = await getWallets()
         console.log(resp)
+        setIsLoading(false)
         if (resp.status === 'success') {
             setWallets(resp.data)
         }
@@ -116,6 +120,7 @@ function Wallet() {
                     </Button>
                 </div>
 
+                <Loading loading={isLoading}>
                 <Table>
                 <THead>
                     <Tr>
@@ -128,12 +133,12 @@ function Wallet() {
                 </THead>
                 <TBody>
                     {
-                        wallets.map((wallet, index) => (
+                        wallets.length > 0 ? wallets.map((wallet, index) => (
                             <Tr key={index}>
                                 <Td>{index + 1}</Td>
                                 <Td>{wallet.name}</Td>
                                 <Td>{wallet.description}</Td>
-                                <Td>${wallet.balance}</Td>
+                                <Td>{formatCurrency(wallet.balance)}</Td>
                                 <Td>
                                     <div className='flex gap-2'>
                                         <Button variant='twoTone' size='sm' icon={<HiOutlineTrash />} onClick={() => onDelete(wallet)} color={'red-500'} />
@@ -141,10 +146,16 @@ function Wallet() {
                                     </div>
                                 </Td>
                             </Tr>
-                        ))
+                        )) :
+                        <Tr>
+                            <Td colSpan={4} className='text-center'>
+                                {t(`wallet.table.empty`)}
+                            </Td>
+                        </Tr>
                     }
                 </TBody>
             </Table>
+            </Loading>
             </div>
 
             <Dialog
