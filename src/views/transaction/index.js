@@ -1,14 +1,30 @@
-import { Avatar, Button, Card } from 'components/ui'
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Button, Card } from 'components/ui'
 import { useTranslation } from 'react-i18next'
-import { HiOutlineCurrencyDollar, HiPlusCircle } from 'react-icons/hi'
-import { BiLineChart, BiLineChartDown } from 'react-icons/bi'
+import { HiPlusCircle } from 'react-icons/hi'
+import useTransaction from 'utils/hooks/custom/useTransaction'
+import SummaryCard from './helpers/SummaryCard'
+import TransactionItem from './helpers/TransactionItem'
 
 function Transaction() {
     const { t } = useTranslation()
+    const { getTransactions } = useTransaction()
+    const [transactions, setTransactions] = useState([])
     const openForm = () => {
         console.log('open form')
     }
+
+    const fetchData = useCallback(async () => {
+        const resp = await getTransactions();
+        console.log(resp);
+        if (resp.status === 'success') {
+            setTransactions(resp.data);
+        }
+    }, [getTransactions])
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData])
     return (
         <>
             <div className='container mx-auto'>
@@ -21,63 +37,28 @@ function Transaction() {
                     </Button>
                 </div>
 
-                {/* Income */}
                 <div className='mb-6'>
                     <h3 className='text-lg font-semibold mb-2'>
                         {t(`transaction.summary.title`)}
                     </h3>
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-                        <Card>
-                            <div className='flex '>
-                                <Avatar className="mr-4 bg-green-500" icon={<BiLineChart />} />
-                                <div className=''>
-                                    <p className='text-sm text-gray-500'>
-                                        {t(`transaction.summary.income`)}
-                                    </p>
-                                    <h3 className='text-lg font-semibold'>
-                                        $2000.00
-                                    </h3>
-                                </div>
-                            </div>
-                        </Card>
-                        <Card>
-                            <div className='flex'>
-                                <Avatar className="mr-4 bg-red-500" icon={<BiLineChartDown />} />
-                                <div className=''>
-                                    <p className='text-sm text-gray-500'>
-                                        {t(`transaction.summary.expense`)}
-                                    </p>
-                                    <h3 className='text-lg font-semibold'>
-                                        $1500.00
-                                    </h3>
-                                </div>
-                            </div>
-                        </Card>
-                        <Card>
-                            <div className='flex'>
-                                <Avatar className="mr-4 bg-blue-500" icon={<HiOutlineCurrencyDollar />} />
-                                <div>
-                                    <p className='text-sm text-gray-500'>
-                                        {t(`transaction.summary.balance`)}
-                                    </p>
-                                    <h3 className='text-lg font-semibold'>
-                                        $2000.00
-                                    </h3>
-                                </div>
-                            </div>
-                        </Card>
+                        <SummaryCard title={t(`transaction.summary.income`)} type='income' amount='$5000.00' />
+                        <SummaryCard title={t(`transaction.summary.expense`)} type='expense' amount='$1500.00' />
+                        <SummaryCard title={t(`transaction.summary.balance`)} type='balance' amount='$3500.00' />
                     </div>
                 </div>
 
-                <div className='mb-6'>
+                <Card className='mb-6'>
                     <h3 className='text-lg font-semibold mb-2'>
                         {t(`transaction.detail.title`)}
                     </h3>
 
-                    <Card>
-                        
-                    </Card>
-                </div>
+                    {
+                        transactions.map((transaction, index) => (
+                            <TransactionItem key={index} transaction={transaction} />
+                        ))
+                    }
+                </Card>
             </div>
         </>
     )

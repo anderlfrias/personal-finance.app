@@ -11,7 +11,7 @@ export const themeConfig = {
     mode: THEME_ENUM.MODE_LIGHT,
     locale: 'es',
     primaryColorLevel: 600,
-    cardBordered: true,
+    cardBordered: false,
     panelExpand: false,
     controlSize: 'md',
     navMode: THEME_ENUM.NAV_MODE_LIGHT,
