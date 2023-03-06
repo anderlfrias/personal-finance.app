@@ -1,17 +1,23 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Button, Card } from 'components/ui'
+import { Button, Card, Dialog } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import { HiPlusCircle } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
-import SummaryCard from './helpers/SummaryCard'
-import TransactionItem from './helpers/TransactionItem'
+import SummaryCard from 'components/helpers/SummaryCard'
+import TransactionItem from 'components/helpers/TransactionItem'
 
 function Transaction() {
     const { t } = useTranslation()
     const { getTransactions } = useTransaction()
     const [transactions, setTransactions] = useState([])
+    const [ isFormOpen, setIsFormOpen ] = useState(false)
+
     const openForm = () => {
-        console.log('open form')
+        setIsFormOpen(true)
+    }
+
+    const onCloseForm = () => {
+        setIsFormOpen(false)
     }
 
     const fetchData = useCallback(async () => {
@@ -60,6 +66,15 @@ function Transaction() {
                     }
                 </Card>
             </div>
+
+            <Dialog
+                isOpen={isFormOpen}
+                onClose={onCloseForm}
+                onRequestClose={onCloseForm}
+                shouldCloseOnOverlayClick={false}
+            >
+                <h2 className='text-xl font-semibold mb-4'>{t(`transation.form.title`)}</h2>
+            </Dialog>
         </>
     )
 }
