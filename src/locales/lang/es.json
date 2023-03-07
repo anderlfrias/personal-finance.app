@@ -47,6 +47,8 @@
             },
             "type": {
                 "label": "Tipo",
+                "income": "Ingreso",
+                "expense": "Gasto",
                 "placeholder": "Seleccione el tipo de transacción",
                 "error": {
                     "required": "El tipo es obligatorio"
@@ -87,6 +89,18 @@
                 "loading": "Guardando..."
             },
             "cancel": "Cancelar"
+        },
+        "message": {
+            "success": {
+                "create": "Transacción creada correctamente",
+                "update": "Transacción actualizada correctamente",
+                "delete": "Transacción eliminada correctamente"
+            },
+            "error": {
+                "create": "Error al crear la transacción",
+                "update": "Error al actualizar la transacción",
+                "delete": "Error al eliminar la transacción"
+            }
         }
     },
     "wallet": {
@@ -245,5 +259,11 @@
         "error": "Error",
         "warning": "Advertencia",
         "info": "Información"
+    },
+    "errors": {
+        "unauthorized": "No tiene permiso para acceder a esta página",
+        "failed_to_login": "Error al iniciar sesión",
+        "missing_fields": "Faltan campos obligatorios",
+        "unexpected": "Ha ocurrido un error inesperado"
     }
 }

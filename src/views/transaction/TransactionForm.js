@@ -1,9 +1,12 @@
 
-import React from 'react'
-import { Input, Button, FormItem, FormContainer, DatePicker, Select } from 'components/ui'
+import React, { useEffect, useState } from 'react'
+import { Input, Button, FormItem, FormContainer, DatePicker, Select, Radio } from 'components/ui'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
+import useWallet from 'utils/hooks/custom/useWallet';
 import * as Yup from 'yup'
+
+const { DateTimepicker } = DatePicker
 
 const validationSchema = Yup.object().shape({
     amount: Yup.number()
@@ -11,7 +14,7 @@ const validationSchema = Yup.object().shape({
     description: Yup.string()
         .min(3, '.description.error.min')
         .max(256, '.description.error.max')
-        .nullable(),
+        .required('.description.error.required'),
     date: Yup.date()
         .required('.date.error.required')
         .nullable(),
@@ -21,27 +24,41 @@ const validationSchema = Yup.object().shape({
         .required('.wallet.error.required'),
 })
 
-const wallets = [
-    { value: '1', label: 'wallet 1' },
-    { value: '2', label: 'wallet 2' },
-    { value: '3', label: 'wallet 3' },
-]
-
 const p = 'transaction.form' // path to translation file
 const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
     const { t } = useTranslation()
+    const { getWallets } = useWallet();
+    const [wallets, setWallets] = useState([])
 
+    useEffect(() => {
+        const fetchWallets = async() => {
+            const resp = await getWallets()
+            console.log(resp)
+            if (resp.status === 'success') {
+                setWallets(
+                    resp.data.map((wallet) => ({
+                        value: wallet.id,
+                        label: wallet.name,
+                    }))
+                )
+            }
+        }
+
+        fetchWallets()
+    }, [getWallets])
     return (
         <div>
             <Formik
                 initialValues={ initialValues || {
-                    name: '',
+                    type: '',
+                    amount: '',
                     description: '',
+                    date: null,
+                    wallet: '',
                 }}
                 validationSchema={validationSchema}
-                onSubmit={async(values, { setSubmitting }) => {
+                onSubmit={ async(values, { setSubmitting }) => {
                     setSubmitting(true)
-                    console.log(values);
                     await onSubmit(values)
                     setSubmitting(false)
                 }}
@@ -50,6 +67,28 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                     <Form>
                         <FormContainer>
                             {/* <div className='max-h-96 overflow-y-auto px-2'> */}
+                            <FormItem
+                                label={`${t(`${p}.type.label`)}`}
+                                invalid={errors.type && touched.type}
+                                errorMessage={t(`${p}${errors.type}`)}
+                            >
+                                <Field name="type">
+                                    {({ field, form }) => (
+                                        <Radio.Group
+                                            value={values.type}
+                                            onChange={(val) =>
+                                                form.setFieldValue(
+                                                    field.name,
+                                                    val
+                                                )
+                                            }
+                                        >
+                                            <Radio value={'expense'}>{t(`transaction.type.expense`)}</Radio>
+                                            <Radio value={'income'}>{t(`transaction.type.income`)}</Radio>
+                                        </Radio.Group>
+                                    )}
+                                </Field>
+                            </FormItem>
                             <FormItem
                                 label={`${t(`${p}.amount.label`)}`}
                                 invalid={errors.amount && touched.amount}
@@ -61,6 +100,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                     name="amount"
                                     placeholder={`${t(`${p}.amount.placeholder`)}`}
                                     component={Input}
+                                    step="any"
                                 />
                             </FormItem>
 
@@ -86,7 +126,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                             >
                                 <Field name="date">
                                     {({ field, form }) => (
-                                        <DatePicker
+                                        <DateTimepicker
                                             placeholder={t(`${p}.date.placeholder`)}
                                             field={field}
                                             form={form}

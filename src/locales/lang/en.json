@@ -74,6 +74,8 @@
             },
             "type": {
                 "label": "Type",
+                "income": "Income",
+                "expense": "Expense",
                 "placeholder": "Select type",
                 "error": {
                     "required": "Type is required"
@@ -100,6 +102,18 @@
                 "loading": "Submitting..."
             },
             "cancel": "Cancel"
+        },
+        "message": {
+            "success": {
+                "create": "Transaction created successfully",
+                "update": "Transaction updated successfully",
+                "delete": "Transaction deleted successfully"
+            },
+            "error": {
+                "create": "Failed to create transaction",
+                "update": "Failed to update transaction",
+                "delete": "Failed to delete transaction"
+            }
         }
     },
     "wallet": {
@@ -260,6 +274,8 @@
     },
     "errors": {
         "unauthorized": "Unauthorized",
-        "failed_to_login": "Failed to login"
+        "failed_to_login": "Failed to login",
+        "missing_fields": "Missing fields",
+        "unexpected": "Unexpected error"
     }
 }

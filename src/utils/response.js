@@ -1,7 +1,7 @@
 export function SuccessResponse ( data ) {
     return {
         status: 'success',
-        message: 'Success',
+        message: '',
         data
     }
 }
@@ -9,7 +9,7 @@ export function SuccessResponse ( data ) {
 export function FailedResponse ( error ) {
     return {
         status: 'failed',
-        message: error?.response?.data?.message || error.toString(),
+        message: error?.response?.data?.messageCode || error.unexpected,
         error
     }
 }

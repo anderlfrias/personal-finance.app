@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { useSelector } from 'react-redux';
 import {
     apiGetTransactions,
     apiGetTransactionById,
@@ -25,6 +26,7 @@ const getEndDate = () => {
 
 function useTransaction() {
 
+    const user = useSelector((state) => state.auth.user)
     const getTransactions = useCallback(async (filter = '', startDate = getStartDate(), endDate = getEndDate()) => {
         try {
             const query = `${filter}&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`;
@@ -47,12 +49,12 @@ function useTransaction() {
 
     const createTransaction = useCallback(async (data) => {
         try {
-            const resp = await apiCreateTransaction(data);
+            const resp = await apiCreateTransaction({...data, user: user.id});
             return SuccessResponse(resp.data);
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [user.id]);
 
     const updateTransaction = useCallback(async (id, data) => {
         try {

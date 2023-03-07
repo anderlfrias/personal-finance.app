@@ -6,10 +6,11 @@ import useTransaction from 'utils/hooks/custom/useTransaction'
 import SummaryCard from 'components/helpers/SummaryCard'
 import TransactionItem from 'components/helpers/TransactionItem'
 import TransactionForm from './TransactionForm'
+import openNotification from 'utils/openNotification'
 
 function Transaction() {
     const { t } = useTranslation()
-    const { getTransactions } = useTransaction()
+    const { getTransactions, createTransaction } = useTransaction()
     const [transactions, setTransactions] = useState([])
     const [ isFormOpen, setIsFormOpen ] = useState(false)
 
@@ -22,7 +23,27 @@ function Transaction() {
     }
 
     const onSubmit = async (values) => {
-        console.log(values);
+        const data = {
+            ...values,
+            date: new Date(values.date).toISOString()
+        }
+        console.log(data);
+
+        await onCreate(data);
+    }
+
+    const onCreate = async (data) => {
+        const resp = await createTransaction(data)
+
+        if (resp.status === 'success') {
+            onCloseForm()
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t('transaction.message.success.create') })
+            fetchData()
+        }
+
+        if (resp.status === 'failed') {
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(resp.message || 'transaction.message.error.create') })
+        }
     }
 
     const fetchData = useCallback(async () => {
