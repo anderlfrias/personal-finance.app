@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Button, Card, Dialog } from 'components/ui'
+import { Button, Card } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import { HiPlusCircle } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
