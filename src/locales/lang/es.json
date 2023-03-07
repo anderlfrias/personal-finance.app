@@ -90,6 +90,16 @@
             },
             "cancel": "Cancelar"
         },
+        "table": {
+            "date":"Fecha",
+            "type": "Tipo",
+            "wallet": "Cuenta",
+            "category": "Categoría",
+            "description": "Descripción",
+            "amount": "Cantidad",
+            "actions": "Acciones",
+            "empty": "No hay transacciones"
+        },
         "message": {
             "success": {
                 "create": "Transacción creada correctamente",
@@ -264,6 +274,7 @@
         "unauthorized": "No tiene permiso para acceder a esta página",
         "failed_to_login": "Error al iniciar sesión",
         "missing_fields": "Faltan campos obligatorios",
-        "unexpected": "Ha ocurrido un error inesperado"
+        "unexpected": "Ha ocurrido un error inesperado",
+        "insufficient_funds": "No tiene fondos suficientes para realizar esta transacción"
     }
 }

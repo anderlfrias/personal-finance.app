@@ -7,9 +7,10 @@ export function SuccessResponse ( data ) {
 }
 
 export function FailedResponse ( error ) {
+    console.log(error)
     return {
         status: 'failed',
-        message: error?.response?.data?.messageCode || error.unexpected,
+        message: `errors.${error?.response?.data?.messageCode}` || 'errors.unexpected',
         error
     }
 }

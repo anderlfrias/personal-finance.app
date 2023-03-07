@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import SummaryCard from '../helpers/SummaryCard'
+import SummaryCard from 'components/helpers/SummaryCard'
 
 const MovimientosCard = () => {
     const { t } = useTranslation()

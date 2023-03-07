@@ -103,6 +103,16 @@
             },
             "cancel": "Cancel"
         },
+        "table": {
+            "date": "Date",
+            "wallet": "Wallet",
+            "category": "Category",
+            "type": "Type",
+            "amount": "Amount",
+            "description": "Description",
+            "actions": "Actions",
+            "empty": "No transactions found"
+        },
         "message": {
             "success": {
                 "create": "Transaction created successfully",
@@ -276,6 +286,7 @@
         "unauthorized": "Unauthorized",
         "failed_to_login": "Failed to login",
         "missing_fields": "Missing fields",
-        "unexpected": "Unexpected error"
+        "unexpected": "Unexpected error",
+        "insufficient_funds": "Insufficient funds"
     }
 }
