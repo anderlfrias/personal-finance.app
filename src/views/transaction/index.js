@@ -48,10 +48,14 @@ function Transaction() {
                     </Button>
                 </div>
 
-                <Card>
-                    <h2 className='text-xl font-semibold mb-4'>{t(`transaction.form.title`)}</h2>
-                    <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={{}} />
-                </Card>
+                {
+                    isFormOpen && (
+                        <Card>
+                            <h2 className='text-xl font-semibold mb-4'>{t(`transaction.form.title`)}</h2>
+                            <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={{}} />
+                        </Card>
+                    )
+                }
 
                 <div className='mb-6'>
                     <h3 className='text-lg font-semibold mb-2'>
@@ -77,7 +81,7 @@ function Transaction() {
                 </Card>
             </div>
 
-            <Dialog
+            {/* <Dialog
                 isOpen={isFormOpen}
                 onClose={onCloseForm}
                 onRequestClose={onCloseForm}
@@ -85,7 +89,7 @@ function Transaction() {
             >
                 <h2 className='text-xl font-semibold mb-4'>{t(`transaction.form.title`)}</h2>
                 <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={{}} />
-            </Dialog>
+            </Dialog> */}
         </>
     )
 }

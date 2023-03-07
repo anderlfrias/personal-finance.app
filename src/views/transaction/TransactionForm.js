@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 
 const validationSchema = Yup.object().shape({
-    amout: Yup.number()
+    amount: Yup.number()
         .required('.amount.error.required'),
     description: Yup.string()
         .min(3, '.description.error.min')
@@ -41,6 +41,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                 validationSchema={validationSchema}
                 onSubmit={async(values, { setSubmitting }) => {
                     setSubmitting(true)
+                    console.log(values);
                     await onSubmit(values)
                     setSubmitting(false)
                 }}
@@ -83,9 +84,10 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                 invalid={errors.date && touched.date}
                                 errorMessage={t(`${p}${errors.date}`)}
                             >
-                                <Field name="date" placeholder={t(`${p}.date.placeholder`)}>
+                                <Field name="date">
                                     {({ field, form }) => (
                                         <DatePicker
+                                            placeholder={t(`${p}.date.placeholder`)}
                                             field={field}
                                             form={form}
                                             value={field.value}
@@ -105,9 +107,10 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                 invalid={errors.wallet && touched.wallet}
                                 errorMessage={t(`${p}${errors.wallet}`)}
                             >
-                                <Field name="wallet" placeholder={t(`${p}.wallet.placeholder`)}>
+                                <Field name="wallet">
                                     {({ field, form }) => (
                                         <Select
+                                            placeholder={t(`${p}.wallet.placeholder`)}
                                             field={field}
                                             form={form}
                                             options={wallets}
