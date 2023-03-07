@@ -77,7 +77,7 @@ function Transaction() {
                 </Card>
             </div>
 
-            {/* <Dialog
+            <Dialog
                 isOpen={isFormOpen}
                 onClose={onCloseForm}
                 onRequestClose={onCloseForm}
@@ -85,7 +85,7 @@ function Transaction() {
             >
                 <h2 className='text-xl font-semibold mb-4'>{t(`transaction.form.title`)}</h2>
                 <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={{}} />
-            </Dialog> */}
+            </Dialog>
         </>
     )
 }
