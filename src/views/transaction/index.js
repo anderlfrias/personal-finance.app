@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Button, Card, Dialog } from 'components/ui'
+import { Button, Card } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import { HiPlusCircle } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
 import SummaryCard from 'components/helpers/SummaryCard'
 import TransactionItem from 'components/helpers/TransactionItem'
+import TransactionForm from './TransactionForm'
 
 function Transaction() {
     const { t } = useTranslation()
@@ -18,6 +19,10 @@ function Transaction() {
 
     const onCloseForm = () => {
         setIsFormOpen(false)
+    }
+
+    const onSubmit = async (values) => {
+        console.log(values);
     }
 
     const fetchData = useCallback(async () => {
@@ -43,6 +48,15 @@ function Transaction() {
                     </Button>
                 </div>
 
+                {
+                    isFormOpen && (
+                        <Card>
+                            <h2 className='text-xl font-semibold mb-4'>{t(`transaction.form.title`)}</h2>
+                            <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={{}} />
+                        </Card>
+                    )
+                }
+
                 <div className='mb-6'>
                     <h3 className='text-lg font-semibold mb-2'>
                         {t(`transaction.summary.title`)}
@@ -67,14 +81,15 @@ function Transaction() {
                 </Card>
             </div>
 
-            <Dialog
+            {/* <Dialog
                 isOpen={isFormOpen}
                 onClose={onCloseForm}
                 onRequestClose={onCloseForm}
                 shouldCloseOnOverlayClick={false}
             >
-                <h2 className='text-xl font-semibold mb-4'>{t(`transation.form.title`)}</h2>
-            </Dialog>
+                <h2 className='text-xl font-semibold mb-4'>{t(`transaction.form.title`)}</h2>
+                <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={{}} />
+            </Dialog> */}
         </>
     )
 }

@@ -48,6 +48,58 @@
             "category": "Category",
             "type": "Type",
             "amount": "Amount"
+        },
+        "form": {
+            "title": "Transaction form",
+            "date": {
+                "label": "Date",
+                "placeholder": "Enter transaction date",
+                "error": {
+                    "required": "Transaction date is required"
+                }
+            },
+            "wallet": {
+                "label": "Wallet",
+                "placeholder": "Select wallet",
+                "error": {
+                    "required": "Wallet is required"
+                }
+            },
+            "category": {
+                "label": "Category",
+                "placeholder": "Select category",
+                "error": {
+                    "required": "Category is required"
+                }
+            },
+            "type": {
+                "label": "Type",
+                "placeholder": "Select type",
+                "error": {
+                    "required": "Type is required"
+                }
+            },
+            "amount": {
+                "label": "Amount",
+                "placeholder": "Enter transaction amount",
+                "error": {
+                    "required": "Transaction amount is required"
+                }
+            },
+            "description": {
+                "label": "Description",
+                "placeholder": "Enter transaction description",
+                "error": {
+                    "required": "Transaction description is required",
+                    "min": "Transaction description must be at least 3 characters",
+                    "max": "Transaction description must be less than 256 characters"
+                }
+            },
+            "submit": {
+                "label": "Submit",
+                "loading": "Submitting..."
+            },
+            "cancel": "Cancel"
         }
     },
     "wallet": {

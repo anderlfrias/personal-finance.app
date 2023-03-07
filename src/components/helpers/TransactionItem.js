@@ -6,11 +6,11 @@ import formatCurrency from 'utils/formatCurrency';
 function Icon ({type, className = ''}) {
     switch (type) {
         case 'income':
-            return <Avatar className={`${className} bg-emerald-100 text-emerald-600`} icon={<HiArrowUp className='rotate-45' />} />
+            return <Avatar className={`${className} bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-100 text-emerald-600`} icon={<HiArrowUp className='rotate-45' />} />
         case 'expense':
-            return <Avatar className={`${className} bg-red-100 text-red-600`} icon={<HiArrowDown className='rotate-45' />} />
+            return <Avatar className={`${className} bg-red-100 dark:bg-red-500/20 dark:text-red-100 text-red-600`} icon={<HiArrowDown className='rotate-45' />} />
         default:
-            return <Avatar className={`${className} bg-indigo-100 text-indigo-600`} icon={<HiSwitchHorizontal />} />
+            return <Avatar className={`${className} bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-100 text-indigo-600`} icon={<HiSwitchHorizontal />} />
     }
 }
 

@@ -7,6 +7,7 @@ import UserDropdown from 'components/template/UserDropdown'
 import SideNav from 'components/template/SideNav'
 import View from 'views'
 import LanguageSelector from 'components/template/LanguageSelector'
+import ModeSwitcher from 'components/template/ThemeConfigurator/ModeSwitcher'
 
 const HeaderActionsStart = () => {
 	return (
@@ -21,6 +22,7 @@ const HeaderActionsEnd = () => {
 	return (
 		<>
 			<LanguageSelector />
+			<ModeSwitcher />
 			<SidePanel />
 			<UserDropdown hoverable={false} />
 		</>

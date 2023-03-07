@@ -35,6 +35,58 @@
             "category": "Categoría",
             "description": "Descripción",
             "amount": "Cantidad"
+        },
+        "form": {
+            "title": "Datos de la transacción",
+            "date": {
+                "label": "Fecha",
+                "placeholder": "Introduzca la fecha de la transacción",
+                "error": {
+                    "required": "La fecha es obligatoria"
+                }
+            },
+            "type": {
+                "label": "Tipo",
+                "placeholder": "Seleccione el tipo de transacción",
+                "error": {
+                    "required": "El tipo es obligatorio"
+                }
+            },
+            "amount": {
+                "label": "Cantidad",
+                "placeholder": "Introduzca la cantidad de la transacción",
+                "error": {
+                    "required": "La cantidad es obligatoria"
+                }
+            },
+            "wallet": {
+                "label": "Cuenta",
+                "placeholder": "Seleccione la cuenta",
+                "error": {
+                    "required": "La cuenta es obligatoria"
+                }
+            },
+            "category": {
+                "label": "Categoría",
+                "placeholder": "Seleccione la categoría",
+                "error": {
+                    "required": "La categoría es obligatoria"
+                }
+            },
+            "description": {
+                "label": "Descripción",
+                "placeholder": "Introduzca la descripción de la transacción",
+                "error": {
+                    "required": "La descripción es obligatoria",
+                    "min": "La descripción debe tener al menos 3 caracteres",
+                    "max": "La descripción debe tener como máximo 256 caracteres"
+                }
+            },
+            "submit": {
+                "label": "Guardar",
+                "loading": "Guardando..."
+            },
+            "cancel": "Cancelar"
         }
     },
     "wallet": {

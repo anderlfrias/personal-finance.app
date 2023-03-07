@@ -6,11 +6,11 @@ import { HiOutlineCurrencyDollar } from 'react-icons/hi'
 const Icon = ({type, className}) => {
     switch (type) {
         case 'income':
-            return <Avatar className={`${className} bg-green-500`} icon={<BiLineChart />} />
+            return <Avatar className={`${className} bg-emerald-500 dark:bg-emerald-500`} icon={<BiLineChart />} />
         case 'expense':
-            return <Avatar className={`${className} bg-red-500`} icon={<BiLineChartDown />} />
+            return <Avatar className={`${className} bg-red-500 dark:bg-red-500`} icon={<BiLineChartDown />} />
         default:
-            return <Avatar className={`${className} bg-blue-500`} icon={<HiOutlineCurrencyDollar />} />
+            return <Avatar className={`${className} bg-blue-500 dark:bg-blue-500`} icon={<HiOutlineCurrencyDollar />} />
     }
 }
 
