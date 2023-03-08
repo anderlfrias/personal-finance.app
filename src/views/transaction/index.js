@@ -1,28 +1,28 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Avatar, Button, Card, Table } from 'components/ui'
+import { Button, Card } from 'components/ui'
 import { useTranslation } from 'react-i18next'
-import { HiArrowDown, HiArrowUp, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSwitchHorizontal } from 'react-icons/hi'
+import { HiPlusCircle } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
 import SummaryCard from 'components/helpers/SummaryCard'
 import TransactionItem from 'components/helpers/TransactionItem'
 import TransactionForm from './TransactionForm'
 import openNotification from 'utils/openNotification'
-import formatCurrency from 'utils/formatCurrency';
+// import formatCurrency from 'utils/formatCurrency';
 
-const { Tr, Th, Td, THead, TBody } = Table
+// const { Tr, Th, Td, THead, TBody } = Table
 
 const p = 'transaction' // path to translation file
 
-function Icon ({type, className = ''}) {
-    switch (type) {
-        case 'income':
-            return <Avatar className={`${className} bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-100 text-emerald-600`} icon={<HiArrowUp className='rotate-45' />} />
-        case 'expense':
-            return <Avatar className={`${className} bg-red-100 dark:bg-red-500/20 dark:text-red-100 text-red-600`} icon={<HiArrowDown className='rotate-45' />} />
-        default:
-            return <Avatar className={`${className} bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-100 text-indigo-600`} icon={<HiSwitchHorizontal />} />
-    }
-}
+// function Icon ({type, className = ''}) {
+//     switch (type) {
+//         case 'income':
+//             return <Avatar className={`${className} bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-100 text-emerald-600`} icon={<HiArrowUp className='rotate-45' />} />
+//         case 'expense':
+//             return <Avatar className={`${className} bg-red-100 dark:bg-red-500/20 dark:text-red-100 text-red-600`} icon={<HiArrowDown className='rotate-45' />} />
+//         default:
+//             return <Avatar className={`${className} bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-100 text-indigo-600`} icon={<HiSwitchHorizontal />} />
+//     }
+// }
 
 function Transaction() {
     const { t } = useTranslation()
@@ -63,12 +63,16 @@ function Transaction() {
         }
     }
 
-    const onEdit = (transaction) => {
-        console.log('edit', transaction)
-    }
+    // const onEdit = (transaction) => {
+    //     console.log('edit', transaction)
+    // }
 
-    const onDelete = (transaction) => {
-        console.log('delete', transaction)
+    // const onDelete = (transaction) => {
+    //     console.log('delete', transaction)
+    // }
+
+    const onDetail = (transaction) => {
+        console.log('detail', transaction)
     }
 
     const fetchData = useCallback(async () => {
@@ -121,12 +125,12 @@ function Transaction() {
 
                     {
                         transactions.map((transaction, index) => (
-                            <TransactionItem key={index} transaction={transaction} />
+                            <TransactionItem key={index} transaction={transaction} onClick={() => onDetail(transaction)} />
                         ))
                     }
                 </Card>
 
-                <Card>
+                {/* <Card>
                     <Table>
                         <THead>
                             <Tr>
@@ -171,7 +175,7 @@ function Transaction() {
                             }
                         </TBody>
                     </Table>
-                </Card>
+                </Card> */}
             </div>
         </>
     )
