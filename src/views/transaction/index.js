@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Avatar, Button, Card, Table } from 'components/ui'
+import { Avatar, Button, Card, DatePicker, Input, Table } from 'components/ui'
 import { useTranslation } from 'react-i18next'
-import { HiArrowDown, HiArrowUp, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSwitchHorizontal, HiTable, HiViewList } from 'react-icons/hi'
+import { HiArrowDown, HiArrowUp, HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSearch, HiSwitchHorizontal, HiTable, HiViewList } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
 import SummaryCard from 'components/helpers/SummaryCard'
 import TransactionItem from 'components/helpers/TransactionItem'
@@ -30,6 +30,15 @@ function Transaction() {
     const [transactions, setTransactions] = useState([])
     const [ isFormOpen, setIsFormOpen ] = useState(false)
     const [ viewTable, setViewTable ] = useState(false)
+    const [dateRange, setDateRange] = useState([
+        new Date(2022, 11, 1),
+        new Date(2022, 11, 5),
+    ])
+
+    const handleRangePickerChange = (date) => {
+        console.log('Selected range date', date)
+        setDateRange(date)
+    }
 
     const openForm = () => {
         setIsFormOpen(true)
@@ -90,13 +99,33 @@ function Transaction() {
     return (
         <>
             <div className='container mx-auto'>
-                <div className='sm:flex justify-between mb-4'>
+                <div className='flex justify-between mb-4'>
                     <h2>
                         {t(`${p}.title`)}
                     </h2>
-                    <Button variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
-                        {t(`${p}.button.create`)}
-                    </Button>
+
+                    <div className='flex gap-2 '>
+                        <Input
+                            className='mb-2 sm:mb-0'
+                            size='sm'
+                            placeholder={t(`${p}.detail.search`)}
+                            prefix={<HiSearch className='text-lg' />}
+                        />
+                        <DatePicker.DatePickerRange
+                            className='mb-2 sm:mb-0'
+                            size='sm'
+                            placeholder="Select dates range"
+                            value={dateRange}
+                            onChange={handleRangePickerChange}
+                        />
+                        <Button size='sm' icon={<HiOutlineAdjustments className='rotate-90' />} onClick={() => console.log('filter')} >
+                            {t(`${p}.filter.title`)}
+                        </Button>
+
+                        <Button size='sm' variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
+                            {t(`${p}.button.create`)}
+                        </Button>
+                    </div>
                 </div>
 
                 {
@@ -121,18 +150,20 @@ function Transaction() {
 
                 <Card className='mb-6'>
                     <div className='sm:flex justify-between mb-2'>
-                        <h3 className='text-lg font-semibold'>
+                        <h3 className='text-lg font-semibold mb-2 sm:mb-0'>
                             {t(`${p}.detail.title`)}
                         </h3>
 
-                        <div className='flex gap-2'>
-                            {
-                                !viewTable ? (
-                                    <Button variant='plain' size='sm' icon={<HiTable />} onClick={() => setViewTable(true)} />
-                                ) : (
-                                    <Button variant='plain' size='sm' icon={<HiViewList />} onClick={() => setViewTable(false)} />
-                                )
-                            }
+                        <div className='sm:flex gap-2 '>
+                            <div className='hidden md:flex'>
+                                {
+                                    !viewTable ? (
+                                        <Button variant='plain' size='sm' icon={<HiTable />} onClick={() => setViewTable(true)} />
+                                    ) : (
+                                        <Button variant='plain' size='sm' icon={<HiViewList />} onClick={() => setViewTable(false)} />
+                                    )
+                                }
+                            </div>
                         </div>
                     </div>
 

@@ -124,6 +124,29 @@
                 "update": "Failed to update transaction",
                 "delete": "Failed to delete transaction"
             }
+        },
+        "filter": {
+            "title": "Filter",
+            "wallet": {
+                "label": "Wallet",
+                "placeholder": "Select wallet"
+            },
+            "category": {
+                "label": "Category",
+                "placeholder": "Select category"
+            },
+            "type": {
+                "label": "Type",
+                "income": "Income",
+                "expense": "Expense",
+                "placeholder": "Select type"
+            },
+            "date": {
+                "label": "Date",
+                "placeholder": "Select date"
+            },
+            "submit": "Submit",
+            "cancel": "Cancel"
         }
     },
     "wallet": {
@@ -191,6 +214,10 @@
                 "confirm": "Confirm",
                 "cancel": "Cancel"
             }
+        },
+        "filter": {
+            "title": "Filter",
+            "search": "Search wallet"
         }
     },
     "category": {

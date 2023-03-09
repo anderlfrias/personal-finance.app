@@ -1,8 +1,8 @@
 import { ConfirmDialog, Loading } from 'components/shared';
-import { Button, Card, Dialog, Table } from 'components/ui';
+import { Button, Card, Dialog, Input, Table } from 'components/ui';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next'
-import { HiOutlineTrash, HiPencilAlt, HiPlusCircle } from 'react-icons/hi';
+import { HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSearch } from 'react-icons/hi';
 import formatCurrency from 'utils/formatCurrency';
 import useWallet from 'utils/hooks/custom/useWallet';
 import openNotification from 'utils/openNotification';
@@ -10,6 +10,7 @@ import WalletForm from './WalletForm';
 
 const { Tr, Th, Td, THead, TBody } = Table
 
+const p = 'wallet'
 function Wallet() {
     const { t } = useTranslation()
     const { getWallets, createWallet, updateWallet, deleteWallet } = useWallet()
@@ -44,12 +45,12 @@ function Wallet() {
 
         if (resp.status === 'success') {
             onClose()
-            openNotification({ title: t(`message.success`), type: 'success', subtitle: t('wallet.message.success.create')})
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.create`)})
             fetchData()
         }
 
         if (resp.status === 'failed') {
-            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t('wallet.message.error.create')})
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.create`)})
         }
     }
 
@@ -58,12 +59,12 @@ function Wallet() {
 
         if (resp.status === 'success') {
             onClose()
-            openNotification({ title: t(`message.success`), type: 'success', subtitle: t('wallet.message.success.update')})
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.update`)})
             fetchData()
         }
 
         if (resp.status === 'failed') {
-            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t('wallet.message.error.update')})
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.update`)})
         }
     }
 
@@ -91,12 +92,12 @@ function Wallet() {
     const onConfirmDelete = async () => {
         const resp = await deleteWallet(selectedWallet.id)
         if (resp.status === 'success') {
-            openNotification({ title: t(`message.success`), type: 'success', subtitle: t('wallet.message.success.delete')})
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.delete`)})
             fetchData()
         }
 
         if (resp.status === 'failed') {
-            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t('wallet.message.error.delete')})
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.delete`)})
         }
         setIsOpenConfirm(false)
     }
@@ -113,50 +114,63 @@ function Wallet() {
             <div className='container mx-auto'>
                 <div className='sm:flex justify-between mb-4'>
                     <h2>
-                        {t(`wallet.title`)}
+                        {t(`${p}.title`)}
                     </h2>
                     <Button variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
-                        {t(`wallet.button.create`)}
+                        {t(`${p}.button.create`)}
                     </Button>
                 </div>
 
                 <Card>
-                <Loading loading={isLoading}>
-                <Table>
-                <THead>
-                    <Tr>
-                        <Th>#</Th>
-                        <Th>{t(`wallet.table.name`)}</Th>
-                        <Th>{t(`wallet.table.description`)}</Th>
-                        <Th>{t(`wallet.table.balance`)}</Th>
-                        <Th />
-                    </Tr>
-                </THead>
-                <TBody>
-                    {
-                        wallets.length > 0 ? wallets.map((wallet, index) => (
-                            <Tr key={index}>
-                                <Td>{index + 1}</Td>
-                                <Td>{wallet.name}</Td>
-                                <Td>{wallet.description}</Td>
-                                <Td>{formatCurrency(wallet.balance)}</Td>
-                                <Td>
-                                    <div className='flex gap-2'>
-                                        <Button variant='twoTone' size='sm' icon={<HiOutlineTrash />} onClick={() => onDelete(wallet)} color={'red-500'} />
-                                        <Button variant='twoTone' size='sm' icon={<HiPencilAlt />} onClick={() => onEdit(wallet)} />
-                                    </div>
+                    <div className='flex justify-end mb-2'>
+                        <div className='flex gap-2'>
+                            <Input
+                                className='mb-2 sm:mb-0'
+                                size='sm'
+                                placeholder={t(`${p}.filter.search`)}
+                                prefix={<HiSearch className='text-lg' />}
+                            />
+                            <Button size='sm' icon={<HiOutlineAdjustments className='rotate-90' />} onClick={() => console.log('filter')} >
+                                {t(`${p}.filter.title`)}
+                            </Button>
+                        </div>
+                    </div>
+                    <Loading loading={isLoading}>
+                    <Table>
+                    <THead>
+                        <Tr>
+                            <Th>#</Th>
+                            <Th>{t(`${p}.table.name`)}</Th>
+                            <Th>{t(`${p}.table.description`)}</Th>
+                            <Th>{t(`${p}.table.balance`)}</Th>
+                            <Th />
+                        </Tr>
+                    </THead>
+                    <TBody>
+                        {
+                            wallets.length > 0 ? wallets.map((wallet, index) => (
+                                <Tr key={index}>
+                                    <Td>{index + 1}</Td>
+                                    <Td>{wallet.name}</Td>
+                                    <Td>{wallet.description}</Td>
+                                    <Td>{formatCurrency(wallet.balance)}</Td>
+                                    <Td>
+                                        <div className='flex gap-2'>
+                                            <Button variant='twoTone' size='sm' icon={<HiOutlineTrash />} onClick={() => onDelete(wallet)} color={'red-500'} />
+                                            <Button variant='twoTone' size='sm' icon={<HiPencilAlt />} onClick={() => onEdit(wallet)} />
+                                        </div>
+                                    </Td>
+                                </Tr>
+                            )) :
+                            <Tr>
+                                <Td colSpan={4} className='text-center'>
+                                    {t(`${p}.table.empty`)}
                                 </Td>
                             </Tr>
-                        )) :
-                        <Tr>
-                            <Td colSpan={4} className='text-center'>
-                                {t(`wallet.table.empty`)}
-                            </Td>
-                        </Tr>
-                    }
-                </TBody>
-            </Table>
-            </Loading>
+                        }
+                    </TBody>
+                </Table>
+                </Loading>
             </Card>
             </div>
 
@@ -166,22 +180,22 @@ function Wallet() {
                 onRequestClose={onClose}
                 shouldCloseOnOverlayClick={false}
             >
-                <h2 className='text-xl font-semibold mb-4'>{t(`wallet.form.title`)}</h2>
+                <h2 className='text-xl font-semibold mb-4'>{t(`${p}.form.title`)}</h2>
                 <WalletForm onSubmit={onSubmit} onCancel={onClose} initialValues={selectedWallet} />
             </Dialog>
 
             <ConfirmDialog
                 type='danger'
-                title={t(`wallet.confirm.delete.title`)}
+                title={t(`${p}.confirm.delete.title`)}
                 onCancel={onCancelDelete}
                 onClose={onCancelDelete}
                 onConfirm={onConfirmDelete}
                 isOpen={isOpenConfirm}
                 confirmButtonColor='red-500'
-                confirmText={t(`wallet.confirm.delete.confirm`)}
-                cancelText={t(`wallet.confirm.delete.cancel`)}
+                confirmText={t(`${p}.confirm.delete.confirm`)}
+                cancelText={t(`${p}.confirm.delete.cancel`)}
             >
-                {t(`wallet.confirm.delete.message`)}
+                {t(`${p}.confirm.delete.message`)}
             </ConfirmDialog>
         </>
     )

@@ -111,6 +111,44 @@
                 "update": "Error al actualizar la transacción",
                 "delete": "Error al eliminar la transacción"
             }
+        },
+        "filter": {
+            "title": "Filtrar",
+            "date": {
+                "label": "Fecha",
+                "placeholder": "Seleccione la fecha",
+                "error": {
+                    "required": "La fecha es obligatoria"
+                }
+            },
+            "type": {
+                "label": "Tipo",
+                "income": "Ingreso",
+                "expense": "Gasto",
+                "placeholder": "Seleccione el tipo de transacción",
+                "error": {
+                    "required": "El tipo es obligatorio"
+                }
+            },
+            "wallet": {
+                "label": "Cuenta",
+                "placeholder": "Seleccione la cuenta",
+                "error": {
+                    "required": "La cuenta es obligatoria"
+                }
+            },
+            "category": {
+                "label": "Categoría",
+                "placeholder": "Seleccione la categoría",
+                "error": {
+                    "required": "La categoría es obligatoria"
+                }
+            },
+            "submit": {
+                "label": "Filtrar",
+                "loading": "Filtrando..."
+            },
+            "cancel": "Cancelar"
         }
     },
     "wallet": {
@@ -178,6 +216,10 @@
                 "update": "Error al actualizar la cuenta",
                 "delete": "Error al eliminar la cuenta"
             }
+        },
+        "filter": {
+            "title": "Filtrar",
+            "search": "Buscar cuenta"
         }
     },
     "category": {
