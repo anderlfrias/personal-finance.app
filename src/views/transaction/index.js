@@ -1,34 +1,35 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Button, Card } from 'components/ui'
+import { Avatar, Button, Card, Table } from 'components/ui'
 import { useTranslation } from 'react-i18next'
-import { HiPlusCircle } from 'react-icons/hi'
+import { HiArrowDown, HiArrowUp, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSwitchHorizontal, HiTable, HiViewList } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
 import SummaryCard from 'components/helpers/SummaryCard'
 import TransactionItem from 'components/helpers/TransactionItem'
 import TransactionForm from './TransactionForm'
 import openNotification from 'utils/openNotification'
-// import formatCurrency from 'utils/formatCurrency';
+import formatCurrency from 'utils/formatCurrency';
 
-// const { Tr, Th, Td, THead, TBody } = Table
+const { Tr, Th, Td, THead, TBody } = Table
 
 const p = 'transaction' // path to translation file
 
-// function Icon ({type, className = ''}) {
-//     switch (type) {
-//         case 'income':
-//             return <Avatar className={`${className} bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-100 text-emerald-600`} icon={<HiArrowUp className='rotate-45' />} />
-//         case 'expense':
-//             return <Avatar className={`${className} bg-red-100 dark:bg-red-500/20 dark:text-red-100 text-red-600`} icon={<HiArrowDown className='rotate-45' />} />
-//         default:
-//             return <Avatar className={`${className} bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-100 text-indigo-600`} icon={<HiSwitchHorizontal />} />
-//     }
-// }
+function Icon ({type, className = ''}) {
+    switch (type) {
+        case 'income':
+            return <Avatar className={`${className} bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-100 text-emerald-600`} icon={<HiArrowUp className='rotate-45' />} />
+        case 'expense':
+            return <Avatar className={`${className} bg-red-100 dark:bg-red-500/20 dark:text-red-100 text-red-600`} icon={<HiArrowDown className='rotate-45' />} />
+        default:
+            return <Avatar className={`${className} bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-100 text-indigo-600`} icon={<HiSwitchHorizontal />} />
+    }
+}
 
 function Transaction() {
     const { t } = useTranslation()
     const { getTransactions, createTransaction } = useTransaction()
     const [transactions, setTransactions] = useState([])
     const [ isFormOpen, setIsFormOpen ] = useState(false)
+    const [ viewTable, setViewTable ] = useState(false)
 
     const openForm = () => {
         setIsFormOpen(true)
@@ -63,13 +64,13 @@ function Transaction() {
         }
     }
 
-    // const onEdit = (transaction) => {
-    //     console.log('edit', transaction)
-    // }
+    const onEdit = (transaction) => {
+        console.log('edit', transaction)
+    }
 
-    // const onDelete = (transaction) => {
-    //     console.log('delete', transaction)
-    // }
+    const onDelete = (transaction) => {
+        console.log('delete', transaction)
+    }
 
     const onDetail = (transaction) => {
         console.log('detail', transaction)
@@ -119,63 +120,78 @@ function Transaction() {
                 </div>
 
                 <Card className='mb-6'>
-                    <h3 className='text-lg font-semibold mb-2'>
-                        {t(`${p}.detail.title`)}
-                    </h3>
+                    <div className='sm:flex justify-between mb-2'>
+                        <h3 className='text-lg font-semibold'>
+                            {t(`${p}.detail.title`)}
+                        </h3>
+
+                        <div className='flex gap-2'>
+                            {
+                                !viewTable ? (
+                                    <Button variant='plain' size='sm' icon={<HiTable />} onClick={() => setViewTable(true)} />
+                                ) : (
+                                    <Button variant='plain' size='sm' icon={<HiViewList />} onClick={() => setViewTable(false)} />
+                                )
+                            }
+                        </div>
+                    </div>
 
                     {
-                        transactions.map((transaction, index) => (
-                            <TransactionItem key={index} transaction={transaction} onClick={() => onDetail(transaction)} />
-                        ))
-                    }
-                </Card>
-
-                {/* <Card>
-                    <Table>
-                        <THead>
-                            <Tr>
-                                <Th />
-                                <Th>{t(`${p}.table.date`)}</Th>
-                                <Th>{t(`${p}.table.description`)}</Th>
-                                <Th>{t(`${p}.table.wallet`)}</Th>
-                                <Th>{t(`${p}.table.category`)}</Th>
-                                <Th>{t(`${p}.table.amount`)}</Th>
-                                <Th />
-                            </Tr>
-                        </THead>
-                        <TBody>
-                            {
-                                transactions.length > 0 ? transactions.map((transaction, index) => (
-                                    <Tr key={index}>
-                                        <Td><Icon type={transaction.type} /></Td>
-                                        <Td>{new Date(transaction.date).toLocaleString()}</Td>
-                                        <Td>{transaction.description}</Td>
-                                        <Td>{transaction.wallet.name}</Td>
-                                        <Td>{transaction?.category?.name || 'N/A'}</Td>
-                                        <Td>
-                                            <div className='min-w-max'>
-                                                <p className="font-bold">
-                                                    {transaction.type === 'expense' && '-'} {formatCurrency(transaction.amount)}
-                                                </p>
-                                            </div>
-                                        </Td>
-                                        <Td>
-                                            <div className='flex gap-2'>
-                                                <Button variant='twoTone' size='sm' icon={<HiOutlineTrash />} onClick={() => onDelete(transaction)} color={'red-500'} />
-                                                <Button variant='twoTone' size='sm' icon={<HiPencilAlt />} onClick={() => onEdit(transaction)} />
-                                            </div>
-                                        </Td>
+                        viewTable ? (
+                            <Table>
+                                <THead>
+                                    <Tr>
+                                        <Th />
+                                        <Th>{t(`${p}.table.date`)}</Th>
+                                        <Th>{t(`${p}.table.description`)}</Th>
+                                        <Th>{t(`${p}.table.wallet`)}</Th>
+                                        <Th>{t(`${p}.table.category`)}</Th>
+                                        <Th>{t(`${p}.table.amount`)}</Th>
+                                        <Th />
                                     </Tr>
-                                )) :
-                                <Tr>
-                                    <Td colSpan={4} className='text-center'>
-                                        {t(`${p}.table.empty`)}
-                                    </Td>
-                                </Tr>
-                            }
-                        </TBody>
-                    </Table>
-                </Card> */}
+                                </THead>
+                                <TBody>
+                                    {
+                                        transactions.length > 0 ? transactions.map((transaction, index) => (
+                                            <Tr key={index}>
+                                                <Td><Icon type={transaction.type} /></Td>
+                                                <Td>{new Date(transaction.date).toLocaleString()}</Td>
+                                                <Td>{transaction.description}</Td>
+                                                <Td>{transaction.wallet.name}</Td>
+                                                <Td>{transaction?.category?.name || 'N/A'}</Td>
+                                                <Td>
+                                                    <div className='min-w-max'>
+                                                        <p className="font-bold">
+                                                            {transaction.type === 'expense' && '-'} {formatCurrency(transaction.amount)}
+                                                        </p>
+                                                    </div>
+                                                </Td>
+                                                <Td>
+                                                    <div className='flex gap-2'>
+                                                        <Button variant='twoTone' size='sm' icon={<HiOutlineTrash />} onClick={() => onDelete(transaction)} color={'red-500'} />
+                                                        <Button variant='twoTone' size='sm' icon={<HiPencilAlt />} onClick={() => onEdit(transaction)} />
+                                                    </div>
+                                                </Td>
+                                            </Tr>
+                                        )) :
+                                        <Tr>
+                                            <Td colSpan={4} className='text-center'>
+                                                {t(`${p}.table.empty`)}
+                                            </Td>
+                                        </Tr>
+                                    }
+                                </TBody>
+                            </Table>
+                        ) : (
+                            <>{
+                                transactions.map((transaction, index) => (
+                                    <TransactionItem key={index} transaction={transaction} onClick={() => onDetail(transaction)} />
+                                ))
+                            }</>
+                        )
+                    }
+
+                </Card>
             </div>
         </>
     )
