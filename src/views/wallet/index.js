@@ -20,10 +20,11 @@ function Wallet() {
     const [selectedWallet, setSelectedWallet] = useState(null)
     const [isEdit, setIsEdit] = useState(false)
     const [ isLoading, setIsLoading ] = useState(false)
+    const [ filter, setFilter ] = useState('')
 
-    const fetchData = useCallback(async() => {
+    const fetchData = useCallback(async(filter = '') => {
         setIsLoading(true)
-        const resp = await getWallets()
+        const resp = await getWallets(filter)
         console.log(resp)
         setIsLoading(false)
         if (resp.status === 'success') {
@@ -38,6 +39,11 @@ function Wallet() {
         }
 
         await Create(data);
+    }
+
+    const onFilter = async(e) => {
+        e.preventDefault()
+        await fetchData(filter)
     }
 
     const Create = async(data) => {
@@ -123,17 +129,20 @@ function Wallet() {
 
                 <Card>
                     <div className='flex justify-end mb-2'>
-                        <div className='flex gap-2'>
+                        <form onSubmit={onFilter} autoComplete='off' className='flex gap-2'>
                             <Input
-                                className='mb-2 sm:mb-0'
                                 size='sm'
+                                type='search'
+                                className='mb-2 sm:mb-0'
                                 placeholder={t(`${p}.filter.search`)}
                                 prefix={<HiSearch className='text-lg' />}
+                                value={filter}
+                                onChange={(e) => setFilter(e.target.value)}
                             />
-                            <Button size='sm' icon={<HiOutlineAdjustments className='rotate-90' />} onClick={() => console.log('filter')} >
+                            <Button type='submit' size='sm' icon={<HiOutlineAdjustments className='rotate-90' />}>
                                 {t(`${p}.filter.title`)}
                             </Button>
-                        </div>
+                        </form>
                     </div>
                     <Loading loading={isLoading}>
                     <Table>
