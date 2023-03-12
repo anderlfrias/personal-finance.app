@@ -1,14 +1,15 @@
 import { ConfirmDialog, Loading } from 'components/shared'
-import { Button, Card, Dialog, Table } from 'components/ui'
+import { Button, Card, Dialog, Table, Input } from 'components/ui'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { HiOutlineTrash, HiPencilAlt, HiPlusCircle } from 'react-icons/hi'
+import { HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSearch } from 'react-icons/hi'
 import useCategory from 'utils/hooks/custom/useCategory'
 import openNotification from 'utils/openNotification'
 import CategoryForm from './CategoryForm'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
+const p = 'category' // prefix for translation key
 function Category() {
     const { t } = useTranslation()
     const { getCategories, createCategory, updateCategory, deleteCategory } = useCategory()
@@ -18,9 +19,15 @@ function Category() {
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [isEdit, setIsEdit] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [ filter, setFilter ] = useState('')
 
     const openForm = () => {
         setIsFormOpen(true);
+    }
+
+    const onFilter = async(e) => {
+        e.preventDefault()
+        fetchData(filter)
     }
 
     const onDelete = (category) => {
@@ -68,7 +75,7 @@ function Category() {
 
         if (resp.status === 'success') {
             onCloseForm()
-            openNotification({ title: t(`message.success`), type: 'success', subtitle: t('category.message.success.create')})
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.create`)})
             fetchData()
         }
 
@@ -87,7 +94,7 @@ function Category() {
         }
 
         if (resp.status === 'failed') {
-            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t('category.message.error.update')})
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.update`)})
         }
     }
 
@@ -96,18 +103,18 @@ function Category() {
 
         if (resp.status === 'success') {
             onCloseDelete()
-            openNotification({ title: t(`message.success`), type: 'success', subtitle: t('category.message.success.delete')})
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.delete`)})
             fetchData()
         }
 
         if (resp.status === 'failed') {
-            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t('category.message.error.delete')})
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.delete`)})
         }
     }
 
-    const fetchData = useCallback(async() => {
+    const fetchData = useCallback(async(filter = '') => {
         setLoading(true)
-        const resp = await getCategories()
+        const resp = await getCategories(filter)
         console.log(resp)
         if (resp.status === 'success') {
             setCategories(resp.data)
@@ -125,21 +132,37 @@ function Category() {
             <div className='container mx-auto'>
                 <div className='sm:flex justify-between mb-4'>
                     <h2>
-                        {t(`category.title`)}
+                        {t(`${p}.title`)}
                     </h2>
                     <Button variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
-                        {t(`category.button.create`)}
+                        {t(`${p}.button.create`)}
                     </Button>
                 </div>
 
                 <Card>
+                    <div className='flex justify-end mb-2'>
+                        <form onSubmit={onFilter} autoComplete='off' className='flex gap-2'>
+                            <Input
+                                size='sm'
+                                type='search'
+                                className='mb-2 sm:mb-0'
+                                placeholder={t(`${p}.filter.search`)}
+                                prefix={<HiSearch className='text-lg' />}
+                                value={filter}
+                                onChange={(e) => setFilter(e.target.value)}
+                            />
+                            <Button type='submit' size='sm' icon={<HiOutlineAdjustments className='rotate-90' />}>
+                                {t(`${p}.filter.title`)}
+                            </Button>
+                        </form>
+                    </div>
                 <Loading loading={loading}>
                     <Table>
                         <THead>
                             <Tr>
                                 <Th>#</Th>
-                                <Th>{t(`category.table.name`)}</Th>
-                                <Th>{t(`category.table.description`)}</Th>
+                                <Th>{t(`${p}.table.name`)}</Th>
+                                <Th>{t(`${p}.table.description`)}</Th>
                                 <Th />
                             </Tr>
                         </THead>
@@ -160,7 +183,7 @@ function Category() {
                                 )) :
                                 <Tr>
                                     <Td colSpan={4} className='text-center'>
-                                        {t(`category.table.empty`)}
+                                        {t(`${p}.table.empty`)}
                                     </Td>
                                 </Tr>
                             }
@@ -176,22 +199,22 @@ function Category() {
                 onRequestClose={onCloseForm}
                 shouldCloseOnOverlayClick={false}
             >
-                <h2 className='text-xl font-semibold mb-4'>{t(`category.form.title`)}</h2>
+                <h2 className='text-xl font-semibold mb-4'>{t(`${p}.form.title`)}</h2>
                 <CategoryForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={selectedCategory} />
             </Dialog>
 
             <ConfirmDialog
                 type='danger'
-                title={t(`category.confirm.delete.title`)}
+                title={t(`${p}.confirm.delete.title`)}
                 onCancel={onCloseDelete}
                 onClose={onCloseDelete}
                 onConfirm={onConfirmDelete}
                 isOpen={isOpenConfirm}
                 confirmButtonColor='red-500'
-                confirmText={t(`category.confirm.delete.confirm`)}
-                cancelText={t(`category.confirm.delete.cancel`)}
+                confirmText={t(`${p}.confirm.delete.confirm`)}
+                cancelText={t(`${p}.confirm.delete.cancel`)}
             >
-                {t(`category.confirm.delete.message`)}
+                {t(`${p}.confirm.delete.message`)}
             </ConfirmDialog>
         </>
     )

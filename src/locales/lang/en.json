@@ -277,6 +277,10 @@
                 "update": "Failed to update category",
                 "delete": "Failed to delete category"
             }
+        },
+        "filter": {
+            "title": "Filter",
+            "search": "Search category"
         }
     },
     "login": {

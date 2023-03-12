@@ -5,19 +5,6 @@ import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 
-// const validationSchema = Yup.object().shape({
-//     email: Yup.string().email('Invalid email').required('Email Required'),
-//     userName: Yup.string()
-//         .min(3, 'Too Short!')
-//         .max(12, 'Too Long!')
-//         .required('User Name Required'),
-//     password: Yup.string()
-//         .required('Password Required')
-//         .min(8, 'Too Short!')
-//         .matches(/^[A-Za-z0-9_-]*$/, 'Only Letters & Numbers Allowed'),
-//     rememberMe: Yup.bool(),
-// })
-
 const validationSchema = Yup.object().shape({
     name: Yup.string()
         .min(3, '.name.error.min')
@@ -35,19 +22,6 @@ const p = 'wallet.form' // path to translation file
 const WalletForm = ({ initialValues, onSubmit, onCancel }) => {
     const { t } = useTranslation()
 
-    // const validationSchema = Yup.object().shape({
-    //     name: Yup.string()
-    //         .min(3, t(`${p}.name.error.min`))
-    //         .max(50, t(`${p}.name.error.max`))
-    //         .required(t(`${p}.name.error.required`)),
-    //     description: Yup.string()
-    //         .min(3, t(`${p}.description.error.min`))
-    //         .max(256, t(`${p}.description.error.max`))
-    //         .nullable(),
-    //     balance: Yup.number()
-    //         .required(t(`${p}.balance.error.required`)),
-    // })
-
     return (
         <div>
             <Formik
@@ -61,11 +35,6 @@ const WalletForm = ({ initialValues, onSubmit, onCancel }) => {
                     setSubmitting(true)
                     await onSubmit(values)
                     setSubmitting(false)
-                    // setTimeout(() => {
-                    //     alert(JSON.stringify(values, null, 2))
-                    //     setSubmitting(false)
-                    //     resetForm()
-                    // }, 400)
                 }}
             >
                 {({ touched, errors, resetForm, isSubmitting}) => (

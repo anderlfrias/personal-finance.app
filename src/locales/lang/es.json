@@ -11,7 +11,7 @@
         "welcome": "Bienvenido a la página de inicio de la aplicación de ejemplo de React"
     },
     "transaction": {
-        "title": "Mis Transacciones",
+        "title": "Transacciones",
         "subtitle": "Aquí puede ver sus transacciones",
         "button": {
             "create": "Crear transacción",
@@ -279,6 +279,10 @@
                 "update": "Error al actualizar la categoría",
                 "delete": "Error al eliminar la categoría"
             }
+        },
+        "filter": {
+            "title": "Filtrar",
+            "search": "Buscar categoría"
         }
     },
     "login": {
