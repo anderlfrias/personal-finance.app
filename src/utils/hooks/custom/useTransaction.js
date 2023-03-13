@@ -9,28 +9,12 @@ import {
 } from 'services/TransactionService'
 import { FailedResponse, SuccessResponse } from 'utils/response';
 
-const getLastDayOfMonth = (year, month) => {
-    const date = new Date(year, month + 1, 0);
-    return date.getDate();
-};
-
-const getStartDate = () => {
-    const date = new Date();
-    return new Date(date.getFullYear(), date.getMonth(), 1);
-};
-
-const getEndDate = () => {
-    const date = new Date();
-    return new Date(date.getFullYear(), date.getMonth(), getLastDayOfMonth(date.getFullYear(), date.getMonth()));
-};
-
 function useTransaction() {
 
     const user = useSelector((state) => state.auth.user)
-    const getTransactions = useCallback(async (filter = '', startDate = getStartDate(), endDate = getEndDate()) => {
+    const getTransactions = useCallback(async (filter = '') => {
         try {
-            const query = `${filter}&startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`;
-            const resp = await apiGetTransactions(query);
+            const resp = await apiGetTransactions(filter);
             console.log(resp);
             return SuccessResponse(resp.data);
         } catch (error) {

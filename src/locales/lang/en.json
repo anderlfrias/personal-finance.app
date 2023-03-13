@@ -127,6 +127,10 @@
         },
         "filter": {
             "title": "Filter",
+            "search": {
+                "label": "Search",
+                "placeholder": "Search transaction"
+            },
             "wallet": {
                 "label": "Wallet",
                 "placeholder": "Select wallet"
@@ -143,10 +147,10 @@
             },
             "date": {
                 "label": "Date",
-                "placeholder": "Select date"
+                "placeholder": "Select date range"
             },
             "submit": "Submit",
-            "cancel": "Cancel"
+            "cancel": "Clear filter"
         }
     },
     "wallet": {

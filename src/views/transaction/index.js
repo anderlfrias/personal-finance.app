@@ -8,6 +8,7 @@ import TransactionItem from 'components/helpers/TransactionItem'
 import TransactionForm from './TransactionForm'
 import openNotification from 'utils/openNotification'
 import formatCurrency from 'utils/formatCurrency';
+import Filter from './Filter'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -30,14 +31,22 @@ function Transaction() {
     const [transactions, setTransactions] = useState([])
     const [ isFormOpen, setIsFormOpen ] = useState(false)
     const [ viewTable, setViewTable ] = useState(false)
-    const [dateRange, setDateRange] = useState([
-        new Date(2022, 11, 1),
-        new Date(2022, 11, 5),
-    ])
+    const [totalIncome, setTotalIncome] = useState(0)
+    const [totalExpense, setTotalExpense] = useState(0)
+    const [diference, setDiference] = useState(0)
+    const [isFilterOpen, setIsFilterOpen] = useState(false)
 
-    const handleRangePickerChange = (date) => {
-        console.log('Selected range date', date)
-        setDateRange(date)
+    const openFilter = () => {
+        setIsFilterOpen(true)
+    }
+
+    const onCloseFilter = () => {
+        setIsFilterOpen(false)
+    }
+
+    const onFilter = (values) => {
+        console.log(values)
+        fetchData(values)
     }
 
     const openForm = () => {
@@ -85,8 +94,8 @@ function Transaction() {
         console.log('detail', transaction)
     }
 
-    const fetchData = useCallback(async () => {
-        const resp = await getTransactions();
+    const fetchData = useCallback(async (filter = '') => {
+        const resp = await getTransactions(filter);
         console.log(resp);
         if (resp.status === 'success') {
             setTransactions(resp.data);
@@ -99,26 +108,20 @@ function Transaction() {
     return (
         <>
             <div className='container mx-auto'>
-                <div className='flex justify-between mb-4'>
+                <div className='flex flex-wrap justify-between mb-4'>
                     <h2>
                         {t(`${p}.title`)}
                     </h2>
 
                     <div className='flex gap-2 '>
-                        <Input
+                        {/* <Input
                             className='mb-2 sm:mb-0'
                             size='sm'
-                            placeholder={t(`${p}.detail.search`)}
+                            placeholder={t(`${p}.filter.search.placeholder`)}
                             prefix={<HiSearch className='text-lg' />}
-                        />
-                        <DatePicker.DatePickerRange
-                            className='mb-2 sm:mb-0'
-                            size='sm'
-                            placeholder="Select dates range"
-                            value={dateRange}
-                            onChange={handleRangePickerChange}
-                        />
-                        <Button size='sm' icon={<HiOutlineAdjustments className='rotate-90' />} onClick={() => console.log('filter')} >
+                        /> */}
+
+                        <Button size='sm' icon={<HiOutlineAdjustments className='rotate-90' />} onClick={openFilter} >
                             {t(`${p}.filter.title`)}
                         </Button>
 
@@ -224,6 +227,8 @@ function Transaction() {
 
                 </Card>
             </div>
+
+            <Filter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onFilter} />
         </>
     )
 }

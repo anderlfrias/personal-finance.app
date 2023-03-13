@@ -114,41 +114,30 @@
         },
         "filter": {
             "title": "Filtrar",
+            "search": {
+                "label": "Buscar",
+                "placeholder": "Buscar transaction"
+            },
             "date": {
                 "label": "Fecha",
-                "placeholder": "Seleccione la fecha",
-                "error": {
-                    "required": "La fecha es obligatoria"
-                }
+                "placeholder": "Seleccione rango de fechas"
             },
             "type": {
                 "label": "Tipo",
                 "income": "Ingreso",
                 "expense": "Gasto",
-                "placeholder": "Seleccione el tipo de transacción",
-                "error": {
-                    "required": "El tipo es obligatorio"
-                }
+                "placeholder": "Seleccione el tipo de transacción"
             },
             "wallet": {
                 "label": "Cuenta",
-                "placeholder": "Seleccione la cuenta",
-                "error": {
-                    "required": "La cuenta es obligatoria"
-                }
+                "placeholder": "Seleccione la cuenta"
             },
             "category": {
                 "label": "Categoría",
-                "placeholder": "Seleccione la categoría",
-                "error": {
-                    "required": "La categoría es obligatoria"
-                }
+                "placeholder": "Seleccione la categoría"
             },
-            "submit": {
-                "label": "Filtrar",
-                "loading": "Filtrando..."
-            },
-            "cancel": "Cancelar"
+            "submit": "Enviar",
+            "cancel": "Limpiar filtro"
         }
     },
     "wallet": {
