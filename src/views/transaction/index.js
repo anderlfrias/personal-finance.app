@@ -3,12 +3,13 @@ import { Avatar, Button, Card, Table } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import { HiArrowDown, HiArrowUp, HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSwitchHorizontal, HiTable, HiViewList } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
-import SummaryCard from 'components/helpers/SummaryCard'
 import TransactionItem from 'components/helpers/TransactionItem'
 import TransactionForm from './TransactionForm'
 import openNotification from 'utils/openNotification'
 import formatCurrency from 'utils/formatCurrency';
 import Filter from './Filter'
+import MovimientosCard from 'components/helpers/MovimientosCard'
+
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -154,16 +155,7 @@ function Transaction() {
                     )
                 }
 
-                <div className='mb-6'>
-                    <h3 className='text-lg font-semibold mb-2'>
-                        {t(`${p}.summary.title`)}
-                    </h3>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-                        <SummaryCard title={t(`${p}.summary.income`)} type='income' amount={formatCurrency(totalIncome)} />
-                        <SummaryCard title={t(`${p}.summary.expense`)} type='expense' amount={formatCurrency(totalExpense)} />
-                        <SummaryCard title={t(`${p}.summary.balance`)} type='difference' amount={formatCurrency(difference)} />
-                    </div>
-                </div>
+                <MovimientosCard/>
 
                 <Card className='mb-6'>
                     <div className='sm:flex justify-between mb-2'>

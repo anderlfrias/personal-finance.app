@@ -109,5 +109,9 @@
     "postcss-nested": "^5.0.6",
     "postcss-preset-env": "7.x",
     "tailwindcss": "^3.0.7"
-  }
+  },
+  "description": "This is starter version of Elstar React Admin Template, it included minimum core components and functionality setup of a template.",
+  "main": "postcss.config.js",
+  "author": "",
+  "license": "ISC"
 }
