@@ -47,7 +47,8 @@
             "wallet": "Wallet",
             "category": "Category",
             "type": "Type",
-            "amount": "Amount"
+            "amount": "Amount",
+            "empty": "No transactions found"
         },
         "form": {
             "title": "Transaction form",

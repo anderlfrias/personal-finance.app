@@ -34,7 +34,8 @@
             "wallet": "Cuenta",
             "category": "Categoría",
             "description": "Descripción",
-            "amount": "Cantidad"
+            "amount": "Cantidad",
+            "empty":"No hay transacciones"
         },
         "form": {
             "title": "Datos de la transacción",

@@ -31,9 +31,9 @@ function Transaction() {
     const [transactions, setTransactions] = useState([])
     const [ isFormOpen, setIsFormOpen ] = useState(false)
     const [ viewTable, setViewTable ] = useState(false)
-    // const [totalIncome, setTotalIncome] = useState(0)
-    // const [totalExpense, setTotalExpense] = useState(0)
-    // const [diference, setDiference] = useState(0)
+    const [totalIncome, setTotalIncome] = useState(0)
+    const [totalExpense, setTotalExpense] = useState(0)
+    const [difference, setDifference] = useState(0)
     const [isFilterOpen, setIsFilterOpen] = useState(false)
 
     const openFilter = () => {
@@ -105,6 +105,20 @@ function Transaction() {
     useEffect(() => {
         fetchData();
     }, [fetchData])
+
+    useEffect(() => {
+        const incomes = transactions.filter(transaction => transaction.type === 'income')
+        const expenses = transactions.filter(transaction => transaction.type === 'expense')
+        // const totalIncome = incomes.reduce((total, income) => total + income.amount, 0)
+        // const totalExpense = expenses.reduce((total, expense) => total + expense.amount, 0)
+        // const diference = totalIncome - totalExpense
+        setTotalIncome(incomes.reduce((total, income) => total + income.amount, 0))
+        setTotalExpense(expenses.reduce((total, expense) => total + expense.amount, 0))
+    }, [transactions])
+
+    useEffect(() => {
+        setDifference(totalIncome - totalExpense)
+    }, [totalIncome, totalExpense])
     return (
         <>
             <div className='container mx-auto'>
@@ -145,9 +159,9 @@ function Transaction() {
                         {t(`${p}.summary.title`)}
                     </h3>
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-                        <SummaryCard title={t(`${p}.summary.income`)} type='income' amount='$5000.00' />
-                        <SummaryCard title={t(`${p}.summary.expense`)} type='expense' amount='$1500.00' />
-                        <SummaryCard title={t(`${p}.summary.balance`)} type='balance' amount='$3500.00' />
+                        <SummaryCard title={t(`${p}.summary.income`)} type='income' amount={formatCurrency(totalIncome)} />
+                        <SummaryCard title={t(`${p}.summary.expense`)} type='expense' amount={formatCurrency(totalExpense)} />
+                        <SummaryCard title={t(`${p}.summary.balance`)} type='difference' amount={formatCurrency(difference)} />
                     </div>
                 </div>
 
@@ -218,9 +232,12 @@ function Transaction() {
                             </Table>
                         ) : (
                             <>{
-                                transactions.map((transaction, index) => (
+                                transactions.length > 0 ? transactions.map((transaction, index) => (
                                     <TransactionItem key={index} transaction={transaction} onClick={() => onDetail(transaction)} />
-                                ))
+                                )) :
+                                <div className='text-center'>
+                                    {t(`${p}.table.empty`)}
+                                </div>
                             }</>
                         )
                     }
