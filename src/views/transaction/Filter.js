@@ -42,15 +42,17 @@ const Filter = ({ isOpen, onClose, onSubmit }) => {
 
         console.log('query', query);
         onSubmit(query);
-        // onClose();
+        onClose();
     }
 
     const onClearFilter = () => {
         setValues({
             search: '',
             dateRange: [null, null],
-            wallets: wallets.map(item => item.id),
-            categories: categories.map(item => item.id)
+            wallets: [],
+            categories: []
+            // wallets: wallets.map(item => item.id),
+            // categories: categories.map(item => item.id)
         })
     }
 
@@ -88,7 +90,6 @@ const Filter = ({ isOpen, onClose, onSubmit }) => {
                 title={t(`${p}.title`)}
                 isOpen={isOpen}
                 onClose={onClose}
-                onRequestClose={onClose}
                 footer={Footer}
             >
                 <div>

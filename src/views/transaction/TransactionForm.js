@@ -4,6 +4,7 @@ import { Input, Button, FormItem, FormContainer, DatePicker, Select, Radio } fro
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import useWallet from 'utils/hooks/custom/useWallet';
+import useCategory from 'utils/hooks/custom/useCategory';
 import * as Yup from 'yup'
 
 const { DateTimepicker } = DatePicker
@@ -22,18 +23,21 @@ const validationSchema = Yup.object().shape({
         .required('.type.error.required'),
     wallet: Yup.string()
         .required('.wallet.error.required'),
+    category: Yup.string()
+        .nullable(),
 })
 
 const p = 'transaction.form' // path to translation file
 const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
     const { t } = useTranslation()
     const { getWallets } = useWallet();
+    const { getCategories } = useCategory()
     const [wallets, setWallets] = useState([])
+    const [categories, setCategories] = useState([])
 
     useEffect(() => {
         const fetchWallets = async() => {
             const resp = await getWallets()
-            console.log(resp)
             if (resp.status === 'success') {
                 setWallets(
                     resp.data.map((wallet) => ({
@@ -44,8 +48,21 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
             }
         }
 
+        const fetchCategories = async() => {
+            const resp = await getCategories()
+            if (resp.status === 'success') {
+                setCategories(
+                    resp.data.map((category) => ({
+                        value: category.id,
+                        label: category.name,
+                    }))
+                )
+            }
+        }
+
         fetchWallets()
-    }, [getWallets])
+        fetchCategories()
+    }, [getWallets, getCategories])
     return (
         <div>
             <Formik
@@ -55,6 +72,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                     description: '',
                     date: null,
                     wallet: '',
+                    category: ''
                 }}
                 validationSchema={validationSchema}
                 onSubmit={ async(values, { setSubmitting }) => {
@@ -158,6 +176,34 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                                 (option) =>
                                                     option.value ===
                                                     values.wallet
+                                            )}
+                                            onChange={(option) =>
+                                                form.setFieldValue(
+                                                    field.name,
+                                                    option.value
+                                                )
+                                            }
+                                        />
+                                    )}
+                                </Field>
+                            </FormItem>
+
+                            <FormItem
+                                label={t(`${p}.category.label`)}
+                                invalid={errors.category && touched.category}
+                                errorMessage={t(`${p}${errors.category}`)}
+                            >
+                                <Field name="category">
+                                    {({ field, form }) => (
+                                        <Select
+                                            placeholder={t(`${p}.category.placeholder`)}
+                                            field={field}
+                                            form={form}
+                                            options={categories}
+                                            value={categories.filter(
+                                                (option) =>
+                                                    option.value ===
+                                                    values.category
                                             )}
                                             onChange={(option) =>
                                                 form.setFieldValue(

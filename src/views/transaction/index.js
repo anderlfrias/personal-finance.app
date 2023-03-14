@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Avatar, Button, Card, DatePicker, Input, Table } from 'components/ui'
+import { Avatar, Button, Card, Table } from 'components/ui'
 import { useTranslation } from 'react-i18next'
-import { HiArrowDown, HiArrowUp, HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSearch, HiSwitchHorizontal, HiTable, HiViewList } from 'react-icons/hi'
+import { HiArrowDown, HiArrowUp, HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSwitchHorizontal, HiTable, HiViewList } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
 import SummaryCard from 'components/helpers/SummaryCard'
 import TransactionItem from 'components/helpers/TransactionItem'
@@ -31,9 +31,9 @@ function Transaction() {
     const [transactions, setTransactions] = useState([])
     const [ isFormOpen, setIsFormOpen ] = useState(false)
     const [ viewTable, setViewTable ] = useState(false)
-    const [totalIncome, setTotalIncome] = useState(0)
-    const [totalExpense, setTotalExpense] = useState(0)
-    const [diference, setDiference] = useState(0)
+    // const [totalIncome, setTotalIncome] = useState(0)
+    // const [totalExpense, setTotalExpense] = useState(0)
+    // const [diference, setDiference] = useState(0)
     const [isFilterOpen, setIsFilterOpen] = useState(false)
 
     const openFilter = () => {
