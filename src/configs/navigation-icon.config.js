@@ -6,12 +6,14 @@ import {
     HiOutlineViewGridAdd,
     HiOutlineHome,
     HiOutlineCreditCard,
-    HiOutlineCurrencyDollar,
+    HiSwitchHorizontal,
+    // HiOutlineCurrencyDollar,
 } from 'react-icons/hi'
 
 const navigationIcon = {
     home: <HiOutlineHome />,
-    transaction: <HiOutlineCurrencyDollar />,
+    // transaction: <HiOutlineCurrencyDollar />,
+    transaction: <HiSwitchHorizontal />,
     wallet: <HiOutlineCreditCard />,
     category: <HiOutlineViewGridAdd />,
     singleMenu: <HiOutlineViewGridAdd />,
