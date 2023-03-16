@@ -13,17 +13,10 @@ const validationSchema = Yup.object().shape({
     amount: Yup.number()
         .required('.amount.error.required'),
     dateRange: Yup.array()
-        // .of(Yup.date())
         .min(2, '.dateRange.error.min')
         .max(2, '.dateRange.error.max')
         .required('.dateRange.error.required')
         .nullable(),
-    // startDate: Yup.date()
-    //         .required('.startDate.error.required')
-    //         .nullable(),
-    // endDate: Yup.date()
-    //         .required('.endDate.error.required')
-    //         .nullable(),
 })
 
 const p = 'budget.form' // path to translation file
@@ -37,8 +30,6 @@ const BudgetForm = ({ initialValues, onSubmit, onCancel }) => {
                     name: '',
                     amount: '',
                     dateRange: [],
-                    // startDate: null,
-                    // endDate: null,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={async(values, { setSubmitting }) => {
@@ -80,7 +71,7 @@ const BudgetForm = ({ initialValues, onSubmit, onCancel }) => {
                             </FormItem>
 
                             <FormItem
-                                label={`${t(`${p}.date.label`)}`}
+                                label={`${t(`${p}.dateRange.label`)}`}
                                 invalid={Boolean(errors.dateRange && touched.dateRange)}
                                 errorMessage={t(`${p}${errors.dateRange}`)}
                             >
@@ -92,9 +83,7 @@ const BudgetForm = ({ initialValues, onSubmit, onCancel }) => {
                                             placeholder={`${t(`${p}.dateRange.placeholder`)}`}
                                             value={field.value.length > 0 ? field.value : [null, null]}
                                             onChange={(date) => {
-                                                console.log(date)
                                                 const value = (date[0] && date[1]) ? date : []
-                                                console.log(value)
                                                 form.setFieldValue(
                                                     field.name,
                                                     value

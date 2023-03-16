@@ -150,7 +150,61 @@
             "import": "Importar presupuesto"
         },
         "form": {
-            
+            "title": "Datos del presupuesto",
+            "name": {
+                "label": "Nombre",
+                "placeholder": "Introduzca el nombre del presupuesto",
+                "error": {
+                    "required": "El nombre es obligatorio",
+                    "min": "El nombre debe tener al menos 3 caracteres",
+                    "max": "El nombre debe tener como máximo 50 caracteres"
+                }
+            },
+            "amount": {
+                "label": "Cantidad",
+                "placeholder": "Introduzca la cantidad del presupuesto",
+                "error": {
+                    "required": "La cantidad es obligatoria"
+                }
+            },
+            "dateRange": {
+                "label": "Rango de fechas",
+                "placeholder": "Seleccione el rango de fechas",
+                "error": {
+                    "required": "El rango de fechas es obligatorio",
+                    "min": "El rango de fechas es obligatorio",
+                    "max": "El rango de fechas es obligatorio"
+                }
+            },
+            "submit": {
+                "label": "Guardar",
+                "loading": "Guardando..."
+            },
+            "cancel": "Cancelar"
+        },
+        "filter": {
+            "title": "Filtrar",
+            "search": "Buscar presupuesto"
+        },
+        "table": {
+            "name": "Nombre",
+            "amount": "Cantidad",
+            "startDate": "Fecha de inicio",
+            "endDate": "Fecha de fin",
+            "actions": "Acciones",
+            "empty": "No hay presupuestos"
+        },
+        "message": {
+            "success": {
+                "create": "Presupuesto creado correctamente",
+                "update": "Presupuesto actualizado correctamente",
+                "delete": "Presupuesto eliminado correctamente"
+            },
+            "error": {
+                "create": "Error al crear el presupuesto",
+                "update": "Error al actualizar el presupuesto",
+                "delete": "Error al eliminar el presupuesto"
+            }
         }
     },
     "wallet": {

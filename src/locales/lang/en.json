@@ -163,7 +163,61 @@
             "import": "Import budget"
         },
         "form": {
-            
+            "title": "Budget form",
+            "name": {
+                "label": "Name",
+                "placeholder": "Enter budget name",
+                "error": {
+                    "required": "Budget name is required",
+                    "min": "Budget name must be at least 3 characters",
+                    "max": "Budget name must be less than 50 characters"
+                }
+            },
+            "amount": {
+                "label": "Amount",
+                "placeholder": "Enter budget amount",
+                "error": {
+                    "required": "Budget amount is required"
+                }
+            },
+            "dateRange": {
+                "label": "Date range",
+                "placeholder": "Select date range",
+                "error": {
+                    "required": "Date range is required",
+                    "min": "Date range is required",
+                    "max": "Date range is required"
+                }
+            },
+            "submit": {
+                "label": "Submit",
+                "loading": "Submitting..."
+            },
+            "cancel": "Cancel"
+        },
+        "filter": {
+            "title": "Filter",
+            "search": "Search budget"
+        },
+        "table": {
+            "name": "Name",
+            "amount": "Amount",
+            "startDate": "Start date",
+            "endDate": "End date",
+            "actions": "Actions",
+            "empty": "No budgets found"
+        },
+        "message": {
+            "success": {
+                "create": "Budget created successfully",
+                "update": "Budget updated successfully",
+                "delete": "Budget deleted successfully"
+            },
+            "error": {
+                "create": "Failed to create budget",
+                "update": "Failed to update budget",
+                "delete": "Failed to delete budget"
+            }
         }
     },
     "wallet": {
