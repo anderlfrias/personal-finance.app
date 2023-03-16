@@ -13,16 +13,17 @@ const validationSchema = Yup.object().shape({
     amount: Yup.number()
         .required('.amount.error.required'),
     dateRange: Yup.array()
-        .of(Yup.date())
+        // .of(Yup.date())
         .min(2, '.dateRange.error.min')
         .max(2, '.dateRange.error.max')
-        .required('.dateRange.error.required'),
-    startDate: Yup.date()
-            .required('.startDate.error.required')
-            .nullable(),
-    endDate: Yup.date()
-            .required('.endDate.error.required')
-            .nullable(),
+        .required('.dateRange.error.required')
+        .nullable(),
+    // startDate: Yup.date()
+    //         .required('.startDate.error.required')
+    //         .nullable(),
+    // endDate: Yup.date()
+    //         .required('.endDate.error.required')
+    //         .nullable(),
 })
 
 const p = 'budget.form' // path to translation file
@@ -35,8 +36,9 @@ const BudgetForm = ({ initialValues, onSubmit, onCancel }) => {
                 initialValues={ initialValues || {
                     name: '',
                     amount: '',
-                    startDate: null,
-                    endDate: null,
+                    dateRange: [],
+                    // startDate: null,
+                    // endDate: null,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={async(values, { setSubmitting }) => {
@@ -73,27 +75,29 @@ const BudgetForm = ({ initialValues, onSubmit, onCancel }) => {
                                     name="amount"
                                     placeholder={`${t(`${p}.amount.placeholder`)}`}
                                     component={Input}
-                                    textArea
                                     step='any'
                                 />
                             </FormItem>
 
                             <FormItem
                                 label={`${t(`${p}.date.label`)}`}
-                                asterisk
-                                invalid={errors.star && touched.star}
-                                errorMessage={errors.star}
+                                invalid={Boolean(errors.dateRange && touched.dateRange)}
+                                errorMessage={t(`${p}${errors.dateRange}`)}
                             >
-                                <Field name="date" placeholder={`${t(`${p}.date.placeholder`)}`}>
+                                <Field name="dateRange">
                                     {({ field, form }) => (
-                                        <DatePicker
+                                        <DatePicker.DatePickerRange
                                             field={field}
                                             form={form}
-                                            value={field.value}
+                                            placeholder={`${t(`${p}.dateRange.placeholder`)}`}
+                                            value={field.value.length > 0 ? field.value : [null, null]}
                                             onChange={(date) => {
+                                                console.log(date)
+                                                const value = (date[0] && date[1]) ? date : []
+                                                console.log(value)
                                                 form.setFieldValue(
                                                     field.name,
-                                                    date
+                                                    value
                                                 )
                                             }}
                                         />

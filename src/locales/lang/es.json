@@ -148,6 +148,9 @@
         "button": {
             "create": "Crear presupuesto",
             "import": "Importar presupuesto"
+        },
+        "form": {
+            
         }
     },
     "wallet": {

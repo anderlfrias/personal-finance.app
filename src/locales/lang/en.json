@@ -161,6 +161,9 @@
         "button": {
             "create": "Create budget",
             "import": "Import budget"
+        },
+        "form": {
+            
         }
     },
     "wallet": {
