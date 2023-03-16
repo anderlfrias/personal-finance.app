@@ -26,6 +26,16 @@ const navigationConfig = [
 		subMenu: []
 	},
 	{
+		key: 'budget',
+		path: '/budget',
+		title: 'Budget',
+		translateKey: 'nav.budget',
+		icon: 'budget',
+		type: NAV_ITEM_TYPE_ITEM,
+		authority: [],
+		subMenu: []
+	},
+	{
 		key: 'wallet',
 		path: '/wallet',
 		title: 'Wallet',

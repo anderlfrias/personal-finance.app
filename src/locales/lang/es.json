@@ -4,6 +4,7 @@
         "transaction": "Transacciones",
         "wallet": "Cuentas",
         "category": "Categorías",
+        "budget": "Presupuestos",
         "singleMenuItem": "Menú"
     },
     "home": {
@@ -139,6 +140,14 @@
             },
             "submit": "Enviar",
             "cancel": "Limpiar filtro"
+        }
+    },
+    "budget": {
+        "title": "Presupuestos",
+        "subtitle": "Aquí puede ver sus presupuestos",
+        "button": {
+            "create": "Crear presupuesto",
+            "import": "Importar presupuesto"
         }
     },
     "wallet": {

@@ -4,6 +4,7 @@
         "transaction": "Transaction",
         "wallet": "Wallet",
         "category": "Category",
+        "budget": "Budget",
         "singleMenuItem": "Single menu item",
         "collapseMenu": {
             "collapseMenu": "Collapse menu item",
@@ -152,6 +153,14 @@
             },
             "submit": "Submit",
             "cancel": "Clear filter"
+        }
+    },
+    "budget": {
+        "title": "Budget",
+        "subtitle": "This is the budget page",
+        "button": {
+            "create": "Create budget",
+            "import": "Import budget"
         }
     },
     "wallet": {
