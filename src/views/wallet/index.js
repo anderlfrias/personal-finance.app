@@ -189,7 +189,12 @@ function Wallet() {
                 onRequestClose={onClose}
                 shouldCloseOnOverlayClick={false}
             >
-                <h2 className='text-xl font-semibold mb-4'>{t(`${p}.form.title`)}</h2>
+                <div className='mb-4'>
+                <h2 className='text-xl font-semibold'>{t(`${p}.form.title`)}</h2>
+                <p>
+                    {t(`${p}.form.subtitle`)}
+                </p>
+                </div>
                 <WalletForm onSubmit={onSubmit} onCancel={onClose} initialValues={selectedWallet} />
             </Dialog>
 

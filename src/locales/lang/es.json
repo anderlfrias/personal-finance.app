@@ -225,6 +225,7 @@
         },
         "form": {
             "title": "Datos de la cuenta",
+            "subtitle": "El balance inicial de la cuenta será 0.0 por defecto, podra agregar un saldo inical el apartado de transacciones.",
             "name": {
                 "label": "Nombre",
                 "placeholder": "Introduzca el nombre de la cuenta",

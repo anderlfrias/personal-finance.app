@@ -238,6 +238,7 @@
         },
         "form": {
             "title": "Wallet form",
+            "subtitle": "The initial balance of the wallet will be 0.0 by default, you can add an initial balance in the transactions section.",
             "name": {
                 "label": "Name",
                 "placeholder": "Enter wallet name",

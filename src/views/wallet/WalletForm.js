@@ -14,8 +14,8 @@ const validationSchema = Yup.object().shape({
         .min(3, '.description.error.min')
         .max(256, '.description.error.max')
         .nullable(),
-    balance: Yup.number()
-        .required('.balance.error.required'),
+    // balance: Yup.number()
+    //     .required('.balance.error.required'),
 })
 
 const p = 'wallet.form' // path to translation file
@@ -28,7 +28,7 @@ const WalletForm = ({ initialValues, onSubmit, onCancel }) => {
                 initialValues={ initialValues || {
                     name: '',
                     description: '',
-                    balance: '',
+                    // balance: '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={async(values, { resetForm, setSubmitting }) => {
@@ -54,7 +54,7 @@ const WalletForm = ({ initialValues, onSubmit, onCancel }) => {
                                 />
                             </FormItem>
 
-                            <FormItem
+                            {/* <FormItem
                                 label={`${t(`${p}.balance.label`)}`}
                                 invalid={errors.balance && touched.balance}
                                 errorMessage={t(`${p}${errors.balance}`)}
@@ -67,7 +67,7 @@ const WalletForm = ({ initialValues, onSubmit, onCancel }) => {
                                     component={Input}
                                     step='any'
                                 />
-                            </FormItem>
+                            </FormItem> */}
 
                             <FormItem
                                 label={`${t(`${p}.description.label`)}`}
