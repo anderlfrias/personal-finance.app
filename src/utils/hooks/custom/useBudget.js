@@ -7,6 +7,7 @@ import {
     apiGetBudgetById,
     apiCreateBudget,
     apiUpdateBudget,
+    apiDeleteBudget,
 } from 'services/BudgetService.js'
 import { FailedResponse, SuccessResponse } from 'utils/response';
 
@@ -49,11 +50,21 @@ function useBudget() {
         }
     }, []);
 
+    const deleteBudget = useCallback(async (id) => {
+        try {
+            const resp = await apiDeleteBudget(id);
+            return SuccessResponse(resp.data);
+        } catch (error) {
+            return FailedResponse(error);
+        }
+    }, []);
+
     return {
         getBudgets,
         getBudgetById,
         createBudget,
         updateBudget,
+        deleteBudget,
     }
 }
 

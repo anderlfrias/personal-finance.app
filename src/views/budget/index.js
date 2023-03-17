@@ -1,4 +1,4 @@
-import { Loading } from 'components/shared'
+import { ConfirmDialog, Loading } from 'components/shared'
 import { Button, Card, Drawer, Input, Table } from 'components/ui'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,11 +13,17 @@ const { Tr, Th, Td, THead, TBody } = Table
 const p = 'budget' // prefix for translation key
 function Budget() {
     const { t } = useTranslation();
-    const { getBudgets, createBudget } = useBudget()
+    const { getBudgets, createBudget, deleteBudget } = useBudget()
     const [budgets, setBudgets] = useState([])
     const [loading, setLoading] = useState(false)
     const [filter, setFilter] = useState('')
     const [isFormOpen, setIsFormOpen] = useState(false)
+    const [isOpenConfirm, setIsOpenConfirm] = useState(false)
+    const [selectedBudget, setSelectedBudget] = useState(null)
+
+    const onCloseConfirm = () => {
+        setIsOpenConfirm(false)
+    }
 
     const openForm = () => {
         setIsFormOpen(true)
@@ -37,10 +43,10 @@ function Budget() {
         }
         delete data.dateRange
 
-        await onCreate(data)
+        await Create(data)
     }
 
-    const onCreate = async(data) => {
+    const Create = async(data) => {
         console.log('onCreate', data)
         const resp = await createBudget(data)
         console.log('res', resp)
@@ -48,6 +54,7 @@ function Budget() {
         if (resp.status === 'success') {
             onCloseForm()
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.create`)})
+            await fetchData()
         }
 
         if (resp.status === 'failed') {
@@ -55,25 +62,41 @@ function Budget() {
         }
     }
 
-    const onFilter = async(filter) => {
-        console.log('onFilter', filter)
+    const Delete = async(id) => {
+        console.log('delete', id)
+
+        const resp = await deleteBudget(id)
+        console.log('resp', resp)
+
+        if (resp.status === 'success') {
+            onCloseConfirm()
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.delete`)})
+            await fetchData()
+        }
+
+        if (resp.status === 'failed') {
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.delete`)})
+        }
     }
 
-    const onCancel = () => {
-        console.log('onCancel')
+    const onFilter = async(e) => {
+        e.preventDefault()
+        fetchData(filter)
     }
 
     const onDelete = (budget) => {
         console.log('delete', budget)
+        setSelectedBudget(budget)
+        setIsOpenConfirm(true)
     }
 
     const onEdit = (budget) => {
         console.log('edit', budget)
     }
 
-    const fetchData = useCallback(async() => {
+    const fetchData = useCallback(async(filter = '') => {
         setLoading(true)
-        const resp = await getBudgets()
+        const resp = await getBudgets(filter)
         console.log('resp', resp)
 
         if (resp.status === 'success') {
@@ -167,8 +190,22 @@ function Budget() {
                 shouldCloseOnOverlayClick={false}
             >
                 {/* <h2 className='text-xl font-semibold mb-4'>{t(`${p}.form.title`)}</h2> */}
-                <BudgetForm onSubmit={onSubmit} onCancel={onCancel} />
+                <BudgetForm onSubmit={onSubmit} onCancel={onCloseForm} />
             </Drawer>
+
+            <ConfirmDialog
+                type='danger'
+                title={t(`${p}.confirm.delete.title`)}
+                onCancel={onCloseConfirm}
+                onClose={onCloseConfirm}
+                onConfirm={async() => await Delete(selectedBudget.id)}
+                isOpen={isOpenConfirm}
+                confirmButtonColor='red-500'
+                confirmText={t(`${p}.confirm.delete.confirm`)}
+                cancelText={t(`${p}.confirm.delete.cancel`)}
+            >
+                {t(`${p}.confirm.delete.message`)}
+            </ConfirmDialog>
         </>
     )
     }

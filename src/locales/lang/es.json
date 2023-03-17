@@ -194,6 +194,14 @@
             "actions": "Acciones",
             "empty": "No hay presupuestos"
         },
+        "confirm": {
+            "delete": {
+                "title": "Eliminar presupuesto",
+                "message": "¿Está seguro de que desea eliminar el presupuesto?",
+                "confirm": "Eliminar",
+                "cancel": "Cancelar"
+            }
+        },
         "message": {
             "success": {
                 "create": "Presupuesto creado correctamente",

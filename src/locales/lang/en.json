@@ -207,6 +207,14 @@
             "actions": "Actions",
             "empty": "No budgets found"
         },
+        "confirm": {
+            "delete": {
+                "title": "Delete budget",
+                "message": "Are you sure you want to delete this budget?",
+                "confirm": "Delete",
+                "cancel": "Cancel"
+            }
+        },
         "message": {
             "success": {
                 "create": "Budget created successfully",
