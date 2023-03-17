@@ -40,7 +40,8 @@
             "title": "Summary",
             "income": "Income",
             "expense": "Expense",
-            "balance": "Balance"
+            "balance": "Balance",
+            "difference": "Difference"
         },
         "detail": {
             "title": "Detail",

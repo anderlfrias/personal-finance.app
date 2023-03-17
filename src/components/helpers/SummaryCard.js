@@ -2,7 +2,20 @@ import { Avatar, Card } from 'components/ui'
 import React from 'react'
 import { BiLineChart, BiLineChartDown } from 'react-icons/bi'
 import { HiOutlineCurrencyDollar } from 'react-icons/hi'
-import { TbArrowsHorizontal } from "react-icons/tb";
+
+const ArrowsDiff = ({className}) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" className={`${className} icon icon-tabler icon-tabler-arrows-diff`} width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M11 16h10"></path>
+            <path d="M11 16l4 4"></path>
+            <path d="M11 16l4 -4"></path>
+            <path d="M13 8h-10"></path>
+            <path d="M13 8l-4 4"></path>
+            <path d="M13 8l-4 -4"></path>
+        </svg>
+    )
+}
 
 const Icon = ({type, className}) => {
     switch (type) {
@@ -11,7 +24,7 @@ const Icon = ({type, className}) => {
         case 'expense':
             return <Avatar className={`${className} bg-red-500 dark:bg-red-500`} icon={<BiLineChartDown />} />
         case 'difference':
-            return <Avatar className={`${className} bg-blue-500 dark:bg-blue-500`} icon={<TbArrowsHorizontal />} />
+            return <Avatar className={`${className} bg-blue-500 dark:bg-blue-500`} icon={<ArrowsDiff />} />
         default:
             return <Avatar className={`${className} bg-blue-500 dark:bg-blue-500`} icon={<HiOutlineCurrencyDollar />} />
     }

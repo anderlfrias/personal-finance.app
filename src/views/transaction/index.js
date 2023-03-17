@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Avatar, Button, Card, Table } from 'components/ui'
 import { useTranslation } from 'react-i18next'
-import { HiArrowDown, HiArrowUp, HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSwitchHorizontal, HiTable, HiViewList } from 'react-icons/hi'
+import { HiArrowDown, HiArrowUp, HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSwitchHorizontal } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
+import useScreenSize from 'utils/hooks/custom/useScreenSize'
 import SummaryCard from 'components/helpers/SummaryCard'
 import TransactionItem from 'components/helpers/TransactionItem'
 import TransactionForm from './TransactionForm'
@@ -26,6 +27,7 @@ function Icon ({type, className = ''}) {
 }
 
 function Transaction() {
+    const { width: screenWidth } = useScreenSize()
     const { t } = useTranslation()
     const { getTransactions, createTransaction } = useTransaction()
     const [transactions, setTransactions] = useState([])
@@ -107,11 +109,13 @@ function Transaction() {
     }, [fetchData])
 
     useEffect(() => {
+        if (screenWidth >= 768) setViewTable(true)
+        if (screenWidth < 768) setViewTable(false)
+    }, [screenWidth])
+
+    useEffect(() => {
         const incomes = transactions.filter(transaction => transaction.type === 'income')
         const expenses = transactions.filter(transaction => transaction.type === 'expense')
-        // const totalIncome = incomes.reduce((total, income) => total + income.amount, 0)
-        // const totalExpense = expenses.reduce((total, expense) => total + expense.amount, 0)
-        // const diference = totalIncome - totalExpense
         setTotalIncome(incomes.reduce((total, income) => total + income.amount, 0))
         setTotalExpense(expenses.reduce((total, expense) => total + expense.amount, 0))
     }, [transactions])
@@ -161,7 +165,7 @@ function Transaction() {
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                         <SummaryCard title={t(`${p}.summary.income`)} type='income' amount={formatCurrency(totalIncome)} />
                         <SummaryCard title={t(`${p}.summary.expense`)} type='expense' amount={formatCurrency(totalExpense)} />
-                        <SummaryCard title={t(`${p}.summary.balance`)} type='difference' amount={formatCurrency(difference)} />
+                        <SummaryCard title={t(`${p}.summary.difference`)} type='difference' amount={formatCurrency(difference)} />
                     </div>
                 </div>
 
@@ -171,7 +175,7 @@ function Transaction() {
                             {t(`${p}.detail.title`)}
                         </h3>
 
-                        <div className='sm:flex gap-2 '>
+                        {/* <div className='sm:flex gap-2 '>
                             <div className='hidden md:flex'>
                                 {
                                     !viewTable ? (
@@ -181,7 +185,7 @@ function Transaction() {
                                     )
                                 }
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     {

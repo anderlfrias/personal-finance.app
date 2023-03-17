@@ -26,7 +26,8 @@
             "title": "Resumen",
             "income": "Total de ingresos",
             "expense": "Total de gastos",
-            "balance": "Saldo"
+            "balance": "Saldo",
+            "difference": "Diferencia"
         },
         "detail": {
             "title": "Detalle",
