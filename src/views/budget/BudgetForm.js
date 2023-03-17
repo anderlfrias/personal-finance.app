@@ -53,6 +53,7 @@ const BudgetForm = ({ initialValues, onSubmit, onCancel }) => {
                                     name="name"
                                     placeholder={`${t(`${p}.name.placeholder`)}`}
                                     component={Input}
+                                    autoFocus
                                 />
                             </FormItem>
 
@@ -82,7 +83,7 @@ const BudgetForm = ({ initialValues, onSubmit, onCancel }) => {
                                             field={field}
                                             form={form}
                                             placeholder={`${t(`${p}.dateRange.placeholder`)}`}
-                                            value={field.value.length > 0 ? field.value : [null, null]}
+                                            value={field?.value?.length > 0 ? field.value : [null, null]}
                                             onChange={(date) => {
                                                 const value = (date[0] && date[1]) ? date : []
                                                 form.setFieldValue(

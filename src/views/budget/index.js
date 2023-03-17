@@ -1,5 +1,5 @@
 import { ConfirmDialog, Loading } from 'components/shared'
-import { Button, Card, Drawer, Input, Table } from 'components/ui'
+import { Button, Card, Dialog, Input, Table } from 'components/ui'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSearch } from 'react-icons/hi'
@@ -23,6 +23,7 @@ function Budget() {
     const [editing, setEditing] = useState(false)
 
     const onCloseConfirm = () => {
+        setSelectedBudget(null)
         setIsOpenConfirm(false)
     }
 
@@ -209,16 +210,18 @@ function Budget() {
                 </Card>
             </div>
 
-            <Drawer
+            <Dialog
                 title={t(`${p}.form.title`)}
                 isOpen={isFormOpen}
                 onClose={onCloseForm}
                 onRequestClose={onCloseForm}
                 shouldCloseOnOverlayClick={false}
             >
-                {/* <h2 className='text-xl font-semibold mb-4'>{t(`${p}.form.title`)}</h2> */}
-                <BudgetForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={selectedBudget} />
-            </Drawer>
+                <div className='overflow-y-auto px-2'>
+                    <h2 className='text-xl font-semibold mb-4'>{t(`${p}.form.title`)}</h2>
+                    <BudgetForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={selectedBudget} />
+                </div>
+            </Dialog>
 
             <ConfirmDialog
                 type='danger'
