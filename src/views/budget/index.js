@@ -13,13 +13,14 @@ const { Tr, Th, Td, THead, TBody } = Table
 const p = 'budget' // prefix for translation key
 function Budget() {
     const { t } = useTranslation();
-    const { getBudgets, createBudget, deleteBudget } = useBudget()
+    const { getBudgets, createBudget, deleteBudget, updateBudget } = useBudget()
     const [budgets, setBudgets] = useState([])
     const [loading, setLoading] = useState(false)
     const [filter, setFilter] = useState('')
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [isOpenConfirm, setIsOpenConfirm] = useState(false)
     const [selectedBudget, setSelectedBudget] = useState(null)
+    const [editing, setEditing] = useState(false)
 
     const onCloseConfirm = () => {
         setIsOpenConfirm(false)
@@ -30,6 +31,7 @@ function Budget() {
     }
 
     const onCloseForm = () => {
+        setSelectedBudget(null)
         setIsFormOpen(false)
     }
 
@@ -43,7 +45,8 @@ function Budget() {
         }
         delete data.dateRange
 
-        await Create(data)
+        if (!editing) return await Create(data)
+        if (editing) return await Update(selectedBudget.id, data)
     }
 
     const Create = async(data) => {
@@ -59,6 +62,22 @@ function Budget() {
 
         if (resp.status === 'failed') {
             openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.create`)})
+        }
+    }
+
+    const Update = async(id, data) => {
+        console.log('onUpdate', data)
+        const resp = await updateBudget(id, data)
+        console.log('res', resp)
+
+        if (resp.status === 'success') {
+            onCloseForm()
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.update`)})
+            await fetchData()
+        }
+
+        if (resp.status === 'failed') {
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.update`)})    
         }
     }
 
@@ -92,6 +111,10 @@ function Budget() {
 
     const onEdit = (budget) => {
         console.log('edit', budget)
+        const dateRange = [new Date(budget.startDate), new Date(budget.endDate)]
+        setSelectedBudget({ ...budget, dateRange })
+        setEditing(true)
+        openForm()
     }
 
     const fetchData = useCallback(async(filter = '') => {
@@ -112,6 +135,10 @@ function Budget() {
     useEffect(() => {
         fetchData()
     }, [fetchData])
+
+    useEffect(() => {
+        if (!filter) fetchData()
+    }, [filter, fetchData])
     return (
         <>
             <div className='container mx-auto'>
@@ -190,7 +217,7 @@ function Budget() {
                 shouldCloseOnOverlayClick={false}
             >
                 {/* <h2 className='text-xl font-semibold mb-4'>{t(`${p}.form.title`)}</h2> */}
-                <BudgetForm onSubmit={onSubmit} onCancel={onCloseForm} />
+                <BudgetForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={selectedBudget} />
             </Drawer>
 
             <ConfirmDialog
