@@ -15,19 +15,17 @@ const Side = ({children, content, ...rest }) => {
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		autoplay: true,
-	  }
+	}
 	return (
 		<div className="grid lg:grid-cols-3 h-full">
-			<div 
+			<div
 				className="bg-no-repeat bg-cover py-6 px-16 flex-col justify-between hidden lg:flex" 
 				style={{backgroundImage: `url('/img/others/auth-side-bg.jpg')`}}
 			>
 				<Logo mode="dark" />
 				<Slider {...settings}>
-				
-				    {Tdata.map((value, index) => {
+					{Tdata.map((value, index) => {
 						return(
-							
 							<div key={index} >
 								<div className="mb-6 flex items-center gap-4">
 									<Avatar className="border-2 border-white" shape="circle" src={value.img}/>
@@ -37,10 +35,8 @@ const Side = ({children, content, ...rest }) => {
 									</div>
 								</div>
 								<p className="text-lg text-white opacity-80">"{value.phase}</p>
-						
 							</div>
 						)
-						
 					})}
 				</Slider>
 				<span className="text-white">Copyright  &copy;  {`${new Date().getFullYear()}`} <span className="font-semibold">{`${APP_NAME}`}</span> </span>

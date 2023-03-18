@@ -5,15 +5,31 @@ import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
+import { useTranslation } from 'react-i18next'
+
 
 const validationSchema = Yup.object().shape({
-	userName: Yup.string().required('Please enter your user name'),
-	email: Yup.string().email('Invalid email').required('Please enter your email'),
-	password: Yup.string().required('Please enter your password'),
-	confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Your passwords do not match')
+	name: Yup.string()
+		.required(`.name.error.required`),
+	firstSurname: Yup.string()
+		.required(`.firstSurname.error.required`),
+	secondSurname: Yup.string()
+		.required(`.secondSurname.error.required`),
+	username: Yup.string()
+		.required(`.username.error.required`),
+	email: Yup.string()
+		.email(`.email.error.email`)
+		.required(`.email.error.required`),
+	password: Yup.string()
+		.required(`.password.error.required`),
+	confirmPassword: Yup.string()
+		.oneOf([Yup.ref('password'), null], '.confirm.error.dontmatch')
 })
 
+const p = 'signup.form';
+
 const SignUpForm = props => {
+	const { t } = useTranslation()
 
 	const { disableSubmit = false, className, signInUrl = '/sign-in' } = props
 
@@ -27,7 +43,7 @@ const SignUpForm = props => {
 		const result = await signUp({ userName, password, email })
 
 		if (result.status === 'failed') {
-			setMessage(result.message)
+			setMessage(t(result.message))
 		}
 
 		setSubmitting(false)
@@ -38,10 +54,13 @@ const SignUpForm = props => {
 			{message && <Alert className="mb-4" type="danger" showIcon>{message}</Alert>}
 			<Formik
 				initialValues={{
-					userName: 'admin1', 
-					password: '123Qwe1', 
-					confirmPassword: '123Qwe1',
-					email: 'test@testmail.com' 
+					name: '',
+					firstSurname: '',
+					secondSurname: '',
+					username: '',
+					password: '',
+					confirmPassword: '',
+					email: ''
 				}}
 				validationSchema={validationSchema}
 				onSubmit={(values, { setSubmitting }) => {
@@ -57,13 +76,13 @@ const SignUpForm = props => {
 						<FormContainer>
 							<FormItem
 								label="User Name"
-								invalid={errors.userName && touched.userName}
-								errorMessage={errors.userName}
+								invalid={errors.username && touched.username}
+								errorMessage={errors.username}
 							>
 								<Field 
 									type="text" 
 									autoComplete="off" 
-									name="userName" 
+									name="username" 
 									placeholder="User Name" 
 									component={Input} 
 								/>

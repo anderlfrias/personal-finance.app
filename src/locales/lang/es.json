@@ -376,6 +376,8 @@
             "registerLink": "Regístrese"
         }
     },
+    "singup":{
+    },
     "message": {
         "success": "Éxito",
         "error": "Error",

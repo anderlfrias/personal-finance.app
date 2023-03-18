@@ -388,6 +388,8 @@
             "registerLink": "Sign up"
         }
     },
+    "singup":{
+    },
     "message": {
         "success": "Success",
         "error": "Error",

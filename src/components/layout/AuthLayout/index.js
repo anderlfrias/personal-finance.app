@@ -13,9 +13,9 @@ const AuthLayout = props => {
 	return (
 		<div className="app-layout-blank flex flex-auto flex-col h-[100vh]">
 			{
-				layoutType === LAYOUT_TYPE_BLANK ? 
-				<View {...props}/> 
-				: 
+				layoutType === LAYOUT_TYPE_BLANK ?
+				<View {...props}/>
+				:
 				<Side>
 					<View {...props}/>
 				</Side>
