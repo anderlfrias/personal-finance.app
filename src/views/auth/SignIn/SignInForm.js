@@ -36,7 +36,7 @@ const SignInForm = props => {
 		const result = await signIn({ user: userName, password })
 
 		if (result?.status === 'failed') {
-			setMessage(result.message)
+			setMessage(t(result.message))
 		}
 
 		setSubmitting(false)
@@ -99,7 +99,7 @@ const SignInForm = props => {
 								{ isSubmitting ? t(`${p}.submit.loading`) : t(`${p}.submit.label`) }
 							</Button>
 							<div className="mt-4 text-center">
-								<span>{t(`${p}.register`)}</span>
+								<span>{t(`${p}.register`)} </span>
 								<ActionLink to={signUpUrl}>
 									{t(`${p}.registerLink`)}
 								</ActionLink>

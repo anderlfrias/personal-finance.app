@@ -1,4 +1,4 @@
-export function SuccessResponse ( data ) {
+export function SuccessResponse ( data = {} ) {
     return {
         status: 'success',
         message: '',

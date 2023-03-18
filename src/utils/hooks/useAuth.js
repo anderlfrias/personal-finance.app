@@ -7,6 +7,7 @@ import { REDIRECT_URL_KEY } from 'constants/app.constant'
 import { useNavigate } from 'react-router-dom'
 import useQuery from './useQuery'
 import jwt_decode from "jwt-decode";
+import { FailedResponse, SuccessResponse } from 'utils/response'
 
 function useAuth() {
 
@@ -21,7 +22,6 @@ function useAuth() {
     const signIn = async (values) => {
         try {
 			const resp = await apiSignIn(values)
-			console.log(resp)
 			if (resp.data) {
 				const { token } = resp.data;
 				const decoded = jwt_decode(token);
@@ -31,21 +31,15 @@ function useAuth() {
 					authority: [decoded.role.toUpperCase()]
 				}
 				delete user.role;
-				console.log(user)
 				dispatch(onSignInSuccess(token))
 				dispatch(setUser(user))
 				const redirectUrl = query.get(REDIRECT_URL_KEY)
 				navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath)
-                return {
-                    status: 'success',
-                    message: ''
-                }
+
+				return SuccessResponse()
 			}
 		} catch (errors) {
-			return {
-                status: 'failed',
-                message: errors?.response?.data?.message || errors.code
-            }
+			return FailedResponse(errors)
 		}
     }
 

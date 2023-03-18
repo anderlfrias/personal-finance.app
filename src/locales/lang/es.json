@@ -383,6 +383,7 @@
         "info": "Información"
     },
     "errors": {
+        "invalid_credentials": "Usuario y/o contraseña incorrectos",
         "unauthorized": "No tiene permiso para acceder a esta página",
         "failed_to_login": "Error al iniciar sesión",
         "missing_fields": "Faltan campos obligatorios",

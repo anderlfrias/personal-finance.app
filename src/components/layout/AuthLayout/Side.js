@@ -6,6 +6,7 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Tdata from "./Tdata"
+import LanguageSelector from 'components/template/LanguageSelector'
 
 const Side = ({children, content, ...rest }) => {
 	const settings = {
@@ -44,7 +45,11 @@ const Side = ({children, content, ...rest }) => {
 				</Slider>
 				<span className="text-white">Copyright  &copy;  {`${new Date().getFullYear()}`} <span className="font-semibold">{`${APP_NAME}`}</span> </span>
 			</div>
-			<div className="col-span-2 flex flex-col justify-center items-center bg-white dark:bg-gray-800">
+
+			<div className="relative col-span-2 flex flex-col justify-center items-center bg-white dark:bg-gray-800">
+				<div className='absolute right-2 top-2'>
+					<LanguageSelector />
+				</div>
 				<div className="xl:min-w-[450px] px-8">
 					<div className="mb-8">
 						{content}
