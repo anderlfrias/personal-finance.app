@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
 		.oneOf([Yup.ref('password'), null], '.confirm.error.dontmatch')
 })
 
-const p = 'signup.form';
+// const p = 'signup.form';
 
 const SignUpForm = props => {
 	const { t } = useTranslation()

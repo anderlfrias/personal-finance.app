@@ -21,6 +21,11 @@
             }
         }
     },
+    "header": {
+        "profile": "Profile",
+        "settings": "Settings",
+        "logout": "Logout"
+    },
     "home": {
         "title": "Home",
         "welcome": "Welcome to the home page"

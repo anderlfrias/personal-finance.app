@@ -7,6 +7,11 @@
         "budget": "Presupuestos",
         "singleMenuItem": "Menú"
     },
+    "header": {
+        "profile": "Perfil",
+        "settings": "Configuración",
+        "logout": "Cerrar sesión"
+    },
     "home": {
         "title": "Inicio",
         "welcome": "Bienvenido a la página de inicio de la aplicación de ejemplo de React"
