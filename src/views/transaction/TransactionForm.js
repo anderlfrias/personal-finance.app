@@ -1,15 +1,20 @@
 
 import React, { useEffect, useState } from 'react'
-import { Input, Button, FormItem, FormContainer, DatePicker, Select, Radio } from 'components/ui'
+import { Input, Button, FormItem, FormContainer, DatePicker, Select, Segment } from 'components/ui'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import useWallet from 'utils/hooks/custom/useWallet';
 import useCategory from 'utils/hooks/custom/useCategory';
 import * as Yup from 'yup'
+import { SegmentItemOption } from 'components/shared';
+import { HiCheckCircle } from 'react-icons/hi';
+import { BiLineChart, BiLineChartDown } from 'react-icons/bi';
 
 const { DateTimepicker } = DatePicker
 
 const validationSchema = Yup.object().shape({
+    type: Yup.string()
+        .required('.type.error.required'),
     amount: Yup.number()
         .required('.amount.error.required'),
     description: Yup.string()
@@ -19,13 +24,16 @@ const validationSchema = Yup.object().shape({
     date: Yup.date()
         .required('.date.error.required')
         .nullable(),
-    type: Yup.string()
-        .required('.type.error.required'),
     wallet: Yup.string()
         .required('.wallet.error.required'),
     category: Yup.string()
         .nullable(),
 })
+
+const typeOptions = [
+    { value: 'income', icon: <BiLineChart /> },
+    { value: 'expense', icon: <BiLineChartDown /> }
+]
 
 const p = 'transaction.form' // path to translation file
 const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
@@ -70,7 +78,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                     type: '',
                     amount: '',
                     description: '',
-                    date: null,
+                    date: new Date(),
                     wallet: '',
                     category: ''
                 }}
@@ -92,6 +100,56 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                             >
                                 <Field name="type">
                                     {({ field, form }) => (
+                                        <Segment
+                                            className="w-full"
+                                            value={[values.type]}
+                                            onChange={(val) =>
+                                                form.setFieldValue(
+                                                    field.name,
+                                                    val[0]
+                                                )
+                                            }
+                                        >
+                                            <div className="flex w-full items-center gap-3">
+                                                { typeOptions.map((item) => (
+                                                    <Segment.Item value={item.value} key={item.value}>
+                                                    {({ ref, active, onSegmentItemClick, disabled}) => {
+                                                        return (
+                                                            <div className="text-center">
+                                                                <SegmentItemOption
+                                                                    hoverable
+                                                                    ref={ref}
+                                                                    active={active}
+                                                                    disabled={disabled}
+                                                                    defaultGutter={false}
+                                                                    onSegmentItemClick={onSegmentItemClick}
+                                                                    className="relative w-[166px] h-[50px]"
+                                                                    customCheck={<HiCheckCircle className="text-indigo-600 absolute top-2 right-2 text-lg" />}
+                                                                >
+                                                                    <div className="w-full flex items-center pl-3 gap-3">
+                                                                        <span className={`text-2xl ${active && 'text-indigo-600'}`}>{item.icon}</span>
+                                                                        <h6>
+                                                                            {t(`transaction.type.${item.value}`)}
+                                                                        </h6>
+                                                                    </div>
+                                                                </SegmentItemOption>
+                                                            </div>
+                                                        )
+                                                    }}
+                                                    </Segment.Item>
+                                                ))}
+                                            </div>
+                                        </Segment>
+                                    )}
+                                </Field>
+                            </FormItem>
+                            {/* <FormItem
+                                label={`${t(`${p}.type.label`)}`}
+                                invalid={errors.type && touched.type}
+                                errorMessage={t(`${p}${errors.type}`)}
+                            >
+                                <Field name="type">
+                                    {({ field, form }) => (
                                         <Radio.Group
                                             value={values.type}
                                             onChange={(val) =>
@@ -106,7 +164,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                         </Radio.Group>
                                     )}
                                 </Field>
-                            </FormItem>
+                            </FormItem> */}
                             <FormItem
                                 label={`${t(`${p}.amount.label`)}`}
                                 invalid={errors.amount && touched.amount}

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Avatar, Button, Card, Table } from 'components/ui'
+import { Avatar, Button, Card, Drawer, Table } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import { HiArrowDown, HiArrowUp, HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSwitchHorizontal } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
@@ -132,13 +132,6 @@ function Transaction() {
                     </h2>
 
                     <div className='flex gap-2 '>
-                        {/* <Input
-                            className='mb-2 sm:mb-0'
-                            size='sm'
-                            placeholder={t(`${p}.filter.search.placeholder`)}
-                            prefix={<HiSearch className='text-lg' />}
-                        /> */}
-
                         <Button size='sm' icon={<HiOutlineAdjustments className='rotate-90' />} onClick={openFilter} >
                             {t(`${p}.filter.title`)}
                         </Button>
@@ -149,14 +142,14 @@ function Transaction() {
                     </div>
                 </div>
 
-                {
+                {/* {
                     isFormOpen && (
                         <Card>
                             <h2 className='text-xl font-semibold mb-4'>{t(`${p}.form.title`)}</h2>
                             <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={{}} />
                         </Card>
                     )
-                }
+                } */}
 
                 <div className='mb-6'>
                     <h3 className='text-lg font-semibold mb-2'>
@@ -174,18 +167,6 @@ function Transaction() {
                         <h3 className='text-lg font-semibold mb-2 sm:mb-0'>
                             {t(`${p}.detail.title`)}
                         </h3>
-
-                        {/* <div className='sm:flex gap-2 '>
-                            <div className='hidden md:flex'>
-                                {
-                                    !viewTable ? (
-                                        <Button variant='plain' size='sm' icon={<HiTable />} onClick={() => setViewTable(true)} />
-                                    ) : (
-                                        <Button variant='plain' size='sm' icon={<HiViewList />} onClick={() => setViewTable(false)} />
-                                    )
-                                }
-                            </div>
-                        </div> */}
                     </div>
 
                     {
@@ -227,7 +208,7 @@ function Transaction() {
                                             </Tr>
                                         )) :
                                         <Tr>
-                                            <Td colSpan={4} className='text-center'>
+                                            <Td colSpan={7} className='text-center'>
                                                 {t(`${p}.table.empty`)}
                                             </Td>
                                         </Tr>
@@ -248,6 +229,15 @@ function Transaction() {
 
                 </Card>
             </div>
+
+            {/* Form */}
+            <Drawer
+                title={t(`${p}.form.title`)}
+                isOpen={isFormOpen}
+                onClose={onCloseForm}
+            >
+                <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} />
+            </Drawer>
 
             <Filter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onFilter} />
         </>
