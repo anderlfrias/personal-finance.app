@@ -14,9 +14,9 @@ import { FailedResponse, SuccessResponse } from 'utils/response';
 function useBudget() {
     const user = useSelector((state) => state.auth.user)
 
-    const getBudgets = useCallback(async (filter = '') => {
+    const getBudgets = useCallback(async ({filter = '', active = false}) => {
         try {
-            const resp = await apiGetBudgets(filter);
+            const resp = await apiGetBudgets(filter, active);
             return SuccessResponse(resp.data);
         } catch (error) {
             return FailedResponse(error);

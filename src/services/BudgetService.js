@@ -1,9 +1,9 @@
 import { URL } from "constants/api.constant";
 import ApiService from "./ApiService";
 
-export async function apiGetBudgets ( q ) {
+export async function apiGetBudgets ( q, active ) {
     return ApiService.fetchData({
-        url: `${URL}/v1/budget?q=${q}`,
+        url: `${URL}/v1/budget?q=${q}&active=${active}`,
         method: 'get',
     })
 }

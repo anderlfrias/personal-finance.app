@@ -120,7 +120,7 @@ function Budget() {
 
     const fetchData = useCallback(async(filter = '') => {
         setLoading(true)
-        const resp = await getBudgets(filter)
+        const resp = await getBudgets({filter})
         console.log('resp', resp)
 
         if (resp.status === 'success') {
@@ -132,10 +132,6 @@ function Budget() {
         }
         setLoading(false)
     }, [getBudgets, t])
-
-    useEffect(() => {
-        fetchData()
-    }, [fetchData])
 
     useEffect(() => {
         if (!filter) fetchData()
@@ -199,7 +195,7 @@ function Budget() {
                                         </Tr>
                                     )) :
                                     <Tr>
-                                        <Td colSpan={4} className='text-center'>
+                                        <Td colSpan={6} className='text-center'>
                                             {t(`${p}.table.empty`)}
                                         </Td>
                                     </Tr>

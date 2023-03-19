@@ -9,6 +9,7 @@ import * as Yup from 'yup'
 import { SegmentItemOption } from 'components/shared';
 import { HiCheckCircle } from 'react-icons/hi';
 import { BiLineChart, BiLineChartDown } from 'react-icons/bi';
+import useBudget from 'utils/hooks/custom/useBudget';
 
 const { DateTimepicker } = DatePicker
 
@@ -28,6 +29,8 @@ const validationSchema = Yup.object().shape({
         .required('.wallet.error.required'),
     category: Yup.string()
         .nullable(),
+    budget: Yup.string()
+        .nullable(),
 })
 
 const typeOptions = [
@@ -40,8 +43,10 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
     const { t } = useTranslation()
     const { getWallets } = useWallet();
     const { getCategories } = useCategory()
+    const { getBudgets } = useBudget()
     const [wallets, setWallets] = useState([])
     const [categories, setCategories] = useState([])
+    const [budgets, setBudgets] = useState([])
 
     useEffect(() => {
         const fetchWallets = async() => {
@@ -68,9 +73,24 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
             }
         }
 
+        const fetchBudgets = async() => {
+            const resp = await getBudgets({ active: true })
+
+            if (resp.status === 'success') {
+                console.log(resp.data)
+                setBudgets(
+                    resp.data.map((budget) => ({
+                        value: budget.id,
+                        label: budget.name
+                    }))
+                )
+            }
+        }
+
         fetchWallets()
         fetchCategories()
-    }, [getWallets, getCategories])
+        fetchBudgets()
+    }, [getWallets, getCategories, getBudgets])
     return (
         <div>
             <Formik
@@ -80,7 +100,8 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                     description: '',
                     date: new Date(),
                     wallet: '',
-                    category: ''
+                    category: '',
+                    budget: ''
                 }}
                 validationSchema={validationSchema}
                 onSubmit={ async(values, { setSubmitting }) => {
@@ -143,28 +164,6 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                     )}
                                 </Field>
                             </FormItem>
-                            {/* <FormItem
-                                label={`${t(`${p}.type.label`)}`}
-                                invalid={errors.type && touched.type}
-                                errorMessage={t(`${p}${errors.type}`)}
-                            >
-                                <Field name="type">
-                                    {({ field, form }) => (
-                                        <Radio.Group
-                                            value={values.type}
-                                            onChange={(val) =>
-                                                form.setFieldValue(
-                                                    field.name,
-                                                    val
-                                                )
-                                            }
-                                        >
-                                            <Radio value={'expense'}>{t(`transaction.type.expense`)}</Radio>
-                                            <Radio value={'income'}>{t(`transaction.type.income`)}</Radio>
-                                        </Radio.Group>
-                                    )}
-                                </Field>
-                            </FormItem> */}
                             <FormItem
                                 label={`${t(`${p}.amount.label`)}`}
                                 invalid={errors.amount && touched.amount}
@@ -273,6 +272,38 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                     )}
                                 </Field>
                             </FormItem>
+
+                            {
+                                values?.type === 'expense' && (
+                                    <FormItem
+                                        label={t(`${p}.budget.label`)}
+                                        invalid={errors.budget && touched.budget}
+                                        errorMessage={t(`${p}${errors.budget}`)}
+                                    >
+                                        <Field name="budget">
+                                            {({ field, form }) => (
+                                                <Select
+                                                    placeholder={t(`${p}.budget.placeholder`)}
+                                                    field={field}
+                                                    form={form}
+                                                    options={budgets}
+                                                    value={budgets.filter(
+                                                        (option) =>
+                                                            option.value ===
+                                                            values.budget
+                                                    )}
+                                                    onChange={(option) =>
+                                                        form.setFieldValue(
+                                                            field.name,
+                                                            option.value
+                                                        )
+                                                    }
+                                                />
+                                            )}
+                                        </Field>
+                                    </FormItem>
+                                )
+                            }
                             {/* </div> */}
 
                             <FormItem className='mt-2'>
