@@ -45,20 +45,26 @@ function useAuth() {
 
 	const signUp = async (values) => {
         try {
-			const resp = await apiSignUp(values)
+			const data = {
+				...values,
+				name: values.name.trim(),
+				firstSurname: values.firstSurname.trim(),
+				secondSurname: values.secondSurname.trim(),
+			}
+			const resp = await apiSignUp(data)
 			if (resp.data) {
-				const { token } = resp.data
-				dispatch(onSignInSuccess(token))
-				if(resp.data.user) {
-					dispatch(setUser(resp.data.user || { 
-						avatar: '', 
-						userName: 'Anonymous', 
-						authority: ['USER'], 
-						email: ''
-					}))
-				}
-				const redirectUrl = query.get(REDIRECT_URL_KEY)
-				navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath)
+				// const { token } = resp.data
+				// dispatch(onSignInSuccess(token))
+				// if(resp.data.user) {
+				// 	dispatch(setUser(resp.data.user || {
+				// 		avatar: '',
+				// 		userName: 'Anonymous',
+				// 		authority: ['USER'],
+				// 		email: ''
+				// 	}))
+				// }
+				// const redirectUrl = query.get(REDIRECT_URL_KEY)
+				// navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath)
                 return {
                     status: 'success',
                     message: ''

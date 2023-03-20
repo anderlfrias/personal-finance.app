@@ -1,11 +1,12 @@
 import React from 'react'
-import { Input, Button, FormItem, FormContainer, Alert } from 'components/ui'
+import { Input, Button, FormItem, FormContainer } from 'components/ui'
 import { PasswordInput, ActionLink } from 'components/shared'
-import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
+// import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
 import { useTranslation } from 'react-i18next'
+import openNotification from 'utils/openNotification'
 
 
 const validationSchema = Yup.object().shape({
@@ -14,19 +15,23 @@ const validationSchema = Yup.object().shape({
 	firstSurname: Yup.string()
 		.required(`.firstSurname.error.required`),
 	secondSurname: Yup.string()
-		.required(`.secondSurname.error.required`),
+		.nullable(),
 	username: Yup.string()
-		.required(`.username.error.required`),
+		.required(`.username.error.required`)
+		.matches(/^[a-zA-Z0-9]+$/, '.username.error.invalid'),
 	email: Yup.string()
 		.email(`.email.error.email`)
 		.required(`.email.error.required`),
 	password: Yup.string()
-		.required(`.password.error.required`),
+		.required(`.password.error.required`)
+		.min(6, '.password.error.min')
+		.max(15, '.password.error.max'),
 	confirmPassword: Yup.string()
-		.oneOf([Yup.ref('password'), null], '.confirm.error.dontmatch')
+		.oneOf([Yup.ref('password'), null], '.confirmPassword.error.match')
+		.required(`.confirmPassword.error.required`)
 })
 
-// const p = 'signup.form';
+const p = 'signup.form';
 
 const SignUpForm = props => {
 	const { t } = useTranslation()
@@ -35,15 +40,23 @@ const SignUpForm = props => {
 
 	const { signUp } = useAuth()
 
-	const [message, setMessage] = useTimeOutMessage()
+	// const [message, setMessage] = useTimeOutMessage()
 
 	const onSignUp = async (values, setSubmitting) => {
-		const { userName, password, email } = values
 		setSubmitting(true)
-		const result = await signUp({ userName, password, email })
+
+		const { name, firstSurname, secondSurname, username, password, email } = values
+		const result = await signUp({ name, firstSurname, secondSurname, username, password, email })
+
+		if (result.status === 'success') {
+			openNotification({
+				type: 'success',
+				title: t(`${p}.message.success`),
+			})
+		}
 
 		if (result.status === 'failed') {
-			setMessage(t(result.message))
+			openNotification({ type: 'danger', title: t(result.message) })
 		}
 
 		setSubmitting(false)
@@ -51,7 +64,7 @@ const SignUpForm = props => {
 
 	return (
 		<div className={className}>
-			{message && <Alert className="mb-4" type="danger" showIcon>{message}</Alert>}
+			{/* {message && <Alert className="mb-4" type="danger" showIcon>{message}</Alert>} */}
 			<Formik
 				initialValues={{
 					name: '',
@@ -75,67 +88,114 @@ const SignUpForm = props => {
 					<Form>
 						<FormContainer>
 							<FormItem
-								label="User Name"
+								label={t(`${p}.name.label`)}
+								invalid={errors.name && touched.name}
+								errorMessage={t(`${p}${errors.name}`)}
+							>
+								<Field
+									type="text"
+									autoComplete="off"
+									name="name"
+									placeholder={t(`${p}.name.placeholder`)}
+									component={Input}
+								/>
+							</FormItem>
+
+							<FormItem
+								label={t(`${p}.firstSurname.label`)}
+								invalid={errors.firstSurname && touched.firstSurname}
+								errorMessage={t(`${p}${errors.firstSurname}`)}
+							>
+								<Field
+									type="text"
+									autoComplete="off"
+									name="firstSurname"
+									placeholder={t(`${p}.firstSurname.placeholder`)}
+									component={Input}
+								/>
+							</FormItem>
+
+							<FormItem
+								label={t(`${p}.secondSurname.label`)}
+								invalid={errors.secondSurname && touched.secondSurname}
+								errorMessage={t(`${p}${errors.secondSurname}`)}
+							>
+								<Field
+									type="text"
+									autoComplete="off"
+									name="secondSurname"
+									placeholder={t(`${p}.secondSurname.placeholder`)}
+									component={Input}
+								/>
+							</FormItem>
+
+							<FormItem
+								label={t(`${p}.username.label`)}
 								invalid={errors.username && touched.username}
-								errorMessage={errors.username}
+								errorMessage={t(`${p}${errors.username}`)}
 							>
-								<Field 
-									type="text" 
-									autoComplete="off" 
-									name="username" 
-									placeholder="User Name" 
-									component={Input} 
+								<Field
+									type="text"
+									autoComplete="off"
+									name="username"
+									placeholder={t(`${p}.username.placeholder`)}
+									component={Input}
 								/>
 							</FormItem>
+
 							<FormItem
-								label="Email"
+								label={t(`${p}.email.label`)}
 								invalid={errors.email && touched.email}
-								errorMessage={errors.email}
+								errorMessage={t(`${p}${errors.email}`)}
 							>
-								<Field 
-									type="email" 
-									autoComplete="off" 
-									name="email" 
-									placeholder="Email" 
-									component={Input} 
+								<Field
+									type="email"
+									autoComplete="off"
+									name="email"
+									placeholder={t(`${p}.email.placeholder`)}
+									component={Input}
 								/>
 							</FormItem>
+
 							<FormItem
-								label="Password"
+								label={t(`${p}.password.label`)}
 								invalid={errors.password && touched.password}
-								errorMessage={errors.password}
+								errorMessage={t(`${p}${errors.password}`)}
 							>
 								<Field
-									autoComplete="off" 
-									name="password" 
-									placeholder="Password" 
-									component={PasswordInput} 
+									autoComplete="off"
+									name="password"
+									placeholder={t(`${p}.password.placeholder`)}
+									component={PasswordInput}
 								/>
 							</FormItem>
+
 							<FormItem
-								label="Confirm Password"
+								label={t(`${p}.confirmPassword.label`)}
 								invalid={errors.confirmPassword && touched.confirmPassword}
-								errorMessage={errors.confirmPassword}
+								errorMessage={t(`${p}${errors.confirmPassword}`)}
 							>
 								<Field
-									autoComplete="off" 
-									name="confirmPassword" 
-									placeholder="Confirm Password" 
-									component={PasswordInput} 
+									autoComplete="off"
+									name="confirmPassword"
+									placeholder={t(`${p}.confirmPassword.placeholder`)}
+									component={PasswordInput}
 								/>
 							</FormItem>
-							<Button 
-								block 
-								loading={isSubmitting} 
-								variant="solid" 
+
+							<Button
+								block
+								loading={isSubmitting}
+								variant="solid"
 								type="submit"
 							>
-								{ isSubmitting ? 'Creating Account...' : 'Sign Up' }
+								{ isSubmitting ? t(`${p}.submit.loading`) : t(`${p}.submit.label`) }
 							</Button>
+
 							<div className="mt-4 text-center">
-								<span>Already have an account? </span>
+								<span>{t(`${p}.login`)} </span>
 								<ActionLink to={signInUrl}>
-									Sign in
+									{t(`${p}.loginLink`)}
 								</ActionLink>
 							</div>
 						</FormContainer>
