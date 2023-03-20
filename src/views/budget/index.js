@@ -118,6 +118,33 @@ function Budget() {
         openForm()
     }
 
+    const getSpent = (budget) => {
+        const spent = budget.transactions.reduce((acc, cur) => acc + cur.amount, 0)
+        return spent
+    }
+
+    // const getRemain = (budget) => {
+    //     const spent = getSpent(budget)
+    //     return budget.amount - spent
+    // }
+
+    const getState = (budget) => {
+        const spent = getSpent(budget)
+        const remain = budget.amount - spent
+        if (remain < 0) return 'danger'
+        if (remain > 0) return 'success'
+        if (remain === 0) return 'warning'
+    }
+
+    const State = ({ budget }) => {
+        const state = getState(budget)
+        return (
+            <div className={`flex items-center justify-center text-white text-xs font-bold px-2 py-1 rounded-full ${state === 'danger' ? 'bg-red-500' : state === 'success' ? 'bg-green-500' : 'bg-yellow-500'}`}>
+                {state === 'danger' ? t(`${p}.state.overdrafted`) : state === 'success' ? t(`${p}.state.completed`) : t(`${p}.state.warning`)}
+            </div>
+        )
+    }
+
     const fetchData = useCallback(async(filter = '') => {
         setLoading(true)
         const resp = await getBudgets({filter})
@@ -171,9 +198,13 @@ function Budget() {
                                 <Tr>
                                     <Th>#</Th>
                                     <Th>{t(`${p}.table.name`)}</Th>
-                                    <Th>{t(`${p}.table.startDate`)}</Th>
-                                    <Th>{t(`${p}.table.endDate`)}</Th>
-                                    <Th>{t(`${p}.table.amount`)}</Th>
+                                    {/* <Th>{t(`${p}.table.startDate`)}</Th>
+                                    <Th>{t(`${p}.table.endDate`)}</Th> */}
+                                    <Th>{t(`${p}.table.daterange`)}</Th>
+                                    {/* <Th>{t(`${p}.table.amount`)}</Th> */}
+                                    <Th>{t(`${p}.table.limit`)}</Th>
+                                    <Th>{t(`${p}.table.spent`)}</Th>
+                                    <Th>{t(`${p}.table.state`)}</Th>
                                     <Th />
                                 </Tr>
                             </THead>
@@ -183,9 +214,12 @@ function Budget() {
                                         <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{item.name}</Td>
-                                            <Td>{new Date(item.startDate).toLocaleDateString()}</Td>
-                                            <Td>{new Date(item.endDate).toLocaleDateString()}</Td>
+                                            {/* <Td>{new Date(item.startDate).toLocaleDateString()}</Td>
+                                            <Td>{new Date(item.endDate).toLocaleDateString()}</Td> */}
+                                            <Td>{new Date(item.startDate).toLocaleDateString()} - {new Date(item.endDate).toLocaleDateString()}</Td>
                                             <Td>{formatCurrency(item.amount)}</Td>
+                                            <Td>{formatCurrency(getSpent(item))}</Td>
+                                            <Td><State budget={item} /></Td>
                                             <Td>
                                                 <div className='flex gap-2'>
                                                     <Button variant='twoTone' size='sm' icon={<HiOutlineTrash />} onClick={() => onDelete(item)} color={'red-500'} />

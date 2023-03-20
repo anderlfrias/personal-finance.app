@@ -105,6 +105,13 @@
                     "max": "Transaction description must be less than 256 characters"
                 }
             },
+            "budget": {
+                "label": "Budget",
+                "placeholder": "Select budget",
+                "error": {
+                    "required": "Budget is required"
+                }
+            },
             "submit": {
                 "label": "Submit",
                 "loading": "Submitting..."
@@ -168,6 +175,14 @@
             "create": "Create budget",
             "import": "Import budget"
         },
+        "state": {
+            "active": "Active",
+            "inactive": "Inactive",
+            "completed": "Completed",
+            "overdue": "Overdue",
+            "overdrafted": "Overdrafted",
+            "warnig": "Warning"
+        },
         "form": {
             "title": "Budget form",
             "name": {
@@ -210,6 +225,10 @@
             "amount": "Amount",
             "startDate": "Start date",
             "endDate": "End date",
+            "daterange": "Date range",
+            "limit": "Limit",
+            "spent": "Spent",
+            "state": "State",
             "actions": "Actions",
             "empty": "No budgets found"
         },

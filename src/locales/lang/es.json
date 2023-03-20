@@ -92,6 +92,13 @@
                     "max": "La descripción debe tener como máximo 256 caracteres"
                 }
             },
+            "budget": {
+                "label": "Presupuesto",
+                "placeholder": "Seleccione el presupuesto",
+                "error": {
+                    "required": "El presupuesto es obligatorio"
+                }
+            },
             "submit": {
                 "label": "Guardar",
                 "loading": "Guardando..."
