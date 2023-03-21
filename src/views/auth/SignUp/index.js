@@ -10,9 +10,8 @@ const SignUp = () => {
 				<h3 className="mb-1">{t(`signup.title`)}</h3>
 				<p>{t(`signup.subtitle`)}</p>
 			</div>
-			<SignUpForm disableSubmit={false} />
+			<SignUpForm className="mb-8" disableSubmit={false} />
 		</>
-		
 	)
 }
 

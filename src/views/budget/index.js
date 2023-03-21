@@ -80,7 +80,7 @@ function Budget() {
         }
 
         if (resp.status === 'failed') {
-            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.update`)})    
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.update`)})
         }
     }
 
@@ -164,7 +164,7 @@ function Budget() {
         }
 
         if (resp.status === 'failed') {
-            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.${resp.message}`)})
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${resp.message}`)})
         }
         setLoading(false)
     }, [getBudgets, t])
@@ -233,8 +233,8 @@ function Budget() {
                                             {/* <Td>{new Date(item.startDate).toLocaleDateString()}</Td>
                                             <Td>{new Date(item.endDate).toLocaleDateString()}</Td> */}
                                             <Td>{new Date(item.startDate).toLocaleDateString()} - {new Date(item.endDate).toLocaleDateString()}</Td>
-                                            <Td>{formatCurrency(item.amount)}</Td>
-                                            <Td>{formatCurrency(getRemain(item))}</Td>
+                                            <Td className='font-semibold'>{formatCurrency(item.amount)}</Td>
+                                            <Td className='font-semibold'>{formatCurrency(getRemain(item))}</Td>
                                             <Td><State state={getState(item)} /></Td>
                                             <Td>
                                                 <div className='flex gap-2'>

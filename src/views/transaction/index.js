@@ -10,21 +10,22 @@ import TransactionForm from './TransactionForm'
 import openNotification from 'utils/openNotification'
 import formatCurrency from 'utils/formatCurrency';
 import Filter from './Filter'
+import TowToneIcon from 'components/helpers/TwoToneIcon'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
 const p = 'transaction' // path to translation file
 
-function Icon ({type, className = ''}) {
-    switch (type) {
-        case 'income':
-            return <Avatar className={`${className} bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-100 text-emerald-600`} icon={<HiArrowUp className='rotate-45' />} />
-        case 'expense':
-            return <Avatar className={`${className} bg-red-100 dark:bg-red-500/20 dark:text-red-100 text-red-600`} icon={<HiArrowDown className='rotate-45' />} />
-        default:
-            return <Avatar className={`${className} bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-100 text-indigo-600`} icon={<HiSwitchHorizontal />} />
-    }
-}
+// function Icon ({type, className = ''}) {
+//     switch (type) {
+//         case 'income':
+//             return <Avatar className={`${className} bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-100 text-emerald-600`} icon={<HiArrowUp className='rotate-45' />} />
+//         case 'expense':
+//             return <Avatar className={`${className} bg-red-100 dark:bg-red-500/20 dark:text-red-100 text-red-600`} icon={<HiArrowDown className='rotate-45' />} />
+//         default:
+//             return <Avatar className={`${className} bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-100 text-indigo-600`} icon={<HiSwitchHorizontal />} />
+//     }
+// }
 
 function Transaction() {
     const { width: screenWidth } = useScreenSize()
@@ -94,6 +95,17 @@ function Transaction() {
 
     const onDetail = (transaction) => {
         console.log('detail', transaction)
+    }
+
+    const getIcon = (type) => {
+        switch (type) {
+            case 'income':
+                return <TowToneIcon size={'sm'} color={'emerald'} icon={<HiArrowUp className='rotate-45' />}/>
+            case 'expense':
+                return <TowToneIcon size={'sm'} color={'red'} icon={<HiArrowDown className='rotate-45' />}/>
+            default:
+                return <TowToneIcon size={'sm'} color={'emerald'} icon={<HiSwitchHorizontal />}/>
+        }
     }
 
     const fetchData = useCallback(async (filter = '') => {
@@ -187,7 +199,7 @@ function Transaction() {
                                     {
                                         transactions.length > 0 ? transactions.map((transaction, index) => (
                                             <Tr key={index}>
-                                                <Td><Icon type={transaction.type} /></Td>
+                                                <Td>{getIcon(transaction.type)}</Td>
                                                 <Td>{new Date(transaction.date).toLocaleString()}</Td>
                                                 <Td>{transaction.description}</Td>
                                                 <Td>{transaction.wallet.name}</Td>
