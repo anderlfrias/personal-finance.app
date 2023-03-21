@@ -1,12 +1,14 @@
+import TowToneIcon from 'components/helpers/TwoToneIcon'
 import { ConfirmDialog, Loading } from 'components/shared'
 import { Button, Card, Dialog, Input, Table } from 'components/ui'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSearch } from 'react-icons/hi'
+import { HiLockClosed, HiLockOpen, HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSearch } from 'react-icons/hi'
 import formatCurrency from 'utils/formatCurrency'
 import useBudget from 'utils/hooks/custom/useBudget'
 import openNotification from 'utils/openNotification'
 import BudgetForm from './BudgetForm'
+import State from './State'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -123,27 +125,34 @@ function Budget() {
         return spent
     }
 
-    // const getRemain = (budget) => {
-    //     const spent = getSpent(budget)
-    //     return budget.amount - spent
-    // }
+    const getRemain = (budget) => {
+        const spent = getSpent(budget)
+        return budget.amount - spent
+    }
 
     const getState = (budget) => {
         const spent = getSpent(budget)
         const remain = budget.amount - spent
-        if (remain < 0) return 'danger'
-        if (remain > 0) return 'success'
-        if (remain === 0) return 'warning'
+        if (remain < 0) return 'overdrafted'
+        if (remain > 0) return 'great'
+        if (remain === 0) return 'caution'
     }
 
-    const State = ({ budget }) => {
-        const state = getState(budget)
-        return (
-            <div className={`flex items-center justify-center text-white text-xs font-bold px-2 py-1 rounded-full ${state === 'danger' ? 'bg-red-500' : state === 'success' ? 'bg-green-500' : 'bg-yellow-500'}`}>
-                {state === 'danger' ? t(`${p}.state.overdrafted`) : state === 'success' ? t(`${p}.state.completed`) : t(`${p}.state.warning`)}
-            </div>
-        )
+    // validar si un presupuesto esta vencido
+    const isExpired = (budget) => {
+        const today = new Date()
+        const endDate = new Date(budget.endDate)
+        return today > endDate
     }
+
+    // const State = ({ budget }) => {
+    //     const state = getState(budget)
+    //     return (
+    //         <div className={`flex items-center justify-center text-white text-xs font-bold px-2 py-1 rounded-full ${state === 'danger' ? 'bg-red-500' : state === 'success' ? 'bg-green-500' : 'bg-yellow-500'}`}>
+    //             {state === 'danger' ? t(`${p}.state.overdrafted`) : state === 'success' ? t(`${p}.state.completed`) : t(`${p}.state.warning`)}
+    //         </div>
+    //     )
+    // }
 
     const fetchData = useCallback(async(filter = '') => {
         setLoading(true)
@@ -196,14 +205,15 @@ function Budget() {
                         <Table>
                             <THead>
                                 <Tr>
-                                    <Th>#</Th>
+                                    <Th />
                                     <Th>{t(`${p}.table.name`)}</Th>
                                     {/* <Th>{t(`${p}.table.startDate`)}</Th>
                                     <Th>{t(`${p}.table.endDate`)}</Th> */}
                                     <Th>{t(`${p}.table.daterange`)}</Th>
-                                    {/* <Th>{t(`${p}.table.amount`)}</Th> */}
-                                    <Th>{t(`${p}.table.limit`)}</Th>
-                                    <Th>{t(`${p}.table.spent`)}</Th>
+                                    <Th>{t(`${p}.table.amount`)}</Th>
+                                    {/* <Th>{t(`${p}.table.limit`)}</Th>
+                                    <Th>{t(`${p}.table.spent`)}</Th> */}
+                                    <Th>{t(`${p}.table.remain`)}</Th>
                                     <Th>{t(`${p}.table.state`)}</Th>
                                     <Th />
                                 </Tr>
@@ -212,14 +222,20 @@ function Budget() {
                                 {
                                     budgets.length > 0 ? budgets.map((item, index) => (
                                         <Tr key={index}>
-                                            <Td>{index + 1}</Td>
+                                            <Td>
+                                                {
+                                                    isExpired(item) ?
+                                                        <TowToneIcon icon={<HiLockClosed />} color='gray' size='sm' />:
+                                                        <TowToneIcon icon={<HiLockOpen />} color='emerald' size='sm' />
+                                                }
+                                            </Td>
                                             <Td>{item.name}</Td>
                                             {/* <Td>{new Date(item.startDate).toLocaleDateString()}</Td>
                                             <Td>{new Date(item.endDate).toLocaleDateString()}</Td> */}
                                             <Td>{new Date(item.startDate).toLocaleDateString()} - {new Date(item.endDate).toLocaleDateString()}</Td>
                                             <Td>{formatCurrency(item.amount)}</Td>
-                                            <Td>{formatCurrency(getSpent(item))}</Td>
-                                            <Td><State budget={item} /></Td>
+                                            <Td>{formatCurrency(getRemain(item))}</Td>
+                                            <Td><State state={getState(item)} /></Td>
                                             <Td>
                                                 <div className='flex gap-2'>
                                                     <Button variant='twoTone' size='sm' icon={<HiOutlineTrash />} onClick={() => onDelete(item)} color={'red-500'} />

@@ -176,12 +176,10 @@
             "import": "Import budget"
         },
         "state": {
-            "active": "Active",
-            "inactive": "Inactive",
-            "completed": "Completed",
-            "overdue": "Overdue",
             "overdrafted": "Overdrafted",
-            "warnig": "Warning"
+            "warning": "Warning",
+            "caution": "Caution",
+            "great": "Great"
         },
         "form": {
             "title": "Budget form",
@@ -229,6 +227,7 @@
             "limit": "Limit",
             "spent": "Spent",
             "state": "State",
+            "remain": "Remain",
             "actions": "Actions",
             "empty": "No budgets found"
         },
