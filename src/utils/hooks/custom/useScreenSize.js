@@ -7,6 +7,10 @@ function ScreenSize() {
     });
 
     useEffect(() => {
+        if (window === undefined) {
+            return
+        }
+
         const handleResize = () => {
             setScreenSize({
                 width: window.innerWidth,

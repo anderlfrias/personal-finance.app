@@ -1,39 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Avatar, Button, Card, Drawer, Table } from 'components/ui'
+import { Button, Card, Drawer } from 'components/ui'
 import { useTranslation } from 'react-i18next'
-import { HiArrowDown, HiArrowUp, HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSwitchHorizontal } from 'react-icons/hi'
+import { HiOutlineAdjustments, HiPlusCircle } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
-import useScreenSize from 'utils/hooks/custom/useScreenSize'
 import SummaryCard from 'components/helpers/SummaryCard'
-import TransactionItem from 'components/helpers/TransactionItem'
 import TransactionForm from './TransactionForm'
 import openNotification from 'utils/openNotification'
 import formatCurrency from 'utils/formatCurrency';
 import Filter from './Filter'
-import TowToneIcon from 'components/helpers/TwoToneIcon'
-
-const { Tr, Th, Td, THead, TBody } = Table
+import TransactionList from './TransactionList'
 
 const p = 'transaction' // path to translation file
 
-// function Icon ({type, className = ''}) {
-//     switch (type) {
-//         case 'income':
-//             return <Avatar className={`${className} bg-emerald-100 dark:bg-emerald-500/20 dark:text-emerald-100 text-emerald-600`} icon={<HiArrowUp className='rotate-45' />} />
-//         case 'expense':
-//             return <Avatar className={`${className} bg-red-100 dark:bg-red-500/20 dark:text-red-100 text-red-600`} icon={<HiArrowDown className='rotate-45' />} />
-//         default:
-//             return <Avatar className={`${className} bg-indigo-100 dark:bg-indigo-500/20 dark:text-indigo-100 text-indigo-600`} icon={<HiSwitchHorizontal />} />
-//     }
-// }
-
 function Transaction() {
-    const { width: screenWidth } = useScreenSize()
     const { t } = useTranslation()
     const { getTransactions, createTransaction } = useTransaction()
     const [transactions, setTransactions] = useState([])
     const [ isFormOpen, setIsFormOpen ] = useState(false)
-    const [ viewTable, setViewTable ] = useState(false)
     const [totalIncome, setTotalIncome] = useState(0)
     const [totalExpense, setTotalExpense] = useState(0)
     const [difference, setDifference] = useState(0)
@@ -85,27 +68,8 @@ function Transaction() {
         }
     }
 
-    const onEdit = (transaction) => {
-        console.log('edit', transaction)
-    }
-
-    const onDelete = (transaction) => {
-        console.log('delete', transaction)
-    }
-
     const onDetail = (transaction) => {
         console.log('detail', transaction)
-    }
-
-    const getIcon = (type) => {
-        switch (type) {
-            case 'income':
-                return <TowToneIcon size={'sm'} color={'emerald'} icon={<HiArrowUp className='rotate-45' />}/>
-            case 'expense':
-                return <TowToneIcon size={'sm'} color={'red'} icon={<HiArrowDown className='rotate-45' />}/>
-            default:
-                return <TowToneIcon size={'sm'} color={'emerald'} icon={<HiSwitchHorizontal />}/>
-        }
     }
 
     const fetchData = useCallback(async (filter = '') => {
@@ -119,11 +83,6 @@ function Transaction() {
     useEffect(() => {
         fetchData();
     }, [fetchData])
-
-    useEffect(() => {
-        if (screenWidth >= 768) setViewTable(true)
-        if (screenWidth < 768) setViewTable(false)
-    }, [screenWidth])
 
     useEffect(() => {
         const incomes = transactions.filter(transaction => transaction.type === 'income')
@@ -154,15 +113,6 @@ function Transaction() {
                     </div>
                 </div>
 
-                {/* {
-                    isFormOpen && (
-                        <Card>
-                            <h2 className='text-xl font-semibold mb-4'>{t(`${p}.form.title`)}</h2>
-                            <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={{}} />
-                        </Card>
-                    )
-                } */}
-
                 <div className='mb-6'>
                     <h3 className='text-lg font-semibold mb-2'>
                         {t(`${p}.summary.title`)}
@@ -181,63 +131,7 @@ function Transaction() {
                         </h3>
                     </div>
 
-                    {
-                        viewTable ? (
-                            <Table>
-                                <THead>
-                                    <Tr>
-                                        <Th />
-                                        <Th>{t(`${p}.table.date`)}</Th>
-                                        <Th>{t(`${p}.table.description`)}</Th>
-                                        <Th>{t(`${p}.table.wallet`)}</Th>
-                                        <Th>{t(`${p}.table.category`)}</Th>
-                                        <Th>{t(`${p}.table.amount`)}</Th>
-                                        <Th />
-                                    </Tr>
-                                </THead>
-                                <TBody>
-                                    {
-                                        transactions.length > 0 ? transactions.map((transaction, index) => (
-                                            <Tr key={index}>
-                                                <Td>{getIcon(transaction.type)}</Td>
-                                                <Td>{new Date(transaction.date).toLocaleString()}</Td>
-                                                <Td>{transaction.description}</Td>
-                                                <Td>{transaction.wallet.name}</Td>
-                                                <Td>{transaction?.category?.name || 'N/A'}</Td>
-                                                <Td>
-                                                    <div className='min-w-max'>
-                                                        <p className="font-bold">
-                                                            {transaction.type === 'expense' && '-'} {formatCurrency(transaction.amount)}
-                                                        </p>
-                                                    </div>
-                                                </Td>
-                                                <Td>
-                                                    <div className='flex gap-2'>
-                                                        <Button variant='twoTone' size='sm' icon={<HiOutlineTrash />} onClick={() => onDelete(transaction)} color={'red-500'} />
-                                                        <Button variant='twoTone' size='sm' icon={<HiPencilAlt />} onClick={() => onEdit(transaction)} />
-                                                    </div>
-                                                </Td>
-                                            </Tr>
-                                        )) :
-                                        <Tr>
-                                            <Td colSpan={7} className='text-center'>
-                                                {t(`${p}.table.empty`)}
-                                            </Td>
-                                        </Tr>
-                                    }
-                                </TBody>
-                            </Table>
-                        ) : (
-                            <>{
-                                transactions.length > 0 ? transactions.map((transaction, index) => (
-                                    <TransactionItem key={index} transaction={transaction} onClick={() => onDetail(transaction)} />
-                                )) :
-                                <div className='text-center'>
-                                    {t(`${p}.table.empty`)}
-                                </div>
-                            }</>
-                        )
-                    }
+                    <TransactionList transactions={transactions} onClickItem={onDetail} />
 
                 </Card>
             </div>

@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { themeConfig } from 'configs/theme.config'
-import { 
+import {
 	LAYOUT_TYPE_MODERN,
 	LAYOUT_TYPE_CLASSIC,
 	LAYOUT_TYPE_STACKED_SIDE,
-	NAV_MODE_TRANSPARENT, 
+	NAV_MODE_TRANSPARENT,
 	NAV_MODE_LIGHT,
 	NAV_MODE_DARK,
 	NAV_MODE_THEMED,
@@ -34,8 +34,8 @@ const initialState = {
 }
 
 const availableNavColorLayouts = [
-	LAYOUT_TYPE_CLASSIC, 
-	LAYOUT_TYPE_STACKED_SIDE, 
+	LAYOUT_TYPE_CLASSIC,
+	LAYOUT_TYPE_STACKED_SIDE,
 	LAYOUT_TYPE_DECKED
 ]
 
@@ -78,7 +78,7 @@ export const themeSlice = createSlice({
 			}
 
 			state.layout = {
-				...state.layout, 
+				...state.layout,
 				...{type: action.payload}
 			}
 		},
@@ -87,9 +87,9 @@ export const themeSlice = createSlice({
 		},
 		setSideNavCollapse: (state, action) => {
 			state.layout = {
-				...state.layout, 
+				...state.layout,
 				...{sideNavCollapse: action.payload}
-			} 
+			}
 		},
 		setNavMode: (state, action) => {
 			if (action.payload !== 'default') {
@@ -122,10 +122,10 @@ export const themeSlice = createSlice({
 	},
 })
 
-export const { 
-	setDirection, 
-	setMode, 
-	setLang, 
+export const {
+	setDirection,
+	setMode,
+	setLang,
 	setLayout,
 	setSideNavCollapse,
 	setNavMode,
