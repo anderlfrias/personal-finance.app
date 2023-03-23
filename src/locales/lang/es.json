@@ -34,8 +34,9 @@
             "balance": "Saldo",
             "difference": "Diferencia"
         },
-        "detail": {
-            "title": "Detalle",
+        "details": {
+            "title": "Detalles de la transacción",
+            "subtitle": "ID: {id}",
             "date": "Fecha",
             "type": "Tipo",
             "wallet": "Cuenta",
@@ -113,6 +114,7 @@
             "description": "Descripción",
             "amount": "Cantidad",
             "actions": "Acciones",
+            "details": "Ver detalles",
             "empty": "No hay transacciones"
         },
         "message": {

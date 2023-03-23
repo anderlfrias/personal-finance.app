@@ -7,8 +7,9 @@ import SummaryCard from 'components/helpers/SummaryCard'
 import TransactionForm from './TransactionForm'
 import openNotification from 'utils/openNotification'
 import formatCurrency from 'utils/formatCurrency';
-import Filter from './Filter'
 import TransactionList from './TransactionList'
+import TransactionFilter from './TransactionFilter'
+import TransactionDetails from './TransactionDetails'
 
 const p = 'transaction' // path to translation file
 
@@ -21,14 +22,14 @@ function Transaction() {
     const [totalExpense, setTotalExpense] = useState(0)
     const [difference, setDifference] = useState(0)
     const [isFilterOpen, setIsFilterOpen] = useState(false)
+    const [isDetailOpen, setIsDetailOpen] = useState(false)
+    const [selectedTransactionId, setSelectedTransactionId] = useState(null)
 
-    const openFilter = () => {
-        setIsFilterOpen(true)
-    }
+    const openDetail = () => setIsDetailOpen(true)
+    const onCloseDetail = () => setIsDetailOpen(false)
 
-    const onCloseFilter = () => {
-        setIsFilterOpen(false)
-    }
+    const openFilter = () => setIsFilterOpen(true)
+    const onCloseFilter = () => setIsFilterOpen(false)
 
     const onFilter = (values) => {
         console.log(values)
@@ -70,6 +71,8 @@ function Transaction() {
 
     const onDetail = (transaction) => {
         console.log('detail', transaction)
+        setSelectedTransactionId(transaction.id)
+        openDetail()
     }
 
     const fetchData = useCallback(async (filter = '') => {
@@ -130,9 +133,7 @@ function Transaction() {
                             {t(`${p}.detail.title`)}
                         </h3>
                     </div>
-
                     <TransactionList transactions={transactions} onClickItem={onDetail} />
-
                 </Card>
             </div>
 
@@ -145,7 +146,8 @@ function Transaction() {
                 <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} />
             </Drawer>
 
-            <Filter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onFilter} />
+            <TransactionFilter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onFilter} />
+            <TransactionDetails isOpen={isDetailOpen} onClose={onCloseDetail} transactionId={selectedTransactionId} />
         </>
     )
 }

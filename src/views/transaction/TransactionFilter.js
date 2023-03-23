@@ -8,7 +8,7 @@ import useCategory from 'utils/hooks/custom/useCategory';
 
 const p = 'transaction.filter';
 
-const Filter = ({ isOpen, onClose, onSubmit }) => {
+const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
     const { t } = useTranslation();
     const { getWallets } = useWallet();
     const { getCategories } = useCategory();
@@ -157,5 +157,5 @@ const Filter = ({ isOpen, onClose, onSubmit }) => {
     )
 }
 
-export default Filter
+export default TransactionFilter
 

@@ -48,14 +48,20 @@
             "balance": "Balance",
             "difference": "Difference"
         },
-        "detail": {
-            "title": "Detail",
+        "details": {
+            "title": "Details of transaction",
+            "subtitle": "ID: {id}",
             "date": "Date",
             "wallet": "Wallet",
             "category": "Category",
             "type": "Type",
             "amount": "Amount",
-            "empty": "No transactions found"
+            "empty": "No transaction found",
+            "button": {
+                "edit": "Edit",
+                "delete": "Delete",
+                "close": "Close"
+            }
         },
         "form": {
             "title": "Transaction form",
@@ -125,6 +131,7 @@
             "type": "Type",
             "amount": "Amount",
             "description": "Description",
+            "details": "Details",
             "actions": "Actions",
             "empty": "No transactions found"
         },

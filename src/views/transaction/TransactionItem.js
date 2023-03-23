@@ -1,18 +1,7 @@
-import TowToneIcon from 'components/helpers/TwoToneIcon';
+import { getIcon } from 'components/helpers/TwoToneIcon';
 import React from 'react'
-import { HiArrowDown, HiArrowUp, HiCalendar, HiSwitchHorizontal } from 'react-icons/hi';
+import { HiCalendar } from 'react-icons/hi';
 import formatCurrency from 'utils/formatCurrency';
-
-function Icon ({type}) {
-    switch (type) {
-        case 'income':
-            return <TowToneIcon size={'sm'} color={'emerald'} icon={<HiArrowUp className='rotate-45' />}/>
-        case 'expense':
-            return <TowToneIcon size={'sm'} color={'red'} icon={<HiArrowDown className='rotate-45' />}/>
-        default:
-            return <TowToneIcon size={'sm'} color={'emerald'} icon={<HiSwitchHorizontal />}/>
-    }
-}
 
 function TransactionItem({ transaction, onClick }) {
     const { type, description, amount, date } = transaction;
@@ -20,7 +9,7 @@ function TransactionItem({ transaction, onClick }) {
         <>
             <div className='flex justify-between items-center gap-4 p-2 cursor-pointer hover:shadow' onClick={onClick}>
                 <div className='flex items-center gap-2'>
-                    <Icon type={type} />
+                    {getIcon(type)}
                     <div className='flex flex-col'>
                         <h6 className="text-sm font-bold multiline-ellipsis max-h-14 overflow-hidden">
                             {description}
