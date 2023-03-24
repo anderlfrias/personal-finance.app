@@ -43,7 +43,15 @@
             "category": "Categoría",
             "description": "Descripción",
             "amount": "Cantidad",
-            "empty":"No hay transacciones"
+            "empty":"No hay transacciones",
+            "income": "Ingreso",
+            "expense": "Gasto",
+            "budget": "Presupuesto",
+            "button": {
+                "edit": "Editar",
+                "delete": "Eliminar",
+                "close": "Cerrar"
+            }
         },
         "form": {
             "title": "Datos de la transacción",

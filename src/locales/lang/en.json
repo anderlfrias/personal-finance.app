@@ -57,6 +57,10 @@
             "type": "Type",
             "amount": "Amount",
             "empty": "No transaction found",
+            "income": "Income",
+            "expense": "Expense",
+            "budget": "Budget",
+            "categoryEmpty": "No category found",
             "button": {
                 "edit": "Edit",
                 "delete": "Delete",

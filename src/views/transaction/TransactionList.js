@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TransactionItem from 'views/transaction/TransactionItem'
 import { getIcon } from 'components/helpers/TwoToneIcon'
-import { Button, Table } from 'components/ui'
+import { Table } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import formatCurrency from 'utils/formatCurrency'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'

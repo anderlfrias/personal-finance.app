@@ -10,12 +10,14 @@ import formatCurrency from 'utils/formatCurrency';
 import TransactionList from './TransactionList'
 import TransactionFilter from './TransactionFilter'
 import TransactionDetails from './TransactionDetails'
+import useScreenSize from 'utils/hooks/custom/useScreenSize'
 
 const p = 'transaction' // path to translation file
 
 function Transaction() {
     const { t } = useTranslation()
-    const { getTransactions, createTransaction } = useTransaction()
+    const { getTransactions, createTransaction, deleteTransaction } = useTransaction()
+    const { width: screenWidth } = useScreenSize()
     const [transactions, setTransactions] = useState([])
     const [ isFormOpen, setIsFormOpen ] = useState(false)
     const [totalIncome, setTotalIncome] = useState(0)
@@ -70,9 +72,24 @@ function Transaction() {
     }
 
     const onDetail = (transaction) => {
-        console.log('detail', transaction)
         setSelectedTransactionId(transaction.id)
         openDetail()
+    }
+
+    const onDelete = async (id) => {
+        console.log(id)
+        const resp = await deleteTransaction(id)
+
+        if (resp.status === 'success') {
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.delete`) })
+            onCloseDetail()
+            fetchData()
+        }
+
+        if (resp.status === 'failed') {
+            console.log(resp.message)
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(resp.message || `${p}.message.error.delete`) })
+        }
     }
 
     const fetchData = useCallback(async (filter = '') => {
@@ -129,9 +146,9 @@ function Transaction() {
 
                 <Card className='mb-6'>
                     <div className='sm:flex justify-between mb-2'>
-                        <h3 className='text-lg font-semibold mb-2 sm:mb-0'>
+                        {/* <h3 className='text-lg font-semibold mb-2 sm:mb-0'>
                             {t(`${p}.detail.title`)}
-                        </h3>
+                        </h3> */}
                     </div>
                     <TransactionList transactions={transactions} onClickItem={onDetail} />
                 </Card>
@@ -142,12 +159,18 @@ function Transaction() {
                 title={t(`${p}.form.title`)}
                 isOpen={isFormOpen}
                 onClose={onCloseForm}
+                width={ screenWidth >= 768 ? 500 : screenWidth}
             >
                 <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} />
             </Drawer>
 
             <TransactionFilter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onFilter} />
-            <TransactionDetails isOpen={isDetailOpen} onClose={onCloseDetail} transactionId={selectedTransactionId} />
+            <TransactionDetails
+                isOpen={isDetailOpen}
+                onClose={onCloseDetail}
+                transactionId={selectedTransactionId}
+                onDelete={onDelete}
+            />
         </>
     )
 }
