@@ -180,6 +180,12 @@
             },
             "submit": "Submit",
             "cancel": "Clear filter"
+        },
+        "confirm": {
+            "title": "Delete transaction",
+            "message": "Are you sure you want to delete this transaction?",
+            "confirm": "Confirm",
+            "cancel": "Cancel"
         }
     },
     "budget": {

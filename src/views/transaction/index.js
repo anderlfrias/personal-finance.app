@@ -11,6 +11,7 @@ import TransactionList from './TransactionList'
 import TransactionFilter from './TransactionFilter'
 import TransactionDetails from './TransactionDetails'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
+import { ConfirmDialog } from 'components/shared'
 
 const p = 'transaction' // path to translation file
 
@@ -26,6 +27,10 @@ function Transaction() {
     const [isFilterOpen, setIsFilterOpen] = useState(false)
     const [isDetailOpen, setIsDetailOpen] = useState(false)
     const [selectedTransactionId, setSelectedTransactionId] = useState(null)
+    const [isOpenConfirm, setIsOpenConfirm] = useState(false)
+
+    const onCloseConfirm = () => setIsOpenConfirm(false)
+    const openConfirm = () => setIsOpenConfirm(true)
 
     const openDetail = () => setIsDetailOpen(true)
     const onCloseDetail = () => setIsDetailOpen(false)
@@ -83,6 +88,7 @@ function Transaction() {
         if (resp.status === 'success') {
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.delete`) })
             onCloseDetail()
+            onCloseConfirm()
             fetchData()
         }
 
@@ -90,6 +96,10 @@ function Transaction() {
             console.log(resp.message)
             openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(resp.message || `${p}.message.error.delete`) })
         }
+    }
+
+    const onConfirmDelete = () => {
+        onDelete(selectedTransactionId)
     }
 
     const fetchData = useCallback(async (filter = '') => {
@@ -165,12 +175,27 @@ function Transaction() {
             </Drawer>
 
             <TransactionFilter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onFilter} />
+
             <TransactionDetails
                 isOpen={isDetailOpen}
                 onClose={onCloseDetail}
                 transactionId={selectedTransactionId}
-                onDelete={onDelete}
+                onDelete={openConfirm}
             />
+
+            <ConfirmDialog
+                type='danger'
+                title={t(`${p}.confirm.delete.title`)}
+                onCancel={onCloseConfirm}
+                onClose={onCloseConfirm}
+                onConfirm={onConfirmDelete}
+                isOpen={isOpenConfirm}
+                confirmButtonColor='red-500'
+                confirmText={t(`${p}.confirm.delete.confirm`)}
+                cancelText={t(`${p}.confirm.delete.cancel`)}
+            >
+                {t(`${p}.confirm.delete.message`)}
+            </ConfirmDialog>
         </>
     )
 }

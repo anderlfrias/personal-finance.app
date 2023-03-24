@@ -49,6 +49,8 @@
             "expense": "Gasto",
             "budget": "Presupuesto",
             "noBudget": "Sin presupuesto",
+            "evidence": "Imagenes",
+            "noEvidence": "Sin imagenes",
             "button": {
                 "edit": "Editar",
                 "delete": "Eliminar",
@@ -165,6 +167,14 @@
             },
             "submit": "Enviar",
             "cancel": "Limpiar filtro"
+        },
+        "confirm": {
+            "delete": {
+                "title": "Eliminar transacción",
+                "message": "¿Está seguro de que desea eliminar la transacción?",
+                "confirm": "Eliminar",
+                "cancel": "Cancelar"
+            }
         }
     },
     "budget": {
