@@ -102,16 +102,52 @@ function TransactionDetails({ transactionId, isOpen, onClose, onEdit, onDelete }
 
                     <div className="flex flex-col">
                         <p>{t(`${p}.category`)}</p>
-                        <p className='font-bold'>
-                            {transaction?.category?.name || 'N/A'}
-                        </p>
+
+                        {
+                                transaction?.category?.name ? (
+                                    <p className='font-bold'>
+                                        {transaction?.category?.name}
+                                    </p>
+                                ) : (
+                                    <p className='italic'>
+                                        {t(`${p}.noCategory`)}
+                                    </p>
+                                )
+                            }
                     </div>
 
+                    {transaction?.type === 'expense' && (
+                        <div className="flex flex-col">
+                            <p>{t(`${p}.budget`)}</p>
+
+                            {
+                                transaction?.budget?.name ? (
+                                    <p className='font-bold'>
+                                        {transaction?.budget?.name}
+                                    </p>
+                                ) : (
+                                    <p className='italic'>
+                                        {t(`${p}.noBudget`)}
+                                    </p>
+                                )
+                            }
+                        </div>
+                    )}
+
                     <div className="flex flex-col">
-                        <p>{t(`${p}.budget`)}</p>
-                        <p className='font-bold'>
-                            {transaction?.budget?.name || 'N/A'}
-                        </p>
+                        <p>{t(`${p}.evidence`)}</p>
+
+                        {
+                            transaction?.evidence ? (
+                                <p className='font-bold'>
+                                    Aqui van las evidencias
+                                </p>
+                            ) : (
+                                <p className='italic'>
+                                    {t(`${p}.noEvidence`)}
+                                </p>
+                            )
+                        }
                     </div>
 
                 </div>
