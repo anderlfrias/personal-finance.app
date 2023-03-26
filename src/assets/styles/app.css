@@ -4,8 +4,8 @@
 @import './vendors/index.css';
 @import './tailwind/index.css';
 
-@layer base {
+/* @layer base {
     p {
         @apply text-gray-600;
     }
-}
+} */
