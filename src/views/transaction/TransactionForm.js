@@ -39,7 +39,7 @@ const typeOptions = [
 ]
 
 const p = 'transaction.form' // path to translation file
-const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
+const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
     const { t } = useTranslation()
     const { getWallets } = useWallet();
     const { getCategories } = useCategory()
@@ -91,6 +91,10 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
         fetchCategories()
         fetchBudgets()
     }, [getWallets, getCategories, getBudgets])
+
+    // useEffect(() => {
+    //     console.log(initialValues)
+    // }, [])
     return (
         <div>
             <Formik
@@ -115,6 +119,30 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                         <FormContainer>
                             {/* <div className='max-h-96 overflow-y-auto px-2'> */}
                             <FormItem
+                                label={`${t(`${p}.date.label`)}`}
+                                invalid={errors.date && touched.date}
+                                errorMessage={t(`${p}${errors.date}`)}
+                            >
+                                <Field name="date" >
+                                    {({ field, form }) => (
+                                        <DateTimepicker
+                                            disabled={isEditing}
+                                            placeholder={t(`${p}.date.placeholder`)}
+                                            field={field}
+                                            form={form}
+                                            value={field.value}
+                                            onChange={(date) => {
+                                                form.setFieldValue(
+                                                    field.name,
+                                                    date
+                                                )
+                                            }}
+                                        />
+                                    )}
+                                </Field>
+                            </FormItem>
+
+                            <FormItem
                                 label={`${t(`${p}.type.label`)}`}
                                 invalid={errors.type && touched.type}
                                 errorMessage={t(`${p}${errors.type}`)}
@@ -133,7 +161,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                         >
                                             <div className="flex w-full items-center gap-3">
                                                 { typeOptions.map((item) => (
-                                                    <Segment.Item value={item.value} key={item.value}>
+                                                    <Segment.Item value={item.value} key={item.value} disabled={isEditing}>
                                                     {({ ref, active, onSegmentItemClick, disabled}) => {
                                                         return (
                                                             <div className="text-center">
@@ -176,6 +204,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                     placeholder={`${t(`${p}.amount.placeholder`)}`}
                                     component={Input}
                                     step="any"
+                                    disabled={isEditing}
                                 />
                             </FormItem>
 
@@ -192,29 +221,6 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                     component={Input}
                                     textArea
                                 />
-                            </FormItem>
-
-                            <FormItem
-                                label={`${t(`${p}.date.label`)}`}
-                                invalid={errors.date && touched.date}
-                                errorMessage={t(`${p}${errors.date}`)}
-                            >
-                                <Field name="date">
-                                    {({ field, form }) => (
-                                        <DateTimepicker
-                                            placeholder={t(`${p}.date.placeholder`)}
-                                            field={field}
-                                            form={form}
-                                            value={field.value}
-                                            onChange={(date) => {
-                                                form.setFieldValue(
-                                                    field.name,
-                                                    date
-                                                )
-                                            }}
-                                        />
-                                    )}
-                                </Field>
                             </FormItem>
 
                             <FormItem
@@ -237,9 +243,10 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                             onChange={(option) =>
                                                 form.setFieldValue(
                                                     field.name,
-                                                    option.value
+                                                    option?.value || ''
                                                 )
                                             }
+                                            isDisabled={isEditing}
                                         />
                                     )}
                                 </Field>
@@ -265,9 +272,11 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                             onChange={(option) =>
                                                 form.setFieldValue(
                                                     field.name,
-                                                    option.value
+                                                    option?.value || ''
                                                 )
                                             }
+                                            disabled={isEditing}
+                                            isClearable
                                         />
                                     )}
                                 </Field>
@@ -295,9 +304,11 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel }) => {
                                                     onChange={(option) =>
                                                         form.setFieldValue(
                                                             field.name,
-                                                            option.value
+                                                            option?.value || ''
                                                         )
                                                     }
+                                                    disabled={isEditing}
+                                                    isClearable
                                                 />
                                             )}
                                         </Field>

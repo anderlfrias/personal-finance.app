@@ -34,7 +34,7 @@ function TransactionDetails({ transactionId, isOpen, onClose, onEdit, onDelete }
                 closeText={t(`${p}.button.close`)}
                 editText={t(`${p}.button.edit`)}
                 deleteText={t(`${p}.button.delete`)}
-                onEdit={onEdit}
+                onEdit={() => onEdit(transaction)}
                 onClose={onClose}
                 onDelete={() => onDelete(transactionId)}
             >

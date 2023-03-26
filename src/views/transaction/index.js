@@ -17,7 +17,7 @@ const p = 'transaction' // path to translation file
 
 function Transaction() {
     const { t } = useTranslation()
-    const { getTransactions, createTransaction, deleteTransaction } = useTransaction()
+    const { getTransactions, createTransaction, updateTransaction, deleteTransaction } = useTransaction()
     const { width: screenWidth } = useScreenSize()
     const [transactions, setTransactions] = useState([])
     const [ isFormOpen, setIsFormOpen ] = useState(false)
@@ -26,15 +26,23 @@ function Transaction() {
     const [difference, setDifference] = useState(0)
     const [isFilterOpen, setIsFilterOpen] = useState(false)
     const [isDetailOpen, setIsDetailOpen] = useState(false)
+    const [selectedTransaction, setSelectedTransaction] = useState(null)
+    const [isEditing, setIsEditing] = useState(false)
     const [selectedTransactionId, setSelectedTransactionId] = useState(null)
     const [isOpenConfirm, setIsOpenConfirm] = useState(false)
 
     const onCloseConfirm = () => setIsOpenConfirm(false)
     const openConfirm = () => setIsOpenConfirm(true)
 
-    const openDetail = () => setIsDetailOpen(true)
-    const onCloseDetail = () => setIsDetailOpen(false)
+    const openDetail = (transaction) => {
+        setSelectedTransactionId(transaction.id)
+        setIsDetailOpen(true)
+    }
 
+    const onCloseDetail = () => {
+        setSelectedTransactionId(null)
+        setIsDetailOpen(false)
+    }
     const openFilter = () => setIsFilterOpen(true)
     const onCloseFilter = () => setIsFilterOpen(false)
 
@@ -49,6 +57,9 @@ function Transaction() {
 
     const onCloseForm = () => {
         setIsFormOpen(false)
+        setIsEditing(false)
+        setSelectedTransaction(null)
+        setSelectedTransactionId(null)
     }
 
     const onSubmit = async (values) => {
@@ -57,6 +68,11 @@ function Transaction() {
             date: new Date(values.date).toISOString()
         }
         console.log(data);
+
+        if (isEditing) {
+            await onUpdate(data)
+            return
+        }
 
         await onCreate(data);
     }
@@ -68,17 +84,31 @@ function Transaction() {
             onCloseForm()
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.create`) })
             fetchData()
+            return
         }
 
         if (resp.status === 'failed') {
-            console.log(resp.message)
             openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(resp.message || `${p}.message.error.create`) })
         }
     }
 
-    const onDetail = (transaction) => {
-        setSelectedTransactionId(transaction.id)
-        openDetail()
+    const onUpdate = async (data) => {
+        console.log('update')
+        console.log(data)
+        console.log(selectedTransactionId)
+        const resp = await updateTransaction(selectedTransactionId, data)
+
+        if (resp.status === 'success') {
+            onCloseForm();
+            openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.update`)})
+            fetchData()
+            return;
+        }
+
+        if (resp.status === 'failed') {
+            console.log(resp)
+            openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(resp.message || `${p}.message.error.update`) })
+        }
     }
 
     const onDelete = async (id) => {
@@ -100,6 +130,29 @@ function Transaction() {
 
     const onConfirmDelete = () => {
         onDelete(selectedTransactionId)
+    }
+
+    const handleEdit = (transaction) => {
+        console.log('edit')
+        // console.log(transaction)
+        console.log({
+            ...transaction,
+            date: transaction?.date ? new Date(transaction.date) : new Date(),
+            wallet: transaction.wallet?.id || '',
+            category: transaction.category?.id || '',
+            budget: transaction.budget?.id || '',
+        })
+        onCloseDetail()
+        setSelectedTransactionId(transaction.id)
+        setSelectedTransaction({
+            ...transaction,
+            date: transaction?.date ? new Date(transaction.date) : new Date(),
+            wallet: transaction.wallet?.id || '',
+            category: transaction.category?.id || '',
+            budget: transaction.budget?.id || '',
+        })
+        setIsEditing(true)
+        openForm()
     }
 
     const fetchData = useCallback(async (filter = '') => {
@@ -160,7 +213,7 @@ function Transaction() {
                             {t(`${p}.detail.title`)}
                         </h3> */}
                     </div>
-                    <TransactionList transactions={transactions} onClickItem={onDetail} />
+                    <TransactionList transactions={transactions} onClickItem={openDetail} />
                 </Card>
             </div>
 
@@ -171,7 +224,7 @@ function Transaction() {
                 onClose={onCloseForm}
                 width={ screenWidth >= 768 ? 500 : screenWidth}
             >
-                <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} />
+                <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={selectedTransaction} isEditing={isEditing} />
             </Drawer>
 
             <TransactionFilter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onFilter} />
@@ -181,6 +234,7 @@ function Transaction() {
                 onClose={onCloseDetail}
                 transactionId={selectedTransactionId}
                 onDelete={openConfirm}
+                onEdit={handleEdit}
             />
 
             <ConfirmDialog
