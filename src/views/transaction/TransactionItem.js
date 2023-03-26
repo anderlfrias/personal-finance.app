@@ -9,7 +9,9 @@ function TransactionItem({ transaction, onClick }) {
         <>
             <div className='flex justify-between items-center gap-4 p-2 cursor-pointer hover:shadow' onClick={onClick}>
                 <div className='flex items-center gap-2'>
-                    {getIcon(type)}
+                    <div className='min-w-max'>
+                        {getIcon(type)}
+                    </div>
                     <div className='flex flex-col'>
                         <h6 className="text-sm font-bold multiline-ellipsis max-h-14 overflow-hidden">
                             {description}
