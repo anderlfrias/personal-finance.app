@@ -249,7 +249,26 @@
             "state": "State",
             "remain": "Remain",
             "actions": "Actions",
+            "details": "Details",
             "empty": "No budgets found"
+        },
+        "details": {
+            "title": "Budget details",
+            "subtitle": "ID: {id}",
+            "name": "Name",
+            "amount": "Amount",
+            "daterange": "Date range",
+            "limit": "Limit",
+            "spent": "Spent",
+            "state": "State",
+            "remain": "Remain",
+            "transactions": "Transactions",
+            "noTransactions": "No transactions found",
+            "button": {
+                "delete": "Delete",
+                "edit": "Edit",
+                "close": "Close"
+            }
         },
         "confirm": {
             "delete": {

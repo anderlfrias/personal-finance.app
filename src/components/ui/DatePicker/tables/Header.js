@@ -47,7 +47,8 @@ const Header = (props) => {
 					'flex items-center rtl:flex-row-reverse'
 				)
 			}>
-				<Button 
+				<Button
+					type="button"
 					variant="plain" 
 					className={classNames((!hasPrevious && renderCenter) && 'opacity-0 cursor-default')}
 					size="sm" 
@@ -58,7 +59,8 @@ const Header = (props) => {
 					onMouseDown={(event) => preventFocus && event.preventDefault()}
 				/>
 				{renderCenter && renderChildren}
-				<Button  
+				<Button
+					type="button"
 					variant="plain"
 					className={classNames((!hasNext && renderCenter) && 'opacity-0 cursor-default')}
 					size="sm" 

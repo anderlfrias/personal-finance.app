@@ -92,9 +92,6 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
         fetchBudgets()
     }, [getWallets, getCategories, getBudgets])
 
-    // useEffect(() => {
-    //     console.log(initialValues)
-    // }, [])
     return (
         <div>
             <Formik

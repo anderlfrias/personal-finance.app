@@ -238,7 +238,26 @@
             "state": "Estado",
             "remain": "Restante",
             "actions": "Acciones",
+            "details": "Ver detalles",
             "empty": "No hay presupuestos"
+        },
+        "details": {
+            "title": "Detalles del presupuesto",
+            "subtitle": "ID: {id}",
+            "name": "Nombre",
+            "amount": "Cantidad",
+            "daterange": "Rango de fechas",
+            "limit": "Límite",
+            "spent": "Gastado",
+            "state": "Estado",
+            "transactions": "Transacciones",
+            "remain": "Restante",
+            "noTransactions": "No se encontraron transacciones",
+            "button": {
+                "delete": "Eliminar",
+                "edit": "Editar",
+                "close": "Cerrar"
+            }
         },
         "confirm": {
             "delete": {
