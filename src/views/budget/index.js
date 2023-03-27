@@ -1,3 +1,4 @@
+import CreateButton from 'components/helpers/CreateButton'
 import { ConfirmDialog, Loading } from 'components/shared'
 import { Button, Card, Dialog, Input } from 'components/ui'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -145,11 +146,10 @@ function Budget() {
                     <h2>
                         {t(`${p}.title`)}
                     </h2>
-                    <Button size='sm' variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
+                    <Button className='hidden sm:flex' size='sm' variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
                         {t(`${p}.button.create`)}
                     </Button>
                 </div>
-
                 <Card>
                     <div className='flex justify-end mb-2'>
                         <form onSubmit={onFilter} autoComplete='off' className='flex gap-2'>
@@ -207,6 +207,8 @@ function Budget() {
             >
                 {t(`${p}.confirm.delete.message`)}
             </ConfirmDialog>
+
+            <CreateButton onClick={openForm} />
         </>
     )
     }

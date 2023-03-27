@@ -1,3 +1,4 @@
+import CreateButton from 'components/helpers/CreateButton';
 import { ConfirmDialog, Loading } from 'components/shared';
 import { Button, Card, Dialog, Input, Table } from 'components/ui';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -122,7 +123,7 @@ function Wallet() {
                     <h2>
                         {t(`${p}.title`)}
                     </h2>
-                    <Button variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
+                    <Button className='hidden sm:flex' variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
                         {t(`${p}.button.create`)}
                     </Button>
                 </div>
@@ -211,6 +212,8 @@ function Wallet() {
             >
                 {t(`${p}.confirm.delete.message`)}
             </ConfirmDialog>
+
+            <CreateButton onClick={openForm} />
         </>
     )
 }

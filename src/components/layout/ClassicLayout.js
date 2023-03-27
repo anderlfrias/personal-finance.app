@@ -41,7 +41,7 @@ const ClassicLayout = props => {
 						headerEnd={<HeaderActionsEnd />} 
 					/>
 					<div className="h-full flex flex-auto flex-col">
-						<View {...props}/>
+						<View {...props} footer={false} />
 					</div>
 				</div>
 			</div>

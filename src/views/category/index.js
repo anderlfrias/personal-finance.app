@@ -1,3 +1,4 @@
+import CreateButton from 'components/helpers/CreateButton'
 import { ConfirmDialog, Loading } from 'components/shared'
 import { Button, Card, Dialog, Table, Input } from 'components/ui'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -151,7 +152,7 @@ function Category() {
                                 value={filter}
                                 onChange={(e) => setFilter(e.target.value)}
                             />
-                            <Button type='submit' size='sm' icon={<HiOutlineAdjustments className='rotate-90' />}>
+                            <Button className='hidden sm:flex' type='submit' size='sm' icon={<HiOutlineAdjustments className='rotate-90' />}>
                                 {t(`${p}.filter.title`)}
                             </Button>
                         </form>
@@ -216,6 +217,8 @@ function Category() {
             >
                 {t(`${p}.confirm.delete.message`)}
             </ConfirmDialog>
+
+            <CreateButton onClick={openForm} />
         </>
     )
 }

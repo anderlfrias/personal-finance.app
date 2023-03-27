@@ -48,6 +48,7 @@ const CategoryForm = ({ initialValues, onSubmit, onCancel }) => {
                                     name="name"
                                     placeholder={`${t(`${p}.name.placeholder`)}`}
                                     component={Input}
+                                    autoFocus
                                 />
                             </FormItem>
 

@@ -12,6 +12,7 @@ import TransactionFilter from './TransactionFilter'
 import TransactionDetails from './TransactionDetails'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
 import { ConfirmDialog } from 'components/shared'
+import CreateButton from 'components/helpers/CreateButton'
 
 const p = 'transaction' // path to translation file
 
@@ -190,7 +191,7 @@ function Transaction() {
                             {t(`${p}.filter.title`)}
                         </Button>
 
-                        <Button size='sm' variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
+                        <Button className='hidden sm:flex' size='sm' variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
                             {t(`${p}.button.create`)}
                         </Button>
                     </div>
@@ -250,6 +251,8 @@ function Transaction() {
             >
                 {t(`${p}.confirm.delete.message`)}
             </ConfirmDialog>
+
+            <CreateButton onClick={openForm} />
         </>
     )
 }

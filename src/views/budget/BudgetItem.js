@@ -2,18 +2,19 @@ import TowToneIcon from 'components/helpers/TwoToneIcon';
 import React from 'react'
 import { HiCalendar, HiLockClosed, HiLockOpen } from 'react-icons/hi';
 import formatCurrency from 'utils/formatCurrency';
-import { getRemain, getState, isActive } from './utils';
+import State from './State';
+import { getState, isActive } from './utils';
 
 function BudgetItem({ budget, onClick }) {
     console.log(budget)
     const { name, startDate, endDate } = budget;
 
-    const color = {
-        overdrafted: 'red-500',
-        great: 'green-500',
-        caution: 'amber-500',
-        warning: 'amber-500',
-    }
+    // const color = {
+    //     overdrafted: 'red-500',
+    //     great: 'green-500',
+    //     caution: 'amber-500',
+    //     warning: 'amber-500',
+    // }
     return (
         <>
             <div className='flex justify-between items-center gap-4 p-2 cursor-pointer hover:shadow' onClick={onClick}>
@@ -35,9 +36,10 @@ function BudgetItem({ budget, onClick }) {
                     </div>
                 </div>
                 <div className='flex flex-col items-end'>
-                    <h6 className={`font-bold text-${color[getState(budget)]}`}>
-                        {formatCurrency(getRemain(budget))}
+                    <h6 className={`font-bold text-sm`}>
+                        {formatCurrency(budget.amount)}
                     </h6>
+                    <State state={getState(budget)} />
                 </div>
             </div>
 
