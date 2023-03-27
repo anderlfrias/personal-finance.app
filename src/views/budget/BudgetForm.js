@@ -22,8 +22,6 @@ const validationSchema = Yup.object().shape({
 const p = 'budget.form' // path to translation file
 const BudgetForm = ({ initialValues, onSubmit, onCancel }) => {
     const { t } = useTranslation()
-
-    console.log('initialValues', initialValues)
     return (
         <div>
             <Formik

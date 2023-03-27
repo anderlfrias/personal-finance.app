@@ -36,7 +36,7 @@ const ForgotPasswordForm = props => {
 		<div className={className}>
             <div className="mb-6">
 				{
-					emailSent ? 
+					emailSent ?
 					<>
 						<h3 className="mb-1">Check your email</h3>
 						<p>We have sent a password recovery instruction to your email</p>

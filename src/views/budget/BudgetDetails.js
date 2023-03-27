@@ -4,28 +4,13 @@ import { useTranslation } from "react-i18next";
 import formatCurrency from "utils/formatCurrency";
 import State from "./State";
 import TransactionItem from "views/transaction/TransactionItem";
+import TowToneIcon from "components/helpers/TwoToneIcon";
+import { HiLockClosed, HiLockOpen } from "react-icons/hi";
+import { getRemain, getSpent, getState, isActive } from "./utils";
 
 const p = "budget.details";
 function BudgetDetails({ budget, isOpen, onClose, onEdit, onDelete }) {
     const { t } = useTranslation()
-
-    const getSpent = (budget) => {
-        const spent = budget.transactions.reduce((acc, cur) => acc + cur.amount, 0)
-        return spent
-    }
-
-    const getRemain = (budget) => {
-        const spent = getSpent(budget)
-        return budget.amount - spent
-    }
-
-    const getState = (budget) => {
-        const spent = getSpent(budget)
-        const remain = budget.amount - spent
-        if (remain < 0) return 'overdrafted'
-        if (remain > 0) return 'great'
-        if (remain === 0) return 'caution'
-    }
 
     return (
         <>
@@ -43,6 +28,22 @@ function BudgetDetails({ budget, isOpen, onClose, onEdit, onDelete }) {
                 {budget && <>
                     <div className="flex flex-col gap-4">
 
+                    <div className="flex items-center gap-2">
+                        <div className="min-w-max">
+                        {
+                            isActive(budget) ?
+                            <TowToneIcon icon={<HiLockOpen />} color='emerald' /> :
+                            <TowToneIcon icon={<HiLockClosed />} color='gray' />
+                        }
+                        </div>
+                        <div className="">
+                            <h6 className='font-bold'>
+                                {budget.name}
+                            </h6>
+                            <State className="items-start" state={getState(budget)} />
+                        </div>
+                    </div>
+
                         <div className="flex flex-col gap-1 border-b">
                             <p>{t(`${p}.daterange`)}</p>
                             <p className='font-bold text-right'>
@@ -50,12 +51,12 @@ function BudgetDetails({ budget, isOpen, onClose, onEdit, onDelete }) {
                             </p>
                         </div>
 
-                        <div className="flex flex-col gap-1 border-b">
+                        {/* <div className="flex flex-col gap-1 border-b">
                             <p>{t(`${p}.name`)}</p>
                             <p className='font-bold text-right'>
                                 {budget.name}
                             </p>
-                        </div>
+                        </div> */}
 
                         <div className="flex flex-col gap-1 border-b">
                             <p>{t(`${p}.amount`)}</p>
@@ -78,10 +79,10 @@ function BudgetDetails({ budget, isOpen, onClose, onEdit, onDelete }) {
                             </p>
                         </div>
 
-                        <div className="flex flex-col gap-1 border-b">
+                        {/* <div className="flex flex-col gap-1 border-b">
                             <p>{t(`${p}.state`)}</p>
                             <State className="justify-end" state={getState(budget)} />
-                        </div>
+                        </div> */}
 
                         <div className="flex flex-col gap-1">
                             <p>{t(`${p}.transactions`)}</p>

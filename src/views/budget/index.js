@@ -156,7 +156,7 @@ function Budget() {
                             <Input
                                 size='sm'
                                 type='search'
-                                className='mb-2 sm:mb-0'
+                                className='mb-2 sm:mb-0 '
                                 placeholder={t(`${p}.filter.search`)}
                                 prefix={<HiSearch className='text-lg' />}
                                 value={filter}
