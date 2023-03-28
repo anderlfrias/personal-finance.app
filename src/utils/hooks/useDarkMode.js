@@ -11,7 +11,9 @@ function useDarkMode() {
     const isEnabled = mode === MODE_DARK
 
     const dispatch = useDispatch()
-    const onModeChange = mode => dispatch(setMode(mode))
+    const onModeChange = mode => {
+        dispatch(setMode(mode))
+    }
 
     useEffect(() => {
         if (window === undefined) {
