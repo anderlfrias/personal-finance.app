@@ -4,12 +4,26 @@ import { useTranslation } from 'react-i18next'
 import formatCurrency from 'utils/formatCurrency'
 import useTransaction from 'utils/hooks/custom/useTransaction'
 import DrawerDetails from 'components/helpers/DrawerDetails'
+import Image from 'components/helpers/Image'
+import PreviewImage from 'components/helpers/PreviewImage'
 
 const p = 'transaction.details'
 function TransactionDetails({ transactionId, isOpen, onClose, onEdit, onDelete }) {
     const { t } = useTranslation()
     const { getTransactionById } = useTransaction()
     const [transaction, setTransaction] = useState(null)
+    const [previewImage, setPreviewImage] = useState(null)
+    const [isOpenPreviewImage, setIsOpenPreviewImage] = useState(false)
+
+    const onPreviewImage = (image) => {
+        setPreviewImage(image)
+        setIsOpenPreviewImage(true)
+    }
+
+    const onClosePreviewImage = () => {
+        setPreviewImage(null)
+        setIsOpenPreviewImage(false)
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -112,23 +126,31 @@ function TransactionDetails({ transactionId, isOpen, onClose, onEdit, onDelete }
                     )}
 
                     <div className="flex flex-col">
-                        <p>{t(`${p}.evidence`)}</p>
+                        <p className='mb-2'>{t(`${p}.evidence`)}</p>
 
-                        {
-                            transaction?.evidence ? (
-                                <p className='font-bold'>
-                                    Aqui van las evidencias
-                                </p>
-                            ) : (
-                                <p className='italic'>
-                                    {t(`${p}.noEvidence`)}
-                                </p>
-                            )
-                        }
+
+                        { transaction?.evidence?.length > 0 ? (
+                            <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4'>
+                                {transaction.evidence.map((item, index) => (
+                                    <Image
+                                        key={index}
+                                        src={item}
+                                        className='w-full max-h-32 object-cover'
+                                        onPreview={() => onPreviewImage(item)}
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <p className='italic'>
+                                {t(`${p}.noEvidence`)}
+                            </p>
+                        )}
                     </div>
 
                 </div>
             </DrawerDetails>
+
+            <PreviewImage isOpen={isOpenPreviewImage} onClose={onClosePreviewImage} image={previewImage}  />
         </>
     )
 }
