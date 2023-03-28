@@ -60,7 +60,7 @@ const Radio = React.forwardRef((props, ref) => {
 		}
 		onGroupChange?.(value, e)
 		onChange?.(value, e)
-	}, [disabled, setRadioChecked, onChange, value, onGroupChange, groupValue, readOnly])
+	}, [disabled, onChange, value, onGroupChange, readOnly])
 
 
 	useEffect(() => {

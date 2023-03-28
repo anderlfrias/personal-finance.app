@@ -151,6 +151,7 @@ function Transaction() {
             wallet: transaction.wallet?.id || '',
             category: transaction.category?.id || '',
             budget: transaction.budget?.id || '',
+            evidence: transaction.evidence || [],
         })
         setIsEditing(true)
         openForm()

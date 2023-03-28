@@ -112,6 +112,10 @@
                     "required": "El presupuesto es obligatorio"
                 }
             },
+            "evidence": {
+                "label": "Imagenes",
+                "placeholder": "Subir imagen"
+            },
             "submit": {
                 "label": "Guardar",
                 "loading": "Guardando..."

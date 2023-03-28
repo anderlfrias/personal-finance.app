@@ -125,6 +125,10 @@
                     "required": "Budget is required"
                 }
             },
+            "evidence": {
+                "label": "Images",
+                "placeholder": "Chose images"
+            },
             "submit": {
                 "label": "Submit",
                 "loading": "Submitting..."

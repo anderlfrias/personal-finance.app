@@ -1,15 +1,17 @@
 
 import React, { useEffect, useState } from 'react'
-import { Input, Button, FormItem, FormContainer, DatePicker, Select, Segment } from 'components/ui'
+import { Input, Button, FormItem, FormContainer, DatePicker, Select, Segment, Upload } from 'components/ui'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import useWallet from 'utils/hooks/custom/useWallet';
 import useCategory from 'utils/hooks/custom/useCategory';
 import * as Yup from 'yup'
-import { SegmentItemOption } from 'components/shared';
+import { Loading, SegmentItemOption } from 'components/shared';
 import { HiCheckCircle } from 'react-icons/hi';
 import { BiLineChart, BiLineChartDown } from 'react-icons/bi';
 import useBudget from 'utils/hooks/custom/useBudget';
+import { convertirImagenToBase64, resizeImage } from 'utils/image';
+import Image from 'components/helpers/Image';
 
 const { DateTimepicker } = DatePicker
 
@@ -31,6 +33,7 @@ const validationSchema = Yup.object().shape({
         .nullable(),
     budget: Yup.string()
         .nullable(),
+    evidence: Yup.array()
 })
 
 const typeOptions = [
@@ -47,9 +50,18 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
     const [wallets, setWallets] = useState([])
     const [categories, setCategories] = useState([])
     const [budgets, setBudgets] = useState([])
+    const [uploadingImage, setUploadingImage] = useState(false)
 
+    const handleUpload = async (file, cb) => {
+        setUploadingImage(true)
+        const image = await resizeImage({ image: file, format: 'webp' })
+        convertirImagenToBase64(image, (base64) => {
+            cb(base64)
+        })
+        setUploadingImage(false)
+    }
     useEffect(() => {
-        const fetchWallets = async() => {
+        const fetchWallets = async () => {
             const resp = await getWallets()
             if (resp.status === 'success') {
                 setWallets(
@@ -61,7 +73,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
             }
         }
 
-        const fetchCategories = async() => {
+        const fetchCategories = async () => {
             const resp = await getCategories()
             if (resp.status === 'success') {
                 setCategories(
@@ -73,11 +85,10 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
             }
         }
 
-        const fetchBudgets = async() => {
+        const fetchBudgets = async () => {
             const resp = await getBudgets({ active: true })
 
             if (resp.status === 'success') {
-                console.log(resp.data)
                 setBudgets(
                     resp.data.map((budget) => ({
                         value: budget.id,
@@ -95,23 +106,25 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
     return (
         <div>
             <Formik
-                initialValues={ initialValues || {
+                initialValues={initialValues || {
                     type: '',
                     amount: '',
                     description: '',
                     date: new Date(),
                     wallet: '',
                     category: '',
-                    budget: ''
+                    budget: '',
+                    evidence: []
                 }}
                 validationSchema={validationSchema}
-                onSubmit={ async(values, { setSubmitting }) => {
+                onSubmit={async (values, { setSubmitting }) => {
+                    console.log(values)
                     setSubmitting(true)
                     await onSubmit(values)
                     setSubmitting(false)
                 }}
             >
-                {({ touched, errors, resetForm, isSubmitting, values}) => (
+                {({ touched, errors, resetForm, isSubmitting, values }) => (
                     <Form>
                         <FormContainer>
                             {/* <div className='max-h-96 overflow-y-auto px-2'> */}
@@ -157,31 +170,31 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                                             }
                                         >
                                             <div className="flex w-full items-center gap-3">
-                                                { typeOptions.map((item) => (
+                                                {typeOptions.map((item) => (
                                                     <Segment.Item value={item.value} key={item.value} disabled={isEditing}>
-                                                    {({ ref, active, onSegmentItemClick, disabled}) => {
-                                                        return (
-                                                            <div className="text-center">
-                                                                <SegmentItemOption
-                                                                    hoverable
-                                                                    ref={ref}
-                                                                    active={active}
-                                                                    disabled={disabled}
-                                                                    defaultGutter={false}
-                                                                    onSegmentItemClick={onSegmentItemClick}
-                                                                    className="relative w-[166px] h-[50px]"
-                                                                    customCheck={<HiCheckCircle className="text-indigo-600 absolute top-2 right-2 text-lg" />}
-                                                                >
-                                                                    <div className="w-full flex items-center pl-3 gap-3">
-                                                                        <span className={`text-2xl ${active && 'text-indigo-600'}`}>{item.icon}</span>
-                                                                        <h6>
-                                                                            {t(`transaction.type.${item.value}`)}
-                                                                        </h6>
-                                                                    </div>
-                                                                </SegmentItemOption>
-                                                            </div>
-                                                        )
-                                                    }}
+                                                        {({ ref, active, onSegmentItemClick, disabled }) => {
+                                                            return (
+                                                                <div className="text-center">
+                                                                    <SegmentItemOption
+                                                                        hoverable
+                                                                        ref={ref}
+                                                                        active={active}
+                                                                        disabled={disabled}
+                                                                        defaultGutter={false}
+                                                                        onSegmentItemClick={onSegmentItemClick}
+                                                                        className="relative w-[166px] h-[50px]"
+                                                                        customCheck={<HiCheckCircle className="text-indigo-600 absolute top-2 right-2 text-lg" />}
+                                                                    >
+                                                                        <div className="w-full flex items-center pl-3 gap-3">
+                                                                            <span className={`text-2xl ${active && 'text-indigo-600'}`}>{item.icon}</span>
+                                                                            <h6>
+                                                                                {t(`transaction.type.${item.value}`)}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </SegmentItemOption>
+                                                                </div>
+                                                            )
+                                                        }}
                                                     </Segment.Item>
                                                 ))}
                                             </div>
@@ -312,6 +325,51 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                                     </FormItem>
                                 )
                             }
+
+                            <FormItem
+                                label={t(`${p}.evidence.label`)}
+                                invalid={errors.evidence && touched.evidence}
+                                errorMessage={t(`${p}${errors.evidence}`)}
+                            >
+                                <Field name="evidence">
+                                    {({ field, form }) => (
+                                        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4'>
+                                            {values.evidence.map((evidence, index) => (
+                                                <Image
+                                                    key={index}
+                                                    src={evidence}
+                                                    className="w-full max-h-32 object-cover"
+                                                    onDelete={
+                                                        () => {
+                                                            const newEvidence = values.evidence.filter((item, i) => i !== index);
+                                                            form.setFieldValue(
+                                                                field.name,
+                                                                newEvidence
+                                                            );
+                                                        }
+                                                    }
+                                                />
+                                            ))}
+
+                                            <Upload
+                                                onChange={(files) => handleUpload(files.pop(), (base64) => form.setFieldValue(field.name, [ ...values.evidence, base64 ]))}
+                                                className="min-h-fit"
+                                                showList={false}
+                                                multiple={false}
+                                                accept="image/*"
+                                                draggable
+                                            >
+                                                <div className="max-w-full flex flex-col px-4 py-2 justify-center items-center">
+                                                    <Loading loading={uploadingImage} type='cover'>
+                                                        <ImageIcon className="" />
+                                                        <span>{t(`${p}.evidence.placeholder`)}</span>
+                                                    </Loading>
+                                                </div>
+                                            </Upload>
+                                        </div>
+                                    )}
+                                </Field>
+                            </FormItem>
                             {/* </div> */}
 
                             <FormItem className='mt-2'>
@@ -324,10 +382,10 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                                         onCancel()
                                     }}
                                 >
-                                    { t(`${p}.cancel`) }
+                                    {t(`${p}.cancel`)}
                                 </Button>
                                 <Button variant="solid" type="submit" loading={isSubmitting}>
-                                    { isSubmitting ? t(`${p}.submit.loading`) : t(`${p}.submit.label`) }
+                                    {isSubmitting ? t(`${p}.submit.loading`) : t(`${p}.submit.label`)}
                                 </Button>
                             </FormItem>
                         </FormContainer>
@@ -339,3 +397,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
 }
 
 export default TransactionForm
+
+const ImageIcon = ({ className }) => (
+    <img className={className} src="/img/others/upload.png" alt='upload' />
+)

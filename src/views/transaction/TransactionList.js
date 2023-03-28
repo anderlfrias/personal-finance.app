@@ -5,10 +5,13 @@ import { Table } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import formatCurrency from 'utils/formatCurrency'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
+import { useSelector } from 'react-redux'
 
 const { Tr, Th, Td, THead, TBody } = Table
 const p = 'transaction'
 function TransactionList({ className, transactions, onClickItem, ...rest}) {
+    const themeColor = useSelector((state) => state.theme.themeColor)
+	const primaryColorLevel = useSelector((state) => state.theme.primaryColorLevel)
     const { t } = useTranslation()
     const { width: screenWidth } = useScreenSize()
     const [viewTable, setViewTable] = useState(false)
@@ -51,7 +54,7 @@ function TransactionList({ className, transactions, onClickItem, ...rest}) {
                                             </div>
                                         </Td>
                                         <Td>
-                                            <div className='min-w-max text-indigo-600 cursor-pointer select-none font-semibold' onClick={() => onClickItem(transaction)}>
+                                            <div className={`min-w-max text-${themeColor}-${primaryColorLevel} cursor-pointer select-none font-semibold`} onClick={() => onClickItem(transaction)}>
                                                 {t(`${p}.table.details`)}
                                             </div>
                                         </Td>

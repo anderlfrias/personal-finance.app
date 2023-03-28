@@ -8,11 +8,14 @@ import { useTranslation } from 'react-i18next'
 import { Table } from 'components/ui'
 import State from './State'
 import BudgetItem from './BudgetItem'
+import { useSelector } from 'react-redux'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
 const p = 'budget' // prefix for translation key
 function BudgetList({ budgets, onClickItem }) {
+    const themeColor = useSelector((state) => state.theme.themeColor)
+	const primaryColorLevel = useSelector((state) => state.theme.primaryColorLevel)
     const { t } = useTranslation();
     const { width: screenWidth } = useScreenSize()
 
@@ -60,7 +63,7 @@ function BudgetList({ budgets, onClickItem }) {
                                         <Td className='font-semibold'>{formatCurrency(getRemain(item))}</Td>
                                         <Td><State state={getState(item)} /></Td>
                                         <Td>
-                                            <div className='min-w-max text-indigo-600 cursor-pointer select-none font-semibold' onClick={() => onClickItem(item)}>
+                                            <div className={`min-w-max text-${themeColor}-${primaryColorLevel} cursor-pointer select-none font-semibold`} onClick={() => onClickItem(item)}>
                                                 {t(`${p}.table.details`)}
                                             </div>
                                         </Td>
