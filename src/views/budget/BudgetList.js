@@ -5,17 +5,15 @@ import TowToneIcon from 'components/helpers/TwoToneIcon'
 import { getRemain, getState, isActive } from './utils'
 import formatCurrency from 'utils/formatCurrency'
 import { useTranslation } from 'react-i18next'
-import { Table } from 'components/ui'
+import { Table, useConfig } from 'components/ui'
 import State from './State'
 import BudgetItem from './BudgetItem'
-import { useSelector } from 'react-redux'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
 const p = 'budget' // prefix for translation key
 function BudgetList({ budgets, onClickItem }) {
-    const themeColor = useSelector((state) => state.theme.themeColor)
-	const primaryColorLevel = useSelector((state) => state.theme.primaryColorLevel)
+	const { themeColor, primaryColorLevel } = useConfig()
     const { t } = useTranslation();
     const { width: screenWidth } = useScreenSize()
 

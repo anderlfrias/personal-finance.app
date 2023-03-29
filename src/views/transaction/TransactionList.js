@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import TransactionItem from 'views/transaction/TransactionItem'
 import { getIcon } from 'components/helpers/TwoToneIcon'
-import { Table } from 'components/ui'
+import { Table, useConfig } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import formatCurrency from 'utils/formatCurrency'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
-import { useSelector } from 'react-redux'
 
 const { Tr, Th, Td, THead, TBody } = Table
 const p = 'transaction'
 function TransactionList({ className, transactions, onClickItem, ...rest}) {
-    const themeColor = useSelector((state) => state.theme.themeColor)
-	const primaryColorLevel = useSelector((state) => state.theme.primaryColorLevel)
+	const { themeColor, primaryColorLevel } = useConfig()
     const { t } = useTranslation()
     const { width: screenWidth } = useScreenSize()
     const [viewTable, setViewTable] = useState(false)

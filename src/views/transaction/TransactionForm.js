@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { Input, Button, FormItem, FormContainer, DatePicker, Select, Segment, Upload } from 'components/ui'
+import { Input, Button, FormItem, FormContainer, DatePicker, Select, Segment, Upload, useConfig } from 'components/ui'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import useWallet from 'utils/hooks/custom/useWallet';
@@ -43,6 +43,7 @@ const typeOptions = [
 
 const p = 'transaction.form' // path to translation file
 const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
+	const { themeColor, primaryColorLevel } = useConfig()
     const { t } = useTranslation()
     const { getWallets } = useWallet();
     const { getCategories } = useCategory()
@@ -183,10 +184,10 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                                                                         defaultGutter={false}
                                                                         onSegmentItemClick={onSegmentItemClick}
                                                                         className="relative w-[166px] h-[50px]"
-                                                                        customCheck={<HiCheckCircle className="text-indigo-600 absolute top-2 right-2 text-lg" />}
+                                                                        customCheck={<HiCheckCircle className={`text-${themeColor}-${primaryColorLevel} absolute top-2 right-2 text-lg`} />}
                                                                     >
                                                                         <div className="w-full flex items-center pl-3 gap-3">
-                                                                            <span className={`text-2xl ${active && 'text-indigo-600'}`}>{item.icon}</span>
+                                                                            <span className={`text-2xl ${active && `text-${themeColor}-${primaryColorLevel}`}`}>{item.icon}</span>
                                                                             <h6>
                                                                                 {t(`transaction.type.${item.value}`)}
                                                                             </h6>
