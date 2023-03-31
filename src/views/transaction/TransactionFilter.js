@@ -5,6 +5,7 @@ import { HiSearch } from 'react-icons/hi'
 import { useTranslation } from 'react-i18next';
 import useWallet from 'utils/hooks/custom/useWallet';
 import useCategory from 'utils/hooks/custom/useCategory';
+import useScreenSize from 'utils/hooks/custom/useScreenSize'
 
 const p = 'transaction.filter';
 
@@ -14,8 +15,14 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
     const { getCategories } = useCategory();
     const [wallets, setWallets] = useState([]);
     const [categories, setCategories] = useState([]);
+    const { width: screenWidth } = useScreenSize()
 
-    const [values, setValues] = useState({})
+    const [values, setValues] = useState({
+        search: '',
+        dateRange: [null, null],
+        wallets: [],
+        categories: []
+    })
 
     const onChangeValues = (name, value) => {
         setValues({
@@ -51,8 +58,6 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
             dateRange: [null, null],
             wallets: [],
             categories: []
-            // wallets: wallets.map(item => item.id),
-            // categories: categories.map(item => item.id)
         })
     }
 
@@ -76,14 +81,14 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
         });
     }, [getWallets, getCategories])
 
-    useEffect(() => {
-        setValues({
-            search: '',
-            dateRange: [null, null],
-            wallets: wallets.map(item => item.id),
-            categories: categories.map(item => item.id)
-        })
-    }, [wallets, categories])
+    // useEffect(() => {
+    //     setValues({
+    //         search: '',
+    //         dateRange: [null, null],
+    //         wallets: wallets.map(item => item.id),
+    //         categories: categories.map(item => item.id)
+    //     })
+    // }, [wallets, categories])
     return (
         <div>
             <Drawer
@@ -91,6 +96,7 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
                 isOpen={isOpen}
                 onClose={onClose}
                 footer={Footer}
+                width={ screenWidth >= 768 ? 500 : screenWidth}
             >
                 <div>
                     <div className='mb-4'>

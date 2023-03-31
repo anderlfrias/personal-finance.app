@@ -2,19 +2,7 @@ import { Button, Drawer } from "components/ui";
 import React from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
-// import openNotification from "utils/openNotification";
 
-
-// function copyToClipboard(text) {
-//     navigator.clipboard.writeText(text)
-//     .then(() => {
-//         openNotification({ type : 'success', subtitle: text})
-//         console.log("Texto copiado al portapapeles: " + text);
-//     })
-//     .catch((err) => {
-//         console.error("Error al copiar texto: ", err);
-//     });
-// }
 function DrawerDetails(props) {
     const {
         children,
@@ -35,7 +23,6 @@ function DrawerDetails(props) {
             <h4>{title}</h4>
             <div className="flex">
                 <p className="text-gray-500">{subtitle}</p>
-                {/* <HiOutlineDuplicate className="ml-1 text-lg self-center cursor-pointer" onClick={() => copyToClipboard(subtitle)} />   */}
             </div>
         </div>
     )
