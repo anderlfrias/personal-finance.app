@@ -9,21 +9,22 @@ const getLocale = () => {
     return locale || 'en';
 }
 
-export default function formatDate(value) {
+export default function formatDate(date) {
     return new Intl.DateTimeFormat(getLocale(), {
         month: 'short',
         day: '2-digit',
         year: 'numeric'
-    }).format(value);
+    }).format(date);
 }
 
-export function formatDateTime(value) {
+export function formatDateTime(date) {
     return new Intl.DateTimeFormat(getLocale(), {
         month: 'short',
         day: '2-digit',
         year: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
-        second: 'numeric'
-    }).format(value);
+        second: 'numeric',
+        hour12: true
+    }).format(date);
 }

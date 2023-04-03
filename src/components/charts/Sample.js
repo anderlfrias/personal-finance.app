@@ -3,20 +3,39 @@ import React from 'react'
 import Chart from 'react-apexcharts'
 import { COLORS } from 'constants/chart.constant'
 import formatDate from 'utils/formatDate'
+import useStatistic from 'utils/hooks/custom/useStatistic'
 
 const Sample = () => {
-    const data = [
-        {
-            name: 'Ingresos',
-            // data: [500, 800, 2500, 1200, 500, 3000, 1000],
-            data: [800, 10100, 700, 0, 0, 5000, 600],
-        },
-        {
-            name: 'Gastos',
-            // data: [300, 1800, 600, 1500, 775, 900, 2500],
-            data: [900, 0, 0, 3000, 2000, 0, 5000],
-        },
-    ]
+    const { getStatistic } = useStatistic()
+    const [data, setData] = React.useState([])
+    const [categories, setCategories] = React.useState([])
+
+    // const data = [
+    //     {
+    //         name: 'Ingresos',
+    //         data: [800, 10100, 700, 0, 0, 5000, 600],
+    //     },
+    //     {
+    //         name: 'Gastos',
+    //         data: [900, 0, 0, 3000, 2000, 0, 5000],
+    //     },
+    // ]
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            const resp = await getStatistic()
+
+            if (resp.status === 'success') {
+                setData(resp.data.series)
+                setCategories(resp.data.categories.map((item) => {
+                    console.log(item)
+                    return formatDate(new Date(item))
+                }))
+            }
+        }
+
+        fetchData()
+    }, [getStatistic])
 
     return (
         <Chart
@@ -30,22 +49,7 @@ const Sample = () => {
                 },
                 xaxis: {
                     type: 'category',
-                    categories: [
-                        formatDate(new Date('4/3/2023')),
-                        formatDate(new Date('3/31/2023')),
-                        formatDate(new Date('3/28/2023')),
-                        formatDate(new Date('3/27/2023')),
-                        formatDate(new Date('3/20/2023')),
-                        formatDate(new Date('3/17/2023')),
-                        formatDate(new Date('3/2/2023')),
-                        // 'Lunes',
-                        // 'Martes',
-                        // 'Miercoles',
-                        // 'Jueves',
-                        // 'Viernes',
-                        // 'Sabado',
-                        // 'Domingo',
-                    ],
+                    categories: categories,
                 },
             }}
             series={data}
