@@ -1,6 +1,5 @@
 import Sample from 'components/charts/Sample'
 import React from 'react'
-
 import { useTranslation } from 'react-i18next'
 
 const p = 'home'
