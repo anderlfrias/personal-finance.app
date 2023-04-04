@@ -11,5 +11,5 @@ export const getStartDate = () => {
 
 export const getEndDate = () => {
     const date = new Date();
-    return new Date(date.getFullYear(), date.getMonth(), getLastDayOfMonth(date.getFullYear(), date.getMonth()));
+    return new Date(date.getFullYear(), date.getMonth(), getLastDayOfMonth(date.getFullYear(), date.getMonth()), 23, 59, 59);
 };

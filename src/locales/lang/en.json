@@ -5,6 +5,7 @@
         "wallet": "Wallet",
         "category": "Category",
         "budget": "Budget",
+        "statistic": "Statistic",
         "singleMenuItem": "Single menu item",
         "collapseMenu": {
             "collapseMenu": "Collapse menu item",
@@ -428,6 +429,24 @@
         "filter": {
             "title": "Filter",
             "search": "Search category"
+        }
+    },
+    "statistic": {
+        "title": "Statistic",
+        "subtitle": "This is the statistic page",
+        "incomes": "Incomes",
+        "expenses": "Expenses",
+        "chartByDate": {
+            "title": "Summary income and expense by date",
+            "subtitle": "This is the chart by date page",
+            "filter": {
+                "title": "Filter",
+                "date": {
+                    "label": "Date",
+                    "placeholder": "Select date",
+                    "error": "Date is required"
+                }
+            }
         }
     },
     "login": {

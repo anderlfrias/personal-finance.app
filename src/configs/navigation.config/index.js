@@ -55,6 +55,16 @@ const navigationConfig = [
 		authority: [],
 		subMenu: []
 	},
+	{
+		key: 'statistic',
+		path: '/statistic',
+		title: 'Statistic',
+		translateKey: 'nav.statistic',
+		icon: 'statistic',
+		type: NAV_ITEM_TYPE_ITEM,
+		authority: [],
+		subMenu: []
+	},
     /** Example purpose only, please remove */
     {
         key: 'singleMenuItem',

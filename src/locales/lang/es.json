@@ -5,6 +5,7 @@
         "wallet": "Cuentas",
         "category": "Categorías",
         "budget": "Presupuestos",
+        "statistic": "Estadísticas",
         "singleMenuItem": "Menú"
     },
     "header": {
@@ -285,7 +286,7 @@
         }
     },
     "wallet": {
-        "title": "Mis Cuentas",
+        "title": "Cuentas",
         "subtitle": "Aquí puede ver sus cuentas",
         "button": {
             "create": "Crear cuenta",
@@ -357,7 +358,7 @@
         }
     },
     "category": {
-        "title": "Mis Categorías",
+        "title": "Categorías",
         "subtitle": "Aquí puede ver sus categorías",
         "button": {
             "create": "Crear categoría",
@@ -417,6 +418,23 @@
         "filter": {
             "title": "Filtrar",
             "search": "Buscar categoría"
+        }
+    },
+    "statistic": {
+        "title": "Estadísticas",
+        "subtitle": "Aquí puede ver sus estadísticas",
+        "incomes": "Ingresos",
+        "expenses": "Gastos",
+        "chartByDate": {
+            "title": "Gráfico de ingresos y gastos por fecha",
+            "filter": {
+                "title": "Filtrar",
+                "date": {
+                    "label": "Fecha",
+                    "placeholder": "Seleccione una fecha",
+                    "error": "La fecha es obligatoria"
+                }
+            }
         }
     },
     "login": {

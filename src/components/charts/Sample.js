@@ -10,27 +10,13 @@ const Sample = () => {
     const [data, setData] = React.useState([])
     const [categories, setCategories] = React.useState([])
 
-    // const data = [
-    //     {
-    //         name: 'Ingresos',
-    //         data: [800, 10100, 700, 0, 0, 5000, 600],
-    //     },
-    //     {
-    //         name: 'Gastos',
-    //         data: [900, 0, 0, 3000, 2000, 0, 5000],
-    //     },
-    // ]
-
     React.useEffect(() => {
         const fetchData = async () => {
             const resp = await getStatistic()
 
             if (resp.status === 'success') {
                 setData(resp.data.series)
-                setCategories(resp.data.categories.map((item) => {
-                    console.log(item)
-                    return formatDate(new Date(item))
-                }))
+                setCategories(resp.data.categories.map((item) =>  formatDate(new Date(item))))
             }
         }
 

@@ -36,6 +36,12 @@ export const protectedRoutes = [
         component: React.lazy(() => import('views/category')),
         authority: [],
     },
+    {
+        key: 'statistic',
+        path: '/statistic',
+        component: React.lazy(() => import('views/statistic')),
+        authority: [],
+    },
     /** Example purpose only, please remove */
     {
         key: 'singleMenuItem',
