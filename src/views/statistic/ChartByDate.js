@@ -5,7 +5,7 @@ import formatDate from 'utils/formatDate'
 import useStatistic from 'utils/hooks/custom/useStatistic'
 import { Card, DatePicker } from 'components/ui'
 import { useTranslation } from 'react-i18next'
-import { getEndDate } from 'utils/date'
+import { getEndDate, getLastHoursOfDay, getStartDate } from 'utils/date'
 
 const { DatePickerRange } = DatePicker
 
@@ -15,27 +15,31 @@ function ChartByDate() {
     const { getStatistic } = useStatistic()
     const [data, setData] = useState([])
     const [categories, setCategories] = useState([])
+    const [startDate, setStartDate] = useState(getStartDate())
+    const [endDate, setEndDate] = useState(getEndDate())
 
     const onChangeDate = (dates) => {
         const [start, end] = dates
 
-        if (start && end) {
-            console.log('fetch data with date range')
-            fetchData()
-        }
+        setStartDate(start ? new Date(start) : null)
+        setEndDate(end ? getLastHoursOfDay(new Date(end)): null)
     }
 
-    const fetchData = useCallback(async () => {
-        const resp = await getStatistic()
+    const fetchData = useCallback(async (startDate, endDate) => {
+        if (!startDate || !endDate) {
+            return
+        }
+        const q = `startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`
+        const resp = await getStatistic(q)
         if (resp.status === 'success') {
             setData(resp.data.series.map((item) => ({ ...item, name: t(`statistic.${item.name}`) })))
             setCategories(resp.data.categories.map((item) =>  formatDate(new Date(item))))
         }
     }, [getStatistic, t])
+
     useEffect(() => {
-        fetchData()
-        console.log('EndDate', getEndDate())
-    }, [fetchData])
+        fetchData(startDate, endDate)
+    }, [fetchData, startDate, endDate])
 
     return (
         <>
@@ -49,6 +53,8 @@ function ChartByDate() {
                             placeholder={t(`${p}.filter.date.placeholder`)}
                             onChange={onChangeDate}
                             size="sm"
+                            value={[startDate, endDate]}
+                            clearable={false}
                         />
                     </div>
                 </div>

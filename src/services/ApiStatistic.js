@@ -3,7 +3,7 @@ import ApiService from "./ApiService";
 
 export async function apiGetStatistics ( q ) {
     return ApiService.fetchData({
-        url: `${URL}/v1/statistics?q=${q}`,
+        url: `${URL}/v1/statistics?${q}`,
         method: 'get',
     })
 }

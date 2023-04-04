@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import useWallet from 'utils/hooks/custom/useWallet';
 import useCategory from 'utils/hooks/custom/useCategory';
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
+import { getLastHoursOfDay } from 'utils/date';
 
 const p = 'transaction.filter';
 
@@ -29,6 +30,13 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
             ...values,
             [name]: value
         })
+    }
+
+    const onChangeDateRange = (dates) => {
+        const startDate = dates[0];
+        const endDate = getLastHoursOfDay(dates[1]);
+
+        onChangeValues('dateRange', [startDate, endDate])
     }
 
     const handleSubmit = () => {
@@ -124,7 +132,7 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
                             size='sm'
                             placeholder={t(`${p}.date.placeholder`)}
                             value={values.dateRange}
-                            onChange={(date) => onChangeValues('dateRange',date)}
+                            onChange={onChangeDateRange}
                         />
                     </div>
 

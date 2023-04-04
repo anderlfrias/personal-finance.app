@@ -13,3 +13,8 @@ export const getEndDate = () => {
     const date = new Date();
     return new Date(date.getFullYear(), date.getMonth(), getLastDayOfMonth(date.getFullYear(), date.getMonth()), 23, 59, 59);
 };
+
+export const getLastHoursOfDay = (date) => {
+    const d = date ? new Date(date) : new Date();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59);
+}

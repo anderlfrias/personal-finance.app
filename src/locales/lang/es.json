@@ -426,7 +426,7 @@
         "incomes": "Ingresos",
         "expenses": "Gastos",
         "chartByDate": {
-            "title": "Gráfico de ingresos y gastos por fecha",
+            "title": "",
             "filter": {
                 "title": "Filtrar",
                 "date": {
