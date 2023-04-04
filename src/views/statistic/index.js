@@ -9,7 +9,7 @@ function Statistic() {
     <>
       <div className='container mx-auto'>
         <div className='mb-6'>
-          <h2 className='text-2xl font-bold'>{t(`${p}.title`)}</h2>
+          <h2 className='font-bold'>{t(`${p}.title`)}</h2>
           <p className='text-sm text-gray-500'>{t(`${p}.subtitle`)}</p>
         </div>
 

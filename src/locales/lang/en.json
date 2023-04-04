@@ -437,7 +437,7 @@
         "incomes": "Incomes",
         "expenses": "Expenses",
         "chartByDate": {
-            "title": "Summary income and expense by date",
+            "title": "",
             "subtitle": "This is the chart by date page",
             "filter": {
                 "title": "Filter",
