@@ -5,6 +5,7 @@ import { Table, useConfig } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import formatCurrency from 'utils/formatCurrency'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
+import { formatDateTime } from 'utils/formatDate'
 
 const { Tr, Th, Td, THead, TBody } = Table
 const p = 'transaction'
@@ -40,14 +41,16 @@ function TransactionList({ className, transactions, onClickItem, ...rest}) {
                                 transactions.length > 0 ? transactions.map((transaction, index) => (
                                     <Tr key={index}>
                                         <Td>{getIcon(transaction.type)}</Td>
-                                        <Td>{new Date(transaction.date).toLocaleString()}</Td>
+                                        <Td>
+                                            <div className='min-w-[130px]'>{formatDateTime(new Date(transaction.date))}</div>
+                                        </Td>
                                         <Td>{transaction.description}</Td>
                                         <Td>{transaction.wallet.name}</Td>
                                         <Td>{transaction?.category?.name || 'N/A'}</Td>
                                         <Td>
                                             <div className='min-w-max'>
                                                 <p className="font-bold">
-                                                    {transaction.type === 'expense' && '-'} {formatCurrency(transaction.amount)}
+                                                    {transaction.type === 'expense' && '-'}{formatCurrency(transaction.amount)}
                                                 </p>
                                             </div>
                                         </Td>

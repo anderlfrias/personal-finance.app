@@ -7,6 +7,28 @@ import TransactionItem from "views/transaction/TransactionItem";
 import TowToneIcon from "components/helpers/TwoToneIcon";
 import { HiLockClosed, HiLockOpen } from "react-icons/hi";
 import { getRemain, getSpent, getState, isActive } from "./utils";
+import { Skeleton } from "components/ui";
+
+const LoadingSkeleton = () => {
+    return (
+        <>
+            <div className='flex gap-2'>
+                <Skeleton className='w-10 h-10'/>
+                <div className='flex flex-col gap-1'>
+                    <Skeleton className='w-32 h-4'/>
+                    <Skeleton className='w-24 h-4'/>
+                </div>
+            </div>
+
+            <div className='flex flex-col gap-4 mt-4'>
+                <Skeleton className='w-full h-10'/>
+                <Skeleton className='w-full h-10'/>
+                <Skeleton className='w-full h-10'/>
+                <Skeleton className='w-full h-10'/>
+            </div>
+        </>
+    )
+}
 
 const p = "budget.details";
 function BudgetDetails({ budget, isOpen, onClose, onEdit, onDelete }) {
@@ -25,7 +47,7 @@ function BudgetDetails({ budget, isOpen, onClose, onEdit, onDelete }) {
                 onClose={onClose}
                 onDelete={onDelete}
             >
-                {budget && <>
+                {budget ? <>
                     <div className="flex flex-col gap-4">
 
                     <div className="flex items-center gap-2">
@@ -51,13 +73,6 @@ function BudgetDetails({ budget, isOpen, onClose, onEdit, onDelete }) {
                             </p>
                         </div>
 
-                        {/* <div className="flex flex-col gap-1 border-b">
-                            <p>{t(`${p}.name`)}</p>
-                            <p className='font-bold text-right'>
-                                {budget.name}
-                            </p>
-                        </div> */}
-
                         <div className="flex flex-col gap-1 border-b">
                             <p>{t(`${p}.amount`)}</p>
                             <p className='font-bold text-right'>
@@ -79,11 +94,6 @@ function BudgetDetails({ budget, isOpen, onClose, onEdit, onDelete }) {
                             </p>
                         </div>
 
-                        {/* <div className="flex flex-col gap-1 border-b">
-                            <p>{t(`${p}.state`)}</p>
-                            <State className="justify-end" state={getState(budget)} />
-                        </div> */}
-
                         <div className="flex flex-col gap-1">
                             <p>{t(`${p}.transactions`)}</p>
                             { budget.transactions.length > 0 ? budget.transactions.map(transaction => (
@@ -94,7 +104,7 @@ function BudgetDetails({ budget, isOpen, onClose, onEdit, onDelete }) {
                         </div>
                     </div>
                 </>
-                }
+                : <LoadingSkeleton />}
             </DrawerDetails>
         </>
     )

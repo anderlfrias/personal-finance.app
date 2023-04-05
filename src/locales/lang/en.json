@@ -449,6 +449,21 @@
             }
         }
     },
+    "settings": {
+        "title": "Settings",
+        "subtitle": "This is the settings page",
+        "mode": {
+            "title": "Mode",
+            "subtitle": "This is the mode page",
+            "light": "Light",
+            "dark": "Dark"
+        },
+        "color": {
+            "title": "Color",
+            "subtitle": "This is the color page",
+            "default": "Default"
+        }
+    },
     "login": {
         "title": "Welcome back",
         "subtitle": "Please login to continue",

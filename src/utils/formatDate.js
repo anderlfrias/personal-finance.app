@@ -10,6 +10,7 @@ const getLocale = () => {
 }
 
 export default function formatDate(date) {
+    if (!date) return null;
     return new Intl.DateTimeFormat(getLocale(), {
         month: 'short',
         day: '2-digit',
@@ -18,6 +19,7 @@ export default function formatDate(date) {
 }
 
 export function formatDateTime(date) {
+    if (!date) return null;
     return new Intl.DateTimeFormat(getLocale(), {
         month: 'short',
         day: '2-digit',

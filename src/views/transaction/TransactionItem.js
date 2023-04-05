@@ -2,6 +2,7 @@ import { getIcon } from 'components/helpers/TwoToneIcon';
 import React from 'react'
 import { HiCalendar } from 'react-icons/hi';
 import formatCurrency from 'utils/formatCurrency';
+import formatDate from 'utils/formatDate';
 
 function TransactionItem({ transaction, onClick }) {
     const { type, description, amount, date } = transaction;
@@ -17,7 +18,7 @@ function TransactionItem({ transaction, onClick }) {
                             {description}
                         </h6>
                         <p className="text-xs text-gray-500 flex items-center min-w-max">
-                            <HiCalendar className='mr-1' /> {new Date(date).toLocaleDateString()}
+                            <HiCalendar className='mr-1' /> {formatDate(new Date(date))}
                         </p>
                     </div>
                 </div>

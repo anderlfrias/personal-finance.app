@@ -437,6 +437,19 @@
             }
         }
     },
+    "settings": {
+        "title": "Configuración",
+        "subtitle": "Aquí puede configurar la apariencia su cuenta",
+        "mode": {
+            "title": "Modo",
+            "light": "Claro",
+            "dark": "Oscuro"
+        },
+        "color": {
+            "title": "Color",
+            "default": "Por defecto"
+        }
+    },
     "login": {
         "title": "Iniciar sesión",
         "subtitle": "Inicie sesión para acceder a la aplicación",
