@@ -445,7 +445,25 @@
                     "label": "Date",
                     "placeholder": "Select date",
                     "error": "Date is required"
-                }
+                },
+                "yearly": "Yearly",
+                "monthly": "Monthly",
+                "weekly": "Weekly"
+            }
+        },
+        "overallChart": {
+            "title": "Overall chart",
+            "subtitle": "This is the overall chart page",
+            "filter": {
+                "title": "Filter",
+                "date": {
+                    "label": "Date",
+                    "placeholder": "Select date",
+                    "error": "Date is required"
+                },
+                "yearly": "Yearly",
+                "monthly": "Monthly",
+                "weekly": "Weekly"
             }
         }
     },

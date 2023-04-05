@@ -1,4 +1,4 @@
-import Sample from 'components/charts/Sample'
+import OverallChart from 'components/charts/OverallChart'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -17,7 +17,9 @@ const Home = () => {
 					</p>
 				</div>
 
-				<Sample />
+				<div className='mb-4'>
+					<OverallChart />
+				</div>
 			</div>
 		</>
 	)

@@ -18,3 +18,23 @@ export const getLastHoursOfDay = (date) => {
     const d = date ? new Date(date) : new Date();
     return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59);
 }
+
+export const getStartDateOfYears = (year) => {
+    return new Date(year, 0, 1)
+}
+
+export const getEndDateOfYears = (year) => {
+    return new Date(year, 11, 31, 23, 59, 59)
+}
+
+export const getStartDateOfWeeks = (date) => {
+    const day = date.getDay()
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1)
+    return new Date(date.setDate(diff))
+}
+
+export const getEndDateOfWeeks = (date) => {
+    const day = date.getDay()
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1) + 6
+    return new Date(date.setDate(diff))
+}

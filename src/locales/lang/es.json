@@ -433,7 +433,19 @@
                     "label": "Fecha",
                     "placeholder": "Seleccione una fecha",
                     "error": "La fecha es obligatoria"
-                }
+                },
+                "yearly": "Anual",
+                "monthly": "Mensual",
+                "weekly": "Semanal"
+            }
+        },
+        "overallChart": {
+            "title": "",
+            "filter": {
+                "title": "Filtrar",
+                "yearly": "Anual",
+                "monthly": "Mensual",
+                "weekly": "Semanal"
             }
         }
     },
