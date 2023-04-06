@@ -8,6 +8,7 @@ import TowToneIcon from "components/helpers/TwoToneIcon";
 import { HiLockClosed, HiLockOpen } from "react-icons/hi";
 import { getRemain, getSpent, getState, isActive } from "./utils";
 import { Skeleton } from "components/ui";
+import formatDate from "utils/formatDate";
 
 const LoadingSkeleton = () => {
     return (
@@ -69,7 +70,7 @@ function BudgetDetails({ budget, isOpen, onClose, onEdit, onDelete }) {
                         <div className="flex flex-col gap-1 border-b">
                             <p>{t(`${p}.daterange`)}</p>
                             <p className='font-bold text-right'>
-                                {new Date(budget.startDate).toLocaleDateString()} - {new Date(budget.endDate).toLocaleDateString()}
+                                {formatDate(new Date(budget.startDate))} - {formatDate(new Date(budget.endDate))}
                             </p>
                         </div>
 

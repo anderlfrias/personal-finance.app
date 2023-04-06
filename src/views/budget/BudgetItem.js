@@ -4,6 +4,7 @@ import { HiCalendar, HiLockClosed, HiLockOpen } from 'react-icons/hi';
 import formatCurrency from 'utils/formatCurrency';
 import State from './State';
 import { getState, isActive } from './utils';
+import formatDate from 'utils/formatDate';
 
 function BudgetItem({ budget, onClick }) {
     console.log(budget)
@@ -31,7 +32,7 @@ function BudgetItem({ budget, onClick }) {
                             {name}
                         </h6>
                         <p className="text-xs text-gray-500 flex items-center min-w-max">
-                            <HiCalendar className='mr-1' /> {new Date(startDate).toLocaleDateString()} - {new Date(endDate).toLocaleDateString()}
+                            <HiCalendar className='mr-1' /> {formatDate(new Date(startDate))} - {formatDate(new Date(endDate))}
                         </p>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { Table, useConfig } from 'components/ui'
 import State from './State'
 import BudgetItem from './BudgetItem'
+import formatDate from 'utils/formatDate'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -56,7 +57,11 @@ function BudgetList({ budgets, onClickItem }) {
                                             }
                                         </Td>
                                         <Td>{item.name}</Td>
-                                        <Td>{new Date(item.startDate).toLocaleDateString()} - {new Date(item.endDate).toLocaleDateString()}</Td>
+                                        <Td>
+                                            <div className='min-w-[100px]'>
+                                                {formatDate(new Date(item.startDate))} - {formatDate(new Date(item.endDate))}
+                                            </div>
+                                        </Td>
                                         <Td className='font-semibold'>{formatCurrency(item.amount)}</Td>
                                         <Td className='font-semibold'>{formatCurrency(getRemain(item))}</Td>
                                         <Td><State state={getState(item)} /></Td>
