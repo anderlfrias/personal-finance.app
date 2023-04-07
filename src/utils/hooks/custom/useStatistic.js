@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { apiGetStatistics } from 'services/ApiStatistic';
+import { apiGetStatistics, apiGetStatisticsByTimeFrame } from 'services/StatisticService';
 import { FailedResponse, SuccessResponse } from 'utils/response';
 
 function useStatistic() {
@@ -12,8 +12,18 @@ function useStatistic() {
         }
     }, []);
 
+    const getStatisticsByTimeFrame = useCallback(async (timeFrame = 'month') => {
+        try {
+            const resp = await apiGetStatisticsByTimeFrame(timeFrame);
+            return SuccessResponse(resp.data);
+        } catch (error) {
+            return FailedResponse(error);
+        }
+    }, []);
+
     return {
         getStatistic,
+        getStatisticsByTimeFrame
     };
 }
 

@@ -362,7 +362,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                                             >
                                                 <div className="max-w-full flex flex-col px-4 py-2 justify-center items-center">
                                                     <Loading loading={uploadingImage} type='cover'>
-                                                        <ImageIcon className="" />
+                                                        <ImageIcon />
                                                         <span>{t(`${p}.evidence.placeholder`)}</span>
                                                     </Loading>
                                                 </div>
