@@ -1,19 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import TransactionItem from 'views/transaction/TransactionItem'
 import { getIcon } from 'components/helpers/TwoToneIcon'
-import { Table, useConfig } from 'components/ui'
+import { Pagination, Table, useConfig } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import formatCurrency from 'utils/formatCurrency'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
 import { formatDateTime } from 'utils/formatDate'
 
 const { Tr, Th, Td, THead, TBody } = Table
+
+// const options = [
+//     { value: 5, label: '5 / page' },
+//     { value: 10, label: '10 / page' },
+//     { value: 20, label: '20 / page' },
+//     { value: 50, label: '50 / page' },
+// ]
+
 const p = 'transaction'
-function TransactionList({ className, transactions, onClickItem, ...rest}) {
+function TransactionList({ className, transactions, onClickItem, paginationProps, ...rest}) {
 	const { themeColor, primaryColorLevel } = useConfig()
     const { t } = useTranslation()
     const { width: screenWidth } = useScreenSize()
     const [viewTable, setViewTable] = useState(false)
+
+    // const [pageSize, setPageSize] = useState(options[0].value)
+
+    // const onPageSelect = ({ value }) => {
+    //     setPageSize(value)
+    // }
 
     useEffect(() => {
         if (screenWidth >= 768) setViewTable(true)
@@ -80,6 +94,19 @@ function TransactionList({ className, transactions, onClickItem, ...rest}) {
                     }</>
                 )
             }
+
+            <div className='flex items-center justify-end mt-4'>
+                {/* <div style={{ minWidth: 130 }}>
+                    <Select
+                        size="sm"
+                        isSearchable={false}
+                        defaultValue={options[0]}
+                        options={options}
+                        onChange={onPageSelect}
+                    />
+                </div> */}
+                <Pagination onChange={paginationProps.onChange} pageSize={paginationProps.top} total={paginationProps.total}  />
+            </div>
         </>
     )
 }

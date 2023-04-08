@@ -31,6 +31,10 @@ function Transaction() {
     const [isEditing, setIsEditing] = useState(false)
     const [selectedTransactionId, setSelectedTransactionId] = useState(null)
     const [isOpenConfirm, setIsOpenConfirm] = useState(false)
+    const [query, setQuery] = useState('')
+    const [top] = useState(10)
+    const [step, setStep] = useState(0)
+    const [total, setTotal] = useState(0)
 
     const onCloseConfirm = () => setIsOpenConfirm(false)
     const openConfirm = () => setIsOpenConfirm(true)
@@ -49,7 +53,8 @@ function Transaction() {
 
     const onFilter = (query) => {
         console.log(query)
-        fetchData(query)
+        setQuery(query)
+        // fetchData(query)
     }
 
     const openForm = () => {
@@ -157,17 +162,32 @@ function Transaction() {
         openForm()
     }
 
-    const fetchData = useCallback(async (q = '') => {
-        const resp = await getTransactions(q);
+    const onPaginationChange = (page) => {
+        console.log(page)
+        setStep(page - 1)
+    }
+
+    const fetchData = useCallback(async (q = '', top, step) => {
+        const query = `top=${top}&skip=${step * top}&${q}`
+        const resp = await getTransactions(query);
         console.log(resp);
         if (resp.status === 'success') {
-            setTransactions(resp.data);
+            setTransactions(resp.data.transactions);
+            setTotal(resp.data.total)
         }
     }, [getTransactions])
 
     useEffect(() => {
-        fetchData();
-    }, [fetchData])
+        fetchData(query, top, step);
+    }, [fetchData, query, top, step])
+
+    // useEffect(() => {
+    //     console.log('top', top)
+    //     console.log('step', step)
+    //     console.log('total', total)
+
+    //     setQuery(`top=${top}&skip=${step * top}&${query}`)
+    // }, [top, step, total])
 
     useEffect(() => {
         const incomes = transactions.filter(transaction => transaction.type === 'income')
@@ -209,13 +229,23 @@ function Transaction() {
                     </div>
                 </div>
 
-                <Card className='mb-6'>
+                <Card className='mb-16 sm:mb-4'>
                     <div className='sm:flex justify-between mb-2'>
                         {/* <h3 className='text-lg font-semibold mb-2 sm:mb-0'>
                             {t(`${p}.detail.title`)}
                         </h3> */}
                     </div>
-                    <TransactionList transactions={transactions} onClickItem={openDetail} />
+                    <TransactionList
+                        transactions={transactions}
+                        onClickItem={openDetail}
+                        paginationProps={{
+                            onChange: onPaginationChange,
+                            total: total,
+                            step: step + 1,
+                            top: top,
+                        }}
+                        onPaginationChange={onPaginationChange}
+                    />
                 </Card>
             </div>
 
