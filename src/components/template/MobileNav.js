@@ -11,6 +11,7 @@ import { NavToggle } from 'components/shared'
 import navigationConfig from 'configs/navigation.config'
 import useResponsive from 'utils/hooks/useResponsive'
 import { useSelector } from 'react-redux'
+import { APP_NAME } from 'constants/app.constant'
 
 const VerticalMenuContent = lazy(() => import('components/template/VerticalMenuContent'))
 
@@ -59,7 +60,7 @@ const MobileNav = () => {
 						<MobileNavToggle toggled={isOpen} />
 					</div>
 					<Drawer
-						title="Navigation"
+						title={APP_NAME}
 						isOpen={isOpen}
 						onClose={onDrawerClose}
 						onRequestClose={onDrawerClose}

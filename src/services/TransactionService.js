@@ -3,7 +3,7 @@ import { URL } from "constants/api.constant";
 
 export async function apiGetTransactions ( q ) {
     return ApiService.fetchData({
-        url: `${URL}/v1/transaction?q=${q}`,
+        url: `${URL}/v1/transaction?${q}`,
         method: 'get',
     })
 }

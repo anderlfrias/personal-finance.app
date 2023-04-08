@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import ChartByDate from './ChartByDate'
+import OverallChart from 'components/charts/OverallChart'
+import ChartByFilter from './ChartByFilter'
 
 const p = 'statistic'
 function Statistic() {
@@ -13,7 +15,11 @@ function Statistic() {
           <p className='text-sm text-gray-500'>{t(`${p}.subtitle`)}</p>
         </div>
 
+        <OverallChart />
+        <div className='mb-6'/>
         <ChartByDate />
+        <div className='mb-6'/>
+        <ChartByFilter />
       </div>
     </>
   )

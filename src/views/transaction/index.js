@@ -47,9 +47,9 @@ function Transaction() {
     const openFilter = () => setIsFilterOpen(true)
     const onCloseFilter = () => setIsFilterOpen(false)
 
-    const onFilter = (values) => {
-        console.log(values)
-        fetchData(values)
+    const onFilter = (query) => {
+        console.log(query)
+        fetchData(query)
     }
 
     const openForm = () => {
@@ -157,8 +157,8 @@ function Transaction() {
         openForm()
     }
 
-    const fetchData = useCallback(async (filter = '') => {
-        const resp = await getTransactions(filter);
+    const fetchData = useCallback(async (q = '') => {
+        const resp = await getTransactions(q);
         console.log(resp);
         if (resp.status === 'success') {
             setTransactions(resp.data);

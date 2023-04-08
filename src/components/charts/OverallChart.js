@@ -88,9 +88,9 @@ function OverallChart() {
         <>
             <Card>
                 <div className="sm:flex justify-between gap-y-4">
-                    {/* <h3 className="text-lg font-semibold">
+                    <h3 className="text-lg font-semibold">
                         {t(`${p}.title`)}
-                    </h3> */}
+                    </h3>
                     <div className="mb-4">
                         <InputGroup>
                             <Button

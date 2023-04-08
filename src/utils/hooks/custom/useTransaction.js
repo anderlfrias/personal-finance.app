@@ -12,9 +12,9 @@ import { FailedResponse, SuccessResponse } from 'utils/response';
 function useTransaction() {
 
     const user = useSelector((state) => state.auth.user)
-    const getTransactions = useCallback(async (filter = '') => {
+    const getTransactions = useCallback(async (q = '') => {
         try {
-            const resp = await apiGetTransactions(filter);
+            const resp = await apiGetTransactions(q);
             console.log(resp);
             return SuccessResponse(resp.data);
         } catch (error) {
