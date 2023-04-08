@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Chart } from 'components/shared'
+import { Chart, Loading } from 'components/shared'
 import { COLORS } from 'constants/chart.constant'
 import formatDate from 'utils/formatDate'
 import useStatistic from 'utils/hooks/custom/useStatistic'
@@ -43,6 +43,7 @@ function ChartByFilter() {
     const [data, setData] = useState([])
     const [categories, setCategories] = useState([])
     const [isFilterOpen, setIsFilterOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const openFilter = () => setIsFilterOpen(true)
     const onCloseFilter = () => setIsFilterOpen(false)
@@ -53,12 +54,14 @@ function ChartByFilter() {
     }
 
     const fetchData = useCallback(async (q = '') => {
+        setLoading(true)
         const resp = await getStatistic(q)
         if (resp.status === 'success') {
             const { series, categories } = handleResp(resp)
             setData(series.map((item) => ({ ...item, name: t(`statistic.${item.name}`) })))
             setCategories(categories.map((item) =>  formatDate(new Date(item))))
         }
+        setLoading(false)
     }, [getStatistic, t])
 
     useEffect(() => {
@@ -68,6 +71,7 @@ function ChartByFilter() {
     return (
         <>
             <Card>
+                <Loading loading={loading} type='cover'>
                 <div className="sm:flex justify-between gap-y-4">
                     <h3 className="text-lg font-semibold">
                         {t(`${p}.title`)}
@@ -103,6 +107,7 @@ function ChartByFilter() {
                     type="area"
                     height={300}
                 />
+                </Loading>
             </Card>
 
             <TransactionFilter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onSubmitFilter} />

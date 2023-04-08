@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Chart } from 'components/shared'
+import { Chart, Loading } from 'components/shared'
 import { COLORS } from 'constants/chart.constant'
 import formatDate from 'utils/formatDate'
 import useStatistic from 'utils/hooks/custom/useStatistic'
@@ -57,6 +57,7 @@ function OverallChart() {
     const [data, setData] = useState([])
     const [categories, setCategories] = useState([])
     const [searchRange, setSearchRange] = useState('month')
+    const [loading, setLoading] = useState(false)
 
     const onChangeSearchRange = (range) => {
         if (searchRange === range) {
@@ -67,6 +68,7 @@ function OverallChart() {
     }
 
     const fetchData = useCallback(async (searchRange) => {
+        setLoading(true)
         const resp = await getStatisticsByTimeFrame(searchRange)
         if (resp.status === 'success') {
             console.log(handleResp(resp.data))
@@ -78,6 +80,7 @@ function OverallChart() {
                 return t(`statistic.${p}.${item}`)
             }))
         }
+        setLoading(false)
     }, [getStatisticsByTimeFrame, t])
 
     useEffect(() => {
@@ -87,6 +90,7 @@ function OverallChart() {
     return (
         <>
             <Card>
+                <Loading loading={loading} type='cover'>
                 <div className="sm:flex justify-between gap-y-4">
                     <h3 className="text-lg font-semibold">
                         {t(`${p}.title`)}
@@ -142,6 +146,7 @@ function OverallChart() {
                     type="area"
                     height={300}
                 />
+                </Loading>
             </Card>
         </>
     )

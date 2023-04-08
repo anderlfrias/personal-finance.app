@@ -11,7 +11,7 @@ import TransactionList from './TransactionList'
 import TransactionFilter from './TransactionFilter'
 import TransactionDetails from './TransactionDetails'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
-import { ConfirmDialog } from 'components/shared'
+import { ConfirmDialog, Loading } from 'components/shared'
 import CreateButton from 'components/helpers/CreateButton'
 
 const p = 'transaction' // path to translation file
@@ -35,6 +35,7 @@ function Transaction() {
     const [top] = useState(10)
     const [step, setStep] = useState(0)
     const [total, setTotal] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     const onCloseConfirm = () => setIsOpenConfirm(false)
     const openConfirm = () => setIsOpenConfirm(true)
@@ -168,6 +169,7 @@ function Transaction() {
     }
 
     const fetchData = useCallback(async (q = '', top, step) => {
+        setLoading(true)
         const query = `top=${top}&skip=${step * top}&${q}`
         const resp = await getTransactions(query);
         console.log(resp);
@@ -175,19 +177,12 @@ function Transaction() {
             setTransactions(resp.data.transactions);
             setTotal(resp.data.total)
         }
+        setLoading(false)
     }, [getTransactions])
 
     useEffect(() => {
         fetchData(query, top, step);
     }, [fetchData, query, top, step])
-
-    // useEffect(() => {
-    //     console.log('top', top)
-    //     console.log('step', step)
-    //     console.log('total', total)
-
-    //     setQuery(`top=${top}&skip=${step * top}&${query}`)
-    // }, [top, step, total])
 
     useEffect(() => {
         const incomes = transactions.filter(transaction => transaction.type === 'income')
@@ -218,6 +213,8 @@ function Transaction() {
                     </div>
                 </div>
 
+                <Loading loading={loading} type='cover'>
+
                 <div className='mb-6'>
                     {/* <h3 className='text-lg font-semibold mb-2'>
                         {t(`${p}.summary.title`)}
@@ -247,6 +244,7 @@ function Transaction() {
                         onPaginationChange={onPaginationChange}
                     />
                 </Card>
+                </Loading>
             </div>
 
             {/* Form */}
