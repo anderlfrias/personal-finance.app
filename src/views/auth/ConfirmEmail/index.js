@@ -1,11 +1,9 @@
 import { Loading } from 'components/shared'
-import { Avatar, Button } from 'components/ui'
+import { Button } from 'components/ui'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { HiCheck } from 'react-icons/hi'
 import { useNavigate, useParams } from 'react-router-dom'
 import useAuth from 'utils/hooks/useAuth'
-import jwt_decode from "jwt-decode";
 
 const p = 'confirmEmail'
 function Confirmpassword() {
@@ -43,10 +41,6 @@ function Confirmpassword() {
                         <h3 className="mb-1">{t(`${p}.success.title`)}</h3>
                         <p>{t(`${p}.success.subtitle`)}</p>
                         <p>{t(`${p}.success.message`)}</p>
-
-                        {/* <Avatar shape="circle" size='lg' className="mt-4 mr-4 bg-emerald-500" icon={<HiCheck />} /> */}
-
-                        {/* Volver al login */}
 
                         <Button className="mt-4" variant="solid" onClick={onClick}>
                             {t(`${p}.success.login`)}
