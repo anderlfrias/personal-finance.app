@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import ChartByDate from './ChartByDate'
 import OverallChart from 'components/charts/OverallChart'
 import ChartByFilter from './ChartByFilter'
+import ChartOfCategory from './ChartOfCategory'
 
 const p = 'statistic'
 function Statistic() {
@@ -20,6 +21,11 @@ function Statistic() {
         <ChartByDate />
         <div className='mb-6'/>
         <ChartByFilter />
+        <div className='mb-6'/>
+        <ChartOfCategory type='income' />
+        <div className='mb-6'/>
+        <ChartOfCategory type='expense' />
+
       </div>
     </>
   )

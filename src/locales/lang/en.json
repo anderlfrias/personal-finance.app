@@ -466,6 +466,26 @@
                 "weekly": "Weekly"
             }
         },
+        "chartOfCategory": {
+            "title": "Title example",
+            "income": {
+                "title": "Incomes title",
+                "table": {
+                    "category": "Category",
+                    "amount": "Incomes",
+                    "empty":"No incomes found"
+                }
+            },
+            "expense": {
+                "title": "Expenses title",
+                "table": {
+                    "category": "Category",
+                    "amount": "Expenses",
+                    "empty":"No expenses found"
+                }
+            },
+            "noData": "No data found"
+        },
         "months": {
             "january": "January",
             "february": "February",

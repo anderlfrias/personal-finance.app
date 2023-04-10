@@ -14,3 +14,10 @@ export async function apiGetStatisticsByTimeFrame (timeFrame) {
         method: 'get',
     })
 }
+
+export async function apiGetAverageByCategory ( q ) {
+    return ApiService.fetchData({
+        url: `${URL}/v1/statistics/category?${q}`,
+        method: 'get',
+    })
+}

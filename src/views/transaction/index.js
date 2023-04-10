@@ -168,7 +168,7 @@ function Transaction() {
         setStep(page - 1)
     }
 
-    const fetchData = useCallback(async (q = '', top, step) => {
+    const fetchData = useCallback(async (q = '', top = 10, step = 0) => {
         setLoading(true)
         const query = `top=${top}&skip=${step * top}&${q}`
         const resp = await getTransactions(query);

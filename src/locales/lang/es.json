@@ -448,6 +448,26 @@
                 "weekly": "Semanal"
             }
         },
+        "chartOfCategory": {
+            "title": "",
+            "incomes": {
+                "title": "Ingresos por categoría",
+                "table": {
+                    "category": "Categoría",
+                    "amount": "Cantidad",
+                    "empty": "No hay ingresos"
+                }
+            },
+            "expenses": {
+                "title": "Gastos por categoría",
+                "table": {
+                    "category": "Categoría",
+                    "amount": "Cantidad",
+                    "empty": "No hay gastos"
+                }
+            },
+            "noData": "No se han encontrado datos"
+        },
         "days": {
             "monday": "Lunes",
             "tuesday": "Martes",

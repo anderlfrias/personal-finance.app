@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { apiGetStatistics, apiGetStatisticsByTimeFrame } from 'services/StatisticService';
+import { apiGetStatistics, apiGetStatisticsByTimeFrame, apiGetAverageByCategory } from 'services/StatisticService';
 import { FailedResponse, SuccessResponse } from 'utils/response';
 
 function useStatistic() {
@@ -21,9 +21,20 @@ function useStatistic() {
         }
     }, []);
 
+    const getStatisticOfCategory = useCallback(async (q = '') => {
+        try {
+            const resp = await apiGetAverageByCategory(q);
+            console.log('resp', resp)
+            return SuccessResponse(resp.data);
+        } catch (error) {
+            return FailedResponse(error);
+        }
+    }, []);
+
     return {
         getStatistic,
-        getStatisticsByTimeFrame
+        getStatisticsByTimeFrame,
+        getStatisticOfCategory,
     };
 }
 
