@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, initialState } from 'store/auth/userSlice'
-import { apiSignIn, apiSignUp } from 'services/AuthService'
+import { apiSignIn, apiSignUp, apiConfirmEmail } from 'services/AuthService'
 import { onSignInSuccess, onSignOutSuccess } from 'store/auth/sessionSlice'
 import appConfig from 'configs/app.config'
 import { REDIRECT_URL_KEY } from 'constants/app.constant'
@@ -50,33 +50,25 @@ function useAuth() {
 				name: values.name.trim(),
 				firstSurname: values.firstSurname.trim(),
 				secondSurname: values.secondSurname.trim(),
+				confirmEmailLink: `${window.location.origin}/confirm-email`
 			}
 			const resp = await apiSignUp(data)
-			if (resp.data) {
-				// const { token } = resp.data
-				// dispatch(onSignInSuccess(token))
-				// if(resp.data.user) {
-				// 	dispatch(setUser(resp.data.user || {
-				// 		avatar: '',
-				// 		userName: 'Anonymous',
-				// 		authority: ['USER'],
-				// 		email: ''
-				// 	}))
-				// }
-				// const redirectUrl = query.get(REDIRECT_URL_KEY)
-				// navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath)
-                return {
-                    status: 'success',
-                    message: ''
-                }
-			}
+			console.log(resp)
+			return SuccessResponse(resp.data)
 		} catch (errors) {
-			return {
-                status: 'failed',
-                message: errors?.response?.data?.message || errors.toString()
-            }
+			return FailedResponse(errors)
 		}
     }
+
+	const confirmEmail = async (token) => {
+		try {
+			const resp = await apiConfirmEmail(token)
+			console.log(resp)
+			return SuccessResponse(resp.data)
+		} catch (errors) {
+			return FailedResponse(errors)
+		}
+	}
 
     const handleSignOut = ()  => {
 		dispatch(onSignOutSuccess())
@@ -92,7 +84,8 @@ function useAuth() {
         authenticated: token && signedIn,
         signIn,
 		signUp,
-        signOut
+        signOut,
+		confirmEmail
     }
 }
 

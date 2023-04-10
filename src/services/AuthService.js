@@ -1,4 +1,4 @@
-import { URL } from 'constants/api.constant'
+import { REQUEST_HEADER_AUTH_KEY, URL } from 'constants/api.constant'
 import ApiService from './ApiService'
 
 export async function apiSignIn (data) {
@@ -14,6 +14,16 @@ export async function apiSignUp (data) {
         url: `${URL}/v1/user`,
         method: 'post',
         data
+    })
+}
+
+export async function apiConfirmEmail (token) {
+    return ApiService.fetchData({
+        url: `${URL}/v1/user/confirm-email`,
+        method: 'post',
+        headers: {
+            [REQUEST_HEADER_AUTH_KEY] : `${token}`,
+        }
     })
 }
 

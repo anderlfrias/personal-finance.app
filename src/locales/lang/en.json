@@ -631,6 +631,20 @@
                 "success": "Account created successfully. Please check your email to activate your account",
                 "error": "Failed to create account"
             }
+        },
+        "confirmEmail": {
+            "title": "Confirm email",
+            "subtitle": "Please confirm your email to continue"
+        }
+    },
+    "confirmEmail": {
+        "title": "Confirm email",
+        "subtitle": "Please confirm your email to continue",
+        "success": {
+            "title": "Email confirmed",
+            "subtitle": "Your email has been confirmed successfully",
+            "message": "You can now login to your account",
+            "login": "Back to login"
         }
     },
     "message": {
@@ -645,6 +659,9 @@
         "failed_to_login": "Failed to login",
         "missing_fields": "Missing fields",
         "unexpected": "Unexpected error",
-        "insufficient_funds": "Insufficient funds"
+        "insufficient_funds": "Insufficient funds",
+        "email_exists": "Email already exists",
+        "username_exists": "Username already exists",
+        "user_not_active": "User is not active"
     }
 }

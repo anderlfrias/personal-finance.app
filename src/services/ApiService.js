@@ -17,7 +17,7 @@ const ApiService = {
             ...param,
             headers: accessToken ? {
                 [REQUEST_HEADER_AUTH_KEY] : `${accessToken}`,
-            } : {},
+            } : param.headers || {},
         })
     }
 }

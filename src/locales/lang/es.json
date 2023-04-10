@@ -450,7 +450,7 @@
         },
         "chartOfCategory": {
             "title": "",
-            "incomes": {
+            "income": {
                 "title": "Ingresos por categoría",
                 "table": {
                     "category": "Categoría",
@@ -458,7 +458,7 @@
                     "empty": "No hay ingresos"
                 }
             },
-            "expenses": {
+            "expense": {
                 "title": "Gastos por categoría",
                 "table": {
                     "category": "Categoría",
@@ -626,6 +626,8 @@
         "failed_to_login": "Error al iniciar sesión",
         "missing_fields": "Faltan campos obligatorios",
         "unexpected": "Ha ocurrido un error inesperado",
-        "insufficient_funds": "No tiene fondos suficientes para realizar esta transacción"
+        "insufficient_funds": "No tiene fondos suficientes para realizar esta transacción",
+        "email_exists": "El correo electrónico ya está en uso",
+        "username_exists": "El nombre de usuario ya está en uso"
     }
 }

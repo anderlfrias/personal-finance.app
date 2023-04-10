@@ -36,7 +36,7 @@ const p = 'signup.form';
 const SignUpForm = props => {
 	const { t } = useTranslation()
 
-	const { disableSubmit = false, className, signInUrl = '/sign-in' } = props
+	const { disableSubmit = false, className, signInUrl = '/sign-in', setUserCreated } = props
 
 	const { signUp } = useAuth()
 
@@ -49,13 +49,17 @@ const SignUpForm = props => {
 		const result = await signUp({ name, firstSurname, secondSurname, username, password, email })
 
 		if (result.status === 'success') {
+			console.log(result)
+			setUserCreated(true)
 			openNotification({
 				type: 'success',
-				title: t(`${p}.message.success`),
+				title: '',
+				subtitle: t(`${p}.message.success`),
 			})
 		}
 
 		if (result.status === 'failed') {
+			console.log(result)
 			openNotification({ type: 'danger', title: t(result.message) })
 		}
 

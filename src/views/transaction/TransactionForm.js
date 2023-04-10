@@ -43,7 +43,7 @@ const typeOptions = [
 
 const p = 'transaction.form' // path to translation file
 const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
-	const { themeColor, primaryColorLevel } = useConfig()
+	const { themeColor, primaryColorLevel, mode } = useConfig()
     const { t } = useTranslation()
     const { getWallets } = useWallet();
     const { getCategories } = useCategory()
@@ -362,7 +362,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                                             >
                                                 <div className="max-w-full flex flex-col px-4 py-2 justify-center items-center">
                                                     <Loading loading={uploadingImage} type='cover'>
-                                                        <ImageIcon />
+                                                        <ImageIcon mode={mode} />
                                                         <span>{t(`${p}.evidence.placeholder`)}</span>
                                                     </Loading>
                                                 </div>
@@ -399,6 +399,10 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
 
 export default TransactionForm
 
-const ImageIcon = ({ className }) => (
-    <img className={className} src="/img/others/upload.png" alt='upload' />
+const ImageIcon = ({ className, mode }) => (
+    mode === 'light' ? (
+        <img className={className} src="/img/others/upload.png" alt='upload' />
+    ) : (
+        <img className={className} src="/img/others/upload-dark.png" alt='upload' />
+    )
 )
