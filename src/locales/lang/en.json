@@ -631,11 +631,15 @@
                 "success": "Account created successfully. Please check your email to activate your account",
                 "error": "Failed to create account"
             }
-        },
-        "confirmEmail": {
-            "title": "Confirm email",
-            "subtitle": "Please confirm your email to continue"
         }
+    },
+    "sendConfirmEmail": {
+        "title": "Confirm email",
+        "subtitle": "Please confirm your email to continue",
+        "message": "We have sent you an email to {email} with a link to confirm your email address. Please check your inbox and click on the link to confirm your email address.",
+        "resendEmail": "Resend email",
+        "login": "Back to",
+        "loginLink": "login"
     },
     "confirmEmail": {
         "title": "Confirm email",

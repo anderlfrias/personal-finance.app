@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
 import { useTranslation } from 'react-i18next'
 import openNotification from 'utils/openNotification'
+import { useNavigate } from 'react-router-dom'
 
 
 const validationSchema = Yup.object().shape({
@@ -34,9 +35,10 @@ const validationSchema = Yup.object().shape({
 const p = 'signup.form';
 
 const SignUpForm = props => {
+	const navigate = useNavigate()
 	const { t } = useTranslation()
 
-	const { disableSubmit = false, className, signInUrl = '/sign-in', setUserCreated } = props
+	const { disableSubmit = false, className, signInUrl = '/sign-in' } = props
 
 	const { signUp } = useAuth()
 
@@ -50,7 +52,7 @@ const SignUpForm = props => {
 
 		if (result.status === 'success') {
 			console.log(result)
-			setUserCreated(true)
+			navigate(`/send-confirm-email/${result.data.user.id}`, { state: { email: result.data.user.email } })
 			openNotification({
 				type: 'success',
 				title: '',

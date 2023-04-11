@@ -12,7 +12,7 @@ const SignUp = () => {
 				userCreated ? (
 					<div className="mb-8">
 						<h3 className="mb-1">{t(`${p}.confirmEmail.title`)}</h3>
-						<p>{t(`${p}.confirmEmail.subtitle`)}</p>
+						<p>{t(`${p}.confirmEmail.message`)}</p>
 					</div>
 				) : (
 					<>

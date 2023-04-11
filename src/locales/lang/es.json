@@ -614,6 +614,23 @@
             }
         }
     },
+    "sendConfirmEmail": {
+        "title": "Confirmar correo electrónico",
+        "subtitle": "Confirme su correo electrónico para acceder a la aplicación",
+        "message": "Hemos enviado un correo electrónico a {email} con un enlace para confirmar su dirección de correo electrónico. Por favor, revise su bandeja de entrada y haga clic en el enlace para confirmar su dirección de correo electrónico.",
+        "resendEmail": "Reenviar correo electrónico",
+        "login": "Volver al",
+        "loginLink": "inicio de sesión"
+    },
+    "confirmEmail": {
+        "title": "Confirmar correo electrónico",
+        "success": {
+            "title": "Correo electrónico confirmado",
+            "subtitle": "Su correo electrónico ha sido confirmado correctamente",
+            "message": "Ahora puede iniciar sesión en la aplicación",
+            "login": "Iniciar sesión"
+        }
+    },
     "message": {
         "success": "Éxito",
         "error": "Error",
@@ -628,6 +645,7 @@
         "unexpected": "Ha ocurrido un error inesperado",
         "insufficient_funds": "No tiene fondos suficientes para realizar esta transacción",
         "email_exists": "El correo electrónico ya está en uso",
-        "username_exists": "El nombre de usuario ya está en uso"
+        "username_exists": "El nombre de usuario ya está en uso",
+        "user_not_active": "El usuario no está activo"
     }
 }

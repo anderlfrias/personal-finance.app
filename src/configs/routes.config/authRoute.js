@@ -31,6 +31,12 @@ const authRoute = [
         component: React.lazy(() => import('views/auth/ConfirmEmail')),
         authority: [],
     },
+    {
+        key: 'sendConfirmEmail',
+        path: `/send-confirm-email/:token`,
+        component: React.lazy(() => import('views/auth/SendConfirmationEmail')),
+        authority: [],
+    }
 ]
 
 export default authRoute

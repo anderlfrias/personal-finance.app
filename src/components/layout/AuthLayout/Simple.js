@@ -11,7 +11,7 @@ const Simple = ({children, content, ...rest }) => {
 					<LanguageSelector />
 				</div>
 			<Container className="flex flex-col flex-auto items-center justify-center min-w-0 min-h-full">
-				<Card className="min-w-[320px] md:min-w-[450px]" bodyClass="md:p-10">
+				<Card className="min-w-[320px] md:min-w-[450px] max-w-[640px]" bodyClass="md:p-10">
 					<div className="text-center">
 						<Logo type="streamline" imgClass="mx-auto" />
 					</div>

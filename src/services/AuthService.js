@@ -27,6 +27,17 @@ export async function apiConfirmEmail (token) {
     })
 }
 
+export async function apiSendConfirmEmail (data, token) {
+    return ApiService.fetchData({
+        url: `${URL}/v1/user/send-confirmation-email`,
+        method: 'post',
+        data,
+        headers: {
+            [REQUEST_HEADER_AUTH_KEY] : `${token}`,
+        }
+    })
+}
+
 export async function apiSignOut (data) {
     return ApiService.fetchData({
         url: '/sign-out',
