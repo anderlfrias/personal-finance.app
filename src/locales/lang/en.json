@@ -525,6 +525,11 @@
             "title": "Color",
             "subtitle": "This is the color page",
             "default": "Default"
+        },
+        "nav": {
+            "title": "Navigation",
+            "default": "Default",
+            "themed": "Themed"
         }
     },
     "login": {
@@ -638,7 +643,7 @@
     "sendConfirmEmail": {
         "title": "Confirm email",
         "subtitle": "Please confirm your email to continue",
-        "message": "We have sent you an email to {email} with a link to confirm your email address. Please check your inbox and click on the link to confirm your email address.",
+        "message": "We have sent you an email to <strong>{email}</strong> with a link to confirm your email address. Please check your inbox and click on the link to confirm your email address.",
         "resendEmail": "Resend email",
         "login": "Back to",
         "loginLink": "login"

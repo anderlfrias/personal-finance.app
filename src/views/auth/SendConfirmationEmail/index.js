@@ -26,6 +26,13 @@ function SendConfirmationEmail() {
         await sendEmail(token)
     }
 
+    const innerHtml = (text, elementId) => {
+
+        const element = document.getElementById(elementId)
+
+        if (element && text) element.innerHTML = text
+    }
+
     const sendEmail = useCallback(async () => {
         setLoading(true)
         const resp = await sendConfirmEmail(token)
@@ -39,14 +46,19 @@ function SendConfirmationEmail() {
 
     useEffect(() => {
         !emailSent && sendEmail()
-    }, [emailSent, sendEmail])
+        if (state) {
+            const text = t(`${p}.message`).replace('{email}', hideEmail(state.email))
+            innerHtml(text, 'message')
+        }
+    }, [emailSent, sendEmail, state, t])
+
     return (
         <>
             <Loading loading={loading}>
             <div className="mb-8">
 				<h3 className="mb-1">{t(`${p}.title`)}</h3>
 				<p id='message'>
-                    {t(`${p}.message`).replace('{email}', hideEmail(state.email))}
+                    {/* {t(`${p}.message`).replace('{email}', hideEmail(state.email))} */}
                 </p>
 			</div>
 

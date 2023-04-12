@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import ModeSwitcher from "./ModeSwitcher";
 import ColorSwitcher from "./ColorSwitcher";
+import NavModeSwitcher from "components/template/ThemeConfigurator/NavModeSwitcher";
 
 const p = 'settings'
 function Settings() {
@@ -31,6 +32,15 @@ function Settings() {
                             </h6>
                         </div>
                         <ColorSwitcher />
+                    </div>
+
+                    <div>
+                        <div className="mb-3">
+                            <h6>
+                                {t(`${p}.nav.title`)}
+                            </h6>
+                        </div>
+                        <NavModeSwitcher />
                     </div>
                 </div>
             </div>

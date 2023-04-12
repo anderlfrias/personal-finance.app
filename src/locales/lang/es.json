@@ -505,6 +505,11 @@
         "color": {
             "title": "Color",
             "default": "Por defecto"
+        },
+        "nav": {
+            "title": "Barra de navegación",
+            "default": "Por defecto",
+            "themed": "Tematizada"
         }
     },
     "login": {
@@ -619,7 +624,7 @@
     "sendConfirmEmail": {
         "title": "Confirmar correo electrónico",
         "subtitle": "Confirme su correo electrónico para acceder a la aplicación",
-        "message": "Hemos enviado un correo electrónico a {email} con un enlace para confirmar su dirección de correo electrónico. Por favor, revise su bandeja de entrada y haga clic en el enlace para confirmar su dirección de correo electrónico.",
+        "message": "Hemos enviado un correo electrónico a <strong>{email}</strong> con un enlace para confirmar su dirección de correo electrónico. Por favor, revise su bandeja de entrada y haga clic en el enlace para confirmar su dirección de correo electrónico.",
         "resendEmail": "Reenviar correo electrónico",
         "login": "Volver al",
         "loginLink": "inicio de sesión"
