@@ -47,6 +47,11 @@ export const protectedRoutes = [
         path: '/settings',
         component: React.lazy(() => import('views/settings'))
     },
+    {
+        key: 'profile',
+        path: '/profile',
+        component: React.lazy(() => import('views/profile'))
+    },
     /** Example purpose only, please remove */
     // {
     //     key: 'singleMenuItem',

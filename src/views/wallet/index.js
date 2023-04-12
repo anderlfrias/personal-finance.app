@@ -123,7 +123,7 @@ function Wallet() {
                     <h2>
                         {t(`${p}.title`)}
                     </h2>
-                    <Button className='hidden sm:flex' variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
+                    <Button className='hidden sm:flex'  size='sm' variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
                         {t(`${p}.button.create`)}
                     </Button>
                 </div>

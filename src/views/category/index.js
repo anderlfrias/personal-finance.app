@@ -135,7 +135,7 @@ function Category() {
                     <h2>
                         {t(`${p}.title`)}
                     </h2>
-                    <Button variant='solid' icon={<HiPlusCircle />} onClick={openForm}>
+                    <Button variant='solid' size='sm' icon={<HiPlusCircle />} onClick={openForm}>
                         {t(`${p}.button.create`)}
                     </Button>
                 </div>
