@@ -437,7 +437,8 @@
                 "yearly": "Anual",
                 "monthly": "Mensual",
                 "weekly": "Semanal"
-            }
+            },
+            "noData": "No se han encontrado datos"
         },
         "overallChart": {
             "title": "",
@@ -446,7 +447,8 @@
                 "yearly": "Anual",
                 "monthly": "Mensual",
                 "weekly": "Semanal"
-            }
+            },
+            "noData": "No se han encontrado datos"
         },
         "chartOfCategory": {
             "title": "",

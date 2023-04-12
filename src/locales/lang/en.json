@@ -449,7 +449,8 @@
                 "yearly": "Yearly",
                 "monthly": "Monthly",
                 "weekly": "Weekly"
-            }
+            },
+            "noData": "No data found"
         },
         "overallChart": {
             "title": "Overall chart",
@@ -464,7 +465,8 @@
                 "yearly": "Yearly",
                 "monthly": "Monthly",
                 "weekly": "Weekly"
-            }
+            },
+            "noData": "No data found"
         },
         "chartOfCategory": {
             "title": "Title example",

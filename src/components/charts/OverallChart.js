@@ -67,6 +67,11 @@ function OverallChart() {
         setSearchRange(range)
     }
 
+    const hasData = (data) => {
+        if (data.length === 0) return false
+        return data[0].data.length > 0 || data[1].data.length > 0
+    }
+
     const fetchData = useCallback(async (searchRange) => {
         setLoading(true)
         const resp = await getStatisticsByTimeFrame(searchRange)
@@ -121,31 +126,42 @@ function OverallChart() {
                         </InputGroup>
                     </div>
                 </div>
-                <Chart
-                    options={{
-                        dataLabels: {
-                            enabled: false,
-                        },
-                        colors: [COLORS[2], COLORS[4]],
-                        stroke: {
-                            curve: 'smooth',
-                        },
-                        xaxis: {
-                            type: 'category',
-                            categories: categories,
-                        },
-                        tooltip: {
-                            y: {
-                                formatter: function (val) {
-                                    return formatCurrency(val)
-                                }
-                            }
-                        },
-                    }}
-                    series={data}
-                    type="area"
-                    height={300}
-                />
+
+                {
+                    hasData(data) ? (
+                        <Chart
+                            options={{
+                                dataLabels: {
+                                    enabled: false,
+                                },
+                                colors: [COLORS[2], COLORS[4]],
+                                stroke: {
+                                    curve: 'smooth',
+                                },
+                                xaxis: {
+                                    type: 'category',
+                                    categories: categories,
+                                },
+                                tooltip: {
+                                    y: {
+                                        formatter: function (val) {
+                                            return formatCurrency(val)
+                                        }
+                                    }
+                                },
+                            }}
+                            series={data}
+                            type="area"
+                            height={300}
+                        />
+                    ) : (
+                        <div className="flex justify-center h-40">
+                            <p className="italic">{t(`${p}.noData`)}</p>
+                        </div>
+                    )
+                }
+
+
                 </Loading>
             </Card>
         </>

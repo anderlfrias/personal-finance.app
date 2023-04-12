@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import ChartByDate from './ChartByDate'
+// import ChartByDate from './ChartByDate'
 import OverallChart from 'components/charts/OverallChart'
 import ChartByFilter from './ChartByFilter'
 import ChartOfCategory from './ChartOfCategory'
@@ -18,8 +18,8 @@ function Statistic() {
 
         <OverallChart />
         <div className='mb-6'/>
-        <ChartByDate />
-        <div className='mb-6'/>
+        {/* <ChartByDate />
+        <div className='mb-6'/> */}
         <ChartByFilter />
         <div className='mb-6'/>
         <ChartOfCategory type='income' />
