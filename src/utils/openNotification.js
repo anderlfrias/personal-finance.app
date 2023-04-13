@@ -33,7 +33,7 @@ function notificationWithSubtitle(text, subtitle) {
 
 export default function openNotification ({ title, type = null, subtitle = null }) {
 
-    if (!title) return
+    if (!title && title !== '') return
     if (!type && !subtitle) return notification(title)
     if (type && !subtitle) return notificationType(title, type)
     if (!type && subtitle) return notificationWithSubtitle(title, subtitle)

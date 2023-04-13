@@ -5,6 +5,17 @@ import { useTranslation } from 'react-i18next'
 import UserInfo from './UserInfo'
 import Password from './Password'
 import Account from './Account'
+import { HiOutlineKey, HiOutlineUserCircle } from 'react-icons/hi'
+import { MdOutlineManageAccounts } from "react-icons/md";
+
+const MenuContent = ({ icon, label }) => {
+    return (
+        <div className="flex items-center gap-2">
+            <span className={'text-2xl'}>{icon}</span>
+            <span>{label}</span>
+        </div>
+    )
+}
 
 const p = 'profile'
 function Profile() {
@@ -30,13 +41,13 @@ function Profile() {
                     <div className='2xl:col-span-1 xl:col-span-1 lg:col-span-2'>
                         <Menu defaultActiveKeys={[activeKey]} variant={'transparent'}>
                             <Menu.MenuItem className='mb-2' eventKey="userInfo" onSelect={onChangeMenu}>
-                                {t(`${p}.menu.personalData`)}
+                                <MenuContent icon={<HiOutlineUserCircle />} label={t(`${p}.menu.userInfo`)} />
                             </Menu.MenuItem>
                             <Menu.MenuItem className='mb-2' eventKey="password" onSelect={onChangeMenu}>
-                                {t(`${p}.menu.password`)}
+                                <MenuContent icon={<HiOutlineKey />} label={t(`${p}.menu.password`)} />
                             </Menu.MenuItem>
                             <Menu.MenuItem className='mb-2' eventKey="account" onSelect={onChangeMenu}>
-                                {t(`${p}.menu.account`)}
+                                <MenuContent icon={<MdOutlineManageAccounts />} label={t(`${p}.menu.account`)} />
                             </Menu.MenuItem>
                         </Menu>
                     </div>

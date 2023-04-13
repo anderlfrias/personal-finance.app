@@ -512,6 +512,79 @@
             "themed": "Tematizada"
         }
     },
+    "profile": {
+        "title": "Perfil",
+        "subtitle": "Aquí puede ver su perfil",
+        "menu": {
+            "userInfo": "Información de usuario",
+            "account": "Cuenta",
+            "password": "Contraseña"
+        },
+        "userInfo": {
+            "title": "Información de usuario",
+            "subtitle": "",
+            "edit": "Editar",
+            "surnames": "Apellidos",
+            "form": {
+                "title": "Datos de usuario",
+                "username": {
+                    "label": "Nombre de usuario",
+                    "placeholder": "Introduzca su nombre de usuario",
+                    "error": {
+                        "required": "El nombre de usuario es obligatorio",
+                        "min": "El nombre de usuario debe tener al menos 3 caracteres",
+                        "max": "El nombre de usuario debe tener como máximo 50 caracteres"
+                    }
+                },
+                "name": {
+                    "label": "Nombre",
+                    "placeholder": "Introduzca su nombre",
+                    "error": {
+                        "required": "El nombre es obligatorio",
+                        "min": "El nombre debe tener al menos 3 caracteres",
+                        "max": "El nombre debe tener como máximo 50 caracteres"
+                    }
+                },
+                "email": {
+                    "label": "Correo electrónico",
+                    "placeholder": "Introduzca su correo electrónico",
+                    "error": {
+                        "required": "El correo electrónico es obligatorio",
+                        "email": "El correo electrónico no es válido",
+                        "min": "El correo electrónico debe tener al menos 3 caracteres",
+                        "max": "El correo electrónico debe tener como máximo 50 caracteres"
+                    }
+                },
+                "firstSurname": {
+                    "label": "Primer apellido",
+                    "placeholder": "Introduzca su primer apellido",
+                    "error": {
+                        "required": "El primer apellido es obligatorio",
+                        "min": "El primer apellido debe tener al menos 3 caracteres",
+                        "max": "El primer apellido debe tener como máximo 50 caracteres"
+                    }
+                },
+                "secondSurname": {
+                    "label": "Segundo apellido",
+                    "placeholder": "Introduzca su segundo apellido",
+                    "error": {
+                        "required": "El segundo apellido es obligatorio",
+                        "min": "El segundo apellido debe tener al menos 3 caracteres",
+                        "max": "El segundo apellido debe tener como máximo 50 caracteres"
+                    }
+                },
+                "submit": {
+                    "label": "Guardar",
+                    "loading": "Guardando..."
+                },
+                "cancel": "Cancelar"
+            },
+            "message": {
+                "success": "Perfil actualizado correctamente. Por favor, inicie sesión de nuevo para ver los cambios",
+                "error": "Error al actualizar el perfil"
+            }
+        }
+    },
     "login": {
         "title": "Iniciar sesión",
         "subtitle": "Inicie sesión para acceder a la aplicación",

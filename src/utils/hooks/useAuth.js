@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, initialState } from 'store/auth/userSlice'
-import { apiSignIn, apiSignUp, apiConfirmEmail, apiSendConfirmEmail, apiGetUserById } from 'services/AuthService'
+import { apiSignIn, apiSignUp, apiConfirmEmail, apiSendConfirmEmail } from 'services/AuthService'
 import { onSignInSuccess, onSignOutSuccess } from 'store/auth/sessionSlice'
 import appConfig from 'configs/app.config'
 import { REDIRECT_URL_KEY } from 'constants/app.constant'
@@ -109,15 +109,6 @@ function useAuth() {
 		}
 	}, [])
 
-	const getUserById = useCallback(async (id) => {
-		try {
-			const resp = await apiGetUserById(id)
-			return SuccessResponse(resp.data)
-		} catch (errors) {
-			return FailedResponse(errors)
-		}
-	}, [])
-
     const handleSignOut = ()  => {
 		dispatch(onSignOutSuccess())
 		dispatch(setUser(initialState))
@@ -137,7 +128,6 @@ function useAuth() {
         signOut,
 		confirmEmail,
 		sendConfirmEmail,
-		getUserById
     }
 }
 

@@ -532,6 +532,77 @@
             "themed": "Themed"
         }
     },
+    "profile": {
+        "title": "Profile",
+        "subtitle": "This is the profile page",
+        "menu": {
+            "userInfo": "Personal info",
+            "account": "Account",
+            "password": "Password"
+        },
+        "userInfo": {
+            "title": "Personal info",
+            "subtitle": "This is the personal info page",
+            "edit": "Edit",
+            "surnames": "Surnames",
+            "form": {
+                "title": "Personal info form",
+                "username": {
+                    "label": "Username",
+                    "placeholder": "Enter your username",
+                    "error": {
+                        "required": "Username is required",
+                        "min": "Username must be at least 3 characters",
+                        "max": "Username must be less than 50 characters"
+                    }
+                },
+                "name": {
+                    "label": "Name",
+                    "placeholder": "Enter your name",
+                    "error": {
+                        "required": "Name is required",
+                        "min": "Name must be at least 3 characters",
+                        "max": "Name must be less than 50 characters"
+                    }
+                },
+                "email": {
+                    "label": "Email",
+                    "placeholder": "Enter your email",
+                    "error": {
+                        "required": "Email is required",
+                        "email": "Email is invalid"
+                    }
+                },
+                "firstSurname": {
+                    "label": "First surname",
+                    "placeholder": "Enter your first surname",
+                    "error": {
+                        "required": "First surname is required",
+                        "min": "First surname must be at least 3 characters",
+                        "max": "First surname must be less than 50 characters"
+                    }
+                },
+                "secondSurname": {
+                    "label": "Second surname",
+                    "placeholder": "Enter your second surname",
+                    "error": {
+                        "required": "Second surname is required",
+                        "min": "Second surname must be at least 3 characters",
+                        "max": "Second surname must be less than 50 characters"
+                    }
+                },
+                "cancel": "Cancel",
+                "submit": {
+                    "label": "Submit",
+                    "loading": "Submitting..."
+                }
+            },
+            "message": {
+                "success": "Personal data updated successfully. Please login again to see the changes",
+                "error": "Failed to update personal data"
+            }
+        }
+    },
     "login": {
         "title": "Welcome back",
         "subtitle": "Please login to continue",
