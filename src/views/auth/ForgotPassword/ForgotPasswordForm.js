@@ -1,35 +1,39 @@
 import React, { useState } from 'react'
 import { Input, Button, FormItem, FormContainer, Alert } from 'components/ui'
 import { ActionLink } from 'components/shared'
-import { apiForgotPassword } from 'services/AuthService'
 import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
+import useAuth from 'utils/hooks/useAuth'
+import { useTranslation } from 'react-i18next'
 
 const validationSchema = Yup.object().shape({
 	email: Yup.string().required('Please enter your email'),
 })
 
 const ForgotPasswordForm = props => {
-
+	const { t } = useTranslation()
 	const { disableSubmit = false, className, signInUrl = '/sign-in' } = props
 
 	const [ emailSent, setEmailSent ] = useState(false)
 
 	const [ message, setMessage ] = useTimeOutMessage()
 
+	const { forgotPassword } = useAuth()
+
 	const onSendMail = async (values, setSubmitting) => {
 		setSubmitting(true)
-		try {
-			const resp = await apiForgotPassword(values)
-			if (resp.data) {
-				setSubmitting(false)
-				setEmailSent(true)
-			}
-		} catch (errors) {
-			setMessage(errors?.response?.data?.message || errors.toString())
-			setSubmitting(false)
+		const resp = await forgotPassword(values)
+
+		if (resp.status === 'success') {
+			setEmailSent(true)
 		}
+
+		if (resp.status === 'failed') {
+			setMessage(t(resp.message))
+		}
+
+		setSubmitting(false)
 	}
 
 	return (
@@ -51,7 +55,7 @@ const ForgotPasswordForm = props => {
 			{message && <Alert className="mb-4" type="danger" showIcon>{message}</Alert>}
 			<Formik
 				initialValues={{
-					email: 'admin@mail.com',
+					email: '',
 				}}
 				validationSchema={validationSchema}
 				onSubmit={(values, { setSubmitting }) => {

@@ -793,6 +793,7 @@
         "email_exists": "Email already exists",
         "username_exists": "Username already exists",
         "user_not_active": "User is not active",
-        "invalid-password": "Current password is incorrect"
+        "invalid-password": "Current password is incorrect",
+        "user-not-found": "User not found"
     }
 }

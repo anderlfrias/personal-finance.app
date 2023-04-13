@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, initialState } from 'store/auth/userSlice'
-import { apiSignIn, apiSignUp, apiConfirmEmail, apiSendConfirmEmail } from 'services/AuthService'
+import { apiSignIn, apiSignUp, apiConfirmEmail, apiSendConfirmEmail, apiForgotPassword } from 'services/AuthService'
 import { onSignInSuccess, onSignOutSuccess } from 'store/auth/sessionSlice'
 import appConfig from 'configs/app.config'
 import { REDIRECT_URL_KEY } from 'constants/app.constant'
@@ -85,15 +85,14 @@ function useAuth() {
 		}
     }
 
-	const confirmEmail = async (token) => {
+	const confirmEmail = useCallback(async (token) => {
 		try {
 			const resp = await apiConfirmEmail(token)
-			console.log(resp)
 			return SuccessResponse(resp.data)
 		} catch (errors) {
 			return FailedResponse(errors)
 		}
-	}
+	}, [])
 
 	const sendConfirmEmail = useCallback(async (token) => {
 		try {
@@ -102,7 +101,19 @@ function useAuth() {
 			}
 
 			const resp = await apiSendConfirmEmail(data, token)
-			console.log(resp)
+			return SuccessResponse(resp.data)
+		} catch (errors) {
+			return FailedResponse(errors)
+		}
+	}, [])
+
+	const forgotPassword = useCallback(async (values) => {
+		try {
+			const data = {
+				...values,
+				forgotPasswordLink: `${window.location.origin}/reset-password`
+			}
+			const resp = await apiForgotPassword(data)
 			return SuccessResponse(resp.data)
 		} catch (errors) {
 			return FailedResponse(errors)
@@ -128,6 +139,7 @@ function useAuth() {
         signOut,
 		confirmEmail,
 		sendConfirmEmail,
+		forgotPassword
     }
 }
 

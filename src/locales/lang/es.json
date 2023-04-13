@@ -768,6 +768,7 @@
         "email_exists": "El correo electrónico ya está en uso",
         "username_exists": "El nombre de usuario ya está en uso",
         "user_not_active": "El usuario no está activo",
-        "invalid-password": "La contraseña actual no es válida"
+        "invalid-password": "La contraseña actual no es válida",
+        "user-not-found": "El usuario no existe"
     }
 }
