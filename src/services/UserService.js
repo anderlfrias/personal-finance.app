@@ -15,3 +15,11 @@ export async function apiUpdateUser (id, data) {
         data
     })
 }
+
+export async function apiChangePassword (id, data) {
+    return ApiService.fetchData({
+        url: `${URL}/v1/user/change-password/${id}`,
+        method: 'put',
+        data
+    })
+}

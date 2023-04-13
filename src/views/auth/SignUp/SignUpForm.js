@@ -25,8 +25,7 @@ const validationSchema = Yup.object().shape({
 		.required(`.email.error.required`),
 	password: Yup.string()
 		.required(`.password.error.required`)
-		.min(6, '.password.error.min')
-		.max(15, '.password.error.max'),
+		.min(6, '.password.error.min'),
 	confirmPassword: Yup.string()
 		.oneOf([Yup.ref('password'), null], '.confirmPassword.error.match')
 		.required(`.confirmPassword.error.required`)

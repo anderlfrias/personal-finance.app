@@ -513,7 +513,7 @@
         }
     },
     "profile": {
-        "title": "Perfil",
+        "title": "Mi Perfil",
         "subtitle": "Aquí puede ver su perfil",
         "menu": {
             "userInfo": "Información de usuario",
@@ -582,6 +582,47 @@
             "message": {
                 "success": "Perfil actualizado correctamente. Por favor, inicie sesión de nuevo para ver los cambios",
                 "error": "Error al actualizar el perfil"
+            }
+        },
+        "password": {
+            "title": "Cambiar contraseña",
+            "subtitle": "",
+            "form": {
+                "title": "Cambiar contraseña",
+                "password": {
+                    "label": "Contraseña actual",
+                    "placeholder": "Introduzca su contraseña actual",
+                    "error": {
+                        "required": "La contraseña actual es obligatoria",
+                        "min": "La contraseña actual debe tener al menos 3 caracteres",
+                        "max": "La contraseña actual debe tener como máximo 50 caracteres"
+                    }
+                },
+                "newPassword": {
+                    "label": "Nueva contraseña",
+                    "placeholder": "Introduzca su nueva contraseña",
+                    "error": {
+                        "required": "La nueva contraseña es obligatoria",
+                        "min": "La nueva contraseña debe tener al menos 3 caracteres",
+                        "max": "La nueva contraseña debe tener como máximo 50 caracteres",
+                        "noMatch": "La nueva contraseña no puede ser igual a la actual"
+                    }
+                },
+                "confirmPassword": {
+                    "label": "Confirmar contraseña",
+                    "placeholder": "Confirme su nueva contraseña",
+                    "error": {
+                        "required": "La confirmación de la contraseña es obligatoria",
+                        "min": "La confirmación de la contraseña debe tener al menos 3 caracteres",
+                        "max": "La confirmación de la contraseña debe tener como máximo 50 caracteres",
+                        "match": "Las contraseñas no coinciden"
+                    }
+                },
+                "submit": {
+                    "label": "Guardar",
+                    "loading": "Guardando..."
+                },
+                "cancel": "Cancelar"
             }
         }
     },
@@ -726,6 +767,7 @@
         "insufficient_funds": "No tiene fondos suficientes para realizar esta transacción",
         "email_exists": "El correo electrónico ya está en uso",
         "username_exists": "El nombre de usuario ya está en uso",
-        "user_not_active": "El usuario no está activo"
+        "user_not_active": "El usuario no está activo",
+        "invalid-password": "La contraseña actual no es válida"
     }
 }

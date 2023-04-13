@@ -601,6 +601,54 @@
                 "success": "Personal data updated successfully. Please login again to see the changes",
                 "error": "Failed to update personal data"
             }
+        },
+        "password": {
+            "title": "Change password",
+            "subtitle": "This is the password page",
+            "form": {
+                "title": "Password form",
+                "password": {
+                    "label": "Current password",
+                    "placeholder": "Enter your current password",
+                    "error": {
+                        "required": "Current password is required",
+                        "min": "Current password must be at least 6 characters",
+                        "max": "Current password must be less than 50 characters"
+                    }
+                },
+                "newPassword": {
+                    "label": "New password",
+                    "placeholder": "Enter your new password",
+                    "error": {
+                        "required": "New password is required",
+                        "min": "New password must be at least 6 characters",
+                        "max": "New password must be less than 50 characters",
+                        "noMatch": "New password must not match current password"
+                    }
+                },
+                "confirmPassword": {
+                    "label": "Confirm password",
+                    "placeholder": "Enter your confirm password",
+                    "error": {
+                        "required": "Confirm password is required",
+                        "min": "Confirm password must be at least 6 characters",
+                        "max": "Confirm password must be less than 50 characters",
+                        "match": "Confirm password must match new password"
+                    }
+                },
+                "cancel": "Clear",
+                "submit": {
+                    "label": "Submit",
+                    "loading": "Submitting..."
+                },
+                "message": {
+                    "success": "Password updated successfully",
+                    "errors": {
+                        "currentPassword": "Current password is incorrect",
+                        "error": "Failed to update password"
+                    }
+                }
+            }
         }
     },
     "login": {
@@ -744,6 +792,7 @@
         "insufficient_funds": "Insufficient funds",
         "email_exists": "Email already exists",
         "username_exists": "Username already exists",
-        "user_not_active": "User is not active"
+        "user_not_active": "User is not active",
+        "invalid-password": "Current password is incorrect"
     }
 }
