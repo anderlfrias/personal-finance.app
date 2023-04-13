@@ -2,28 +2,34 @@ import { Container } from 'components/shared'
 import { Card, Menu } from 'components/ui'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import UserInfo from './UserInfo'
+import Password from './Password'
+import Account from './Account'
 
 const p = 'profile'
 function Profile() {
     const { t } = useTranslation()
-    const [activeKey, setActiveKey] = useState('personal-data')
+    const [activeKey, setActiveKey] = useState('userInfo')
 
     const onChangeMenu = (key) => {
         if (key === activeKey) return
         setActiveKey(key)
     }
+
     return (
         <>
             <Container>
-                <h2>
-                    {t(`${p}.title`)}
-                </h2>
+                <div className='mb-6'>
+                    <h2>
+                        {t(`${p}.title`)}
+                    </h2>
+                </div>
 
-                <Card>
-                <div className='grid lg:grid-cols-5 xl:grid-cols-3 2xl:grid-cols-5 gap-4 h-full'>
+                <Card className=''>
+                <div className='grid lg:grid-cols-6 xl:grid-cols-4 2xl:grid-cols-6 gap-4 h-ful'>
                     <div className='2xl:col-span-1 xl:col-span-1 lg:col-span-2'>
-                        <Menu defaultActiveKeys={[activeKey]}>
-                            <Menu.MenuItem className='mb-2' eventKey="personal-data" onSelect={onChangeMenu}>
+                        <Menu defaultActiveKeys={[activeKey]} variant={'transparent'}>
+                            <Menu.MenuItem className='mb-2' eventKey="userInfo" onSelect={onChangeMenu}>
                                 {t(`${p}.menu.personalData`)}
                             </Menu.MenuItem>
                             <Menu.MenuItem className='mb-2' eventKey="password" onSelect={onChangeMenu}>
@@ -34,7 +40,12 @@ function Profile() {
                             </Menu.MenuItem>
                         </Menu>
                     </div>
-                    <div className='2xl:col-span-4 lg:col-span-3 xl:col-span-2'>
+                    <div className='2xl:col-span-5 lg:col-span-4 xl:col-span-3'>
+                        <div>
+                            {activeKey === 'userInfo' && <UserInfo />}
+                            {activeKey === 'password' && <Password />}
+                            {activeKey === 'account' && <Account />}
+                        </div>
                     </div>
                 </div>
                 </Card>

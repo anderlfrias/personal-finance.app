@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser, initialState } from 'store/auth/userSlice'
-import { apiSignIn, apiSignUp, apiConfirmEmail, apiSendConfirmEmail } from 'services/AuthService'
+import { apiSignIn, apiSignUp, apiConfirmEmail, apiSendConfirmEmail, apiGetUserById } from 'services/AuthService'
 import { onSignInSuccess, onSignOutSuccess } from 'store/auth/sessionSlice'
 import appConfig from 'configs/app.config'
 import { REDIRECT_URL_KEY } from 'constants/app.constant'
@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import useQuery from './useQuery'
 import jwt_decode from "jwt-decode";
 import { FailedResponse, SuccessResponse } from 'utils/response'
+import { useCallback } from 'react'
 
 function useAuth() {
 
@@ -94,7 +95,7 @@ function useAuth() {
 		}
 	}
 
-	const sendConfirmEmail = async (token) => {
+	const sendConfirmEmail = useCallback(async (token) => {
 		try {
 			const data = {
 				confirmEmailLink: `${window.location.origin}/confirm-email`
@@ -106,7 +107,16 @@ function useAuth() {
 		} catch (errors) {
 			return FailedResponse(errors)
 		}
-	}
+	}, [])
+
+	const getUserById = useCallback(async (id) => {
+		try {
+			const resp = await apiGetUserById(id)
+			return SuccessResponse(resp.data)
+		} catch (errors) {
+			return FailedResponse(errors)
+		}
+	}, [])
 
     const handleSignOut = ()  => {
 		dispatch(onSignOutSuccess())
@@ -126,7 +136,8 @@ function useAuth() {
 		signUp,
         signOut,
 		confirmEmail,
-		sendConfirmEmail
+		sendConfirmEmail,
+		getUserById
     }
 }
 
