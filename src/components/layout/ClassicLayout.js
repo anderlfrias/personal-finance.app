@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from 'components/template/Header'
 import SideNavToggle from 'components/template/SideNavToggle'
-import SidePanel from 'components/template/SidePanel'
+// import SidePanel from 'components/template/SidePanel'
 import MobileNav from 'components/template/MobileNav'
 import UserDropdown from 'components/template/UserDropdown'
 import SideNav from 'components/template/SideNav'
@@ -23,7 +23,7 @@ const HeaderActionsEnd = () => {
 		<>
 			<LanguageSelector />
 			<ModeSwitcher />
-			<SidePanel />
+			{/* <SidePanel /> */}
 			<UserDropdown hoverable={false} />
 		</>
 	)

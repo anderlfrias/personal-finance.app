@@ -110,6 +110,7 @@ function Wallet() {
     }
 
     const onCancelDelete = () => {
+        setSelectedWallet(null)
         setIsOpenConfirm(false)
     }
 
