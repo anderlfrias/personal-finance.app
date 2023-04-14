@@ -4,9 +4,9 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import UserInfo from './UserInfo'
 import Password from './Password'
-import Account from './Account'
+// import Account from './Account'
 import { HiOutlineKey, HiOutlineUserCircle } from 'react-icons/hi'
-import { MdOutlineManageAccounts } from "react-icons/md";
+// import { MdOutlineManageAccounts } from "react-icons/md";
 
 const MenuContent = ({ icon, label }) => {
     return (
@@ -46,16 +46,16 @@ function Profile() {
                             <Menu.MenuItem className='mb-2' eventKey="password" onSelect={onChangeMenu}>
                                 <MenuContent icon={<HiOutlineKey />} label={t(`${p}.menu.password`)} />
                             </Menu.MenuItem>
-                            <Menu.MenuItem className='mb-2' eventKey="account" onSelect={onChangeMenu}>
+                            {/* <Menu.MenuItem className='mb-2' eventKey="account" onSelect={onChangeMenu}>
                                 <MenuContent icon={<MdOutlineManageAccounts />} label={t(`${p}.menu.account`)} />
-                            </Menu.MenuItem>
+                            </Menu.MenuItem> */}
                         </Menu>
                     </div>
                     <div className='2xl:col-span-5 lg:col-span-4 xl:col-span-3'>
                         <div>
                             {activeKey === 'userInfo' && <UserInfo />}
                             {activeKey === 'password' && <Password />}
-                            {activeKey === 'account' && <Account />}
+                            {/* {activeKey === 'account' && <Account />} */}
                         </div>
                     </div>
                 </div>

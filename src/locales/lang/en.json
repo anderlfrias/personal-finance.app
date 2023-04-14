@@ -806,6 +806,45 @@
             }
         }
     },
+    "resetPassword": {
+        "form": {
+            "title": "Reset password",
+            "subtitle": "Please enter your new password",
+            "password": {
+                "label": "Password",
+                "placeholder": "Enter your password",
+                "error": {
+                    "required": "Password is required",
+                    "min": "Password must be at least 6 characters",
+                    "max": "Password must be less than 15 characters"
+                }
+            },
+            "confirmPassword": {
+                "label": "Confirm password",
+                "placeholder": "Confirm your password",
+                "error": {
+                    "required": "Confirm password is required",
+                    "match": "Passwords do not match"
+                }
+            },
+            "resetDone": {
+                "title": "Reset done",
+                "subtitle": "Your password has been reset successfully",
+                "message": "You can now login to your account"
+            },
+            "submit": {
+                "label": "Reset password",
+                "loading": "Resetting password..."
+            },
+            "continue": "Continue",
+            "message": {
+                "success": "Password reset successfully",
+                "error": "Failed to reset password"
+            },
+            "login": "Back to",
+            "loginLink": "login"
+        }
+    },
     "message": {
         "success": "Success",
         "error": "Error",

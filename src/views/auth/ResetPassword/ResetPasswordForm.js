@@ -6,13 +6,16 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
+import { useTranslation } from 'react-i18next'
 
 const validationSchema = Yup.object().shape({
-	password: Yup.string().required('Please enter your password'),
-	confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Your passwords do not match')
+	password: Yup.string().required('password.error.required').min(6, 'password.error.min'),
+	confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'confirmPassword.error.match')
 })
 
+const p = 'resetPassword.form'
 const ResetPasswordForm = props => {
+	const { t } = useTranslation()
 	const { token } = useParams()
 	const { resetPassword } = useAuth()
 	const { disableSubmit = false, className, signInUrl = '/sign-in' } = props
@@ -47,23 +50,24 @@ const ResetPasswordForm = props => {
 		<div className={className}>
 			<div className="mb-6">
 				{
-					resetComplete ? 
+					resetComplete ?
 					<>
-						<h3 className="mb-1">Reset done</h3>
-						<p>Your password has been successfully reset</p>
+						<h3 className="mb-1">{t(`${p}.resetDone.title`)}</h3>
+						<p>{t(`${p}.resetDone.subtitle`)}</p>
+						<p>{t(`${p}.resetDone.message`)}</p>
 					</>
 					:
 					<>
-						<h3 className="mb-1">Set new password</h3>
-						<p>Your new password must different to previos password</p>
+						<h3 className="mb-1">{t(`${p}.title`)}</h3>
+						<p>{t(`${p}.subtitle`)}</p>
 					</>
 				}
 			</div>
 			{message && <Alert className="mb-4" type="danger" showIcon>{message}</Alert>}
 			<Formik
 				initialValues={{
-					password: '123Qwe1', 
-					confirmPassword: '123Qwe1',
+					password: '',
+					confirmPassword: '',
 				}}
 				validationSchema={validationSchema}
 				onSubmit={(values, { setSubmitting }) => {
@@ -81,36 +85,36 @@ const ResetPasswordForm = props => {
 								!resetComplete ? (
 									<>
 										<FormItem
-											label="Password"
+											label={t(`${p}.confirmPassword.label`)}
 											invalid={errors.password && touched.password}
-											errorMessage={errors.password}
+											errorMessage={t(`${p}.${errors.password}`)}
 										>
 											<Field
-												autoComplete="off" 
-												name="password" 
-												placeholder="Password" 
-												component={PasswordInput} 
+												autoComplete="off"
+												name="password"
+												placeholder={t(`${p}.password.placeholder`)}
+												component={PasswordInput}
 											/>
 										</FormItem>
 										<FormItem
-											label="Confirm Password"
+											label={t(`${p}.confirmPassword.label`)}
 											invalid={errors.confirmPassword && touched.confirmPassword}
-											errorMessage={errors.confirmPassword}
+											errorMessage={t(`${p}.${errors.confirmPassword}`)}
 										>
 											<Field
-												autoComplete="off" 
-												name="confirmPassword" 
-												placeholder="Confirm Password" 
-												component={PasswordInput} 
+												autoComplete="off"
+												name="confirmPassword"
+												placeholder={t(`${p}.confirmPassword.placeholder`)}
+												component={PasswordInput}
 											/>
 										</FormItem>
-										<Button 
-											block 
-											loading={isSubmitting} 
-											variant="solid" 
+										<Button
+											block
+											loading={isSubmitting}
+											variant="solid"
 											type="submit"
 										>
-											{ isSubmitting ? 'Submiting...' : 'Submit' }
+											{ isSubmitting ? t(`${p}.submit.loading`) : t(`${p}.submit.label`)  }
 										</Button>
 									</>
 								)
@@ -122,15 +126,15 @@ const ResetPasswordForm = props => {
 										type="button"
 										onClick={onContinue}
 									>
-										Continue
+										{t(`${p}.continue`)}
 									</Button>
 								)
 							}
-							
+
 							<div className="mt-4 text-center">
-								<span>Back to </span>
+								<span>{t(`${p}.login`)} </span>
 								<ActionLink to={signInUrl}>
-									Sign in
+									{t(`${p}.loginLink`)}
 								</ActionLink>
 							</div>
 						</FormContainer>

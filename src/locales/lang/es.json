@@ -781,6 +781,45 @@
             }
         }
     },
+    "resetPassword": {
+        "form": {
+            "title": "Restablecer contraseña",
+            "subtitle": "Introduzca su nueva contraseña",
+            "password": {
+                "label": "Contraseña",
+                "placeholder": "Introduzca su contraseña",
+                "error": {
+                    "required": "La contraseña es obligatoria",
+                    "min": "La contraseña debe tener al menos 6 caracteres",
+                    "max": "La contraseña debe tener como máximo 50 caracteres"
+                }
+            },
+            "confirmPassword": {
+                "label": "Confirmar contraseña",
+                "placeholder": "Confirme su contraseña",
+                "error": {
+                    "required": "La confirmación de la contraseña es obligatoria",
+                    "match": "Las contraseñas no coinciden"
+                }
+            },
+            "resetDone": {
+                "title": "Contraseña restablecida",
+                "subtitle": "Su contraseña ha sido restablecida correctamente",
+                "message": "Ahora puede iniciar sesión en la aplicación"
+            },
+            "submit": {
+                "label": "Restablecer contraseña",
+                "loading": "Restableciendo contraseña..."
+            },
+            "continue": "Continuar",
+            "message": {
+                "success": "Contraseña restablecida correctamente",
+                "error": "Error al restablecer la contraseña"
+            },
+            "login": "Volver al",
+            "loginLink": "inicio de sesión"
+        }
+    },
     "message": {
         "success": "Éxito",
         "error": "Error",
