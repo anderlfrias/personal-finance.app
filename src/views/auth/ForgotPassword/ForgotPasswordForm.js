@@ -8,9 +8,10 @@ import useAuth from 'utils/hooks/useAuth'
 import { useTranslation } from 'react-i18next'
 
 const validationSchema = Yup.object().shape({
-	email: Yup.string().required('Please enter your email'),
+	email: Yup.string().required('.email.error.required').email('.email.error.email'),
 })
 
+const p = 'forgotPassword.form';
 const ForgotPasswordForm = props => {
 	const { t } = useTranslation()
 	const { disableSubmit = false, className, signInUrl = '/sign-in' } = props
@@ -42,13 +43,13 @@ const ForgotPasswordForm = props => {
 				{
 					emailSent ?
 					<>
-						<h3 className="mb-1">Check your email</h3>
-						<p>We have sent a password recovery instruction to your email</p>
+						<h3 className="mb-1">{t(`${p}.emailSent.title`)}</h3>
+						<p>{t(`${p}.emailSent.subtitle`)}</p>
 					</>
 					:
 					<>
-						<h3 className="mb-1">Forgot Password</h3>
-						<p>Please enter your email address to receive a verification code</p>
+						<h3 className="mb-1">{t(`${p}.title`)}</h3>
+						<p>{t(`${p}.subtitle`)}</p>
 					</>
 				}
 			</div>
@@ -72,24 +73,32 @@ const ForgotPasswordForm = props => {
 							<div className={emailSent ? 'hidden' : ''}>
 								<FormItem
 									invalid={errors.email && touched.email}
-									errorMessage={errors.email}
+									errorMessage={t(`${p}${errors.email}`)}
 								>
-									<Field 
-										type="email" 
-										autoComplete="off" 
-										name="email" 
-										placeholder="Email" 
-										component={Input} 
+									<Field
+										type="email"
+										autoComplete="off"
+										name="email"
+										placeholder={t(`${p}.email.placeholder`)}
+										component={Input}
 									/>
 								</FormItem>
 							</div>
 							<Button block loading={isSubmitting} variant="solid" type="submit">
-								{emailSent ? 'Resend Email' : 'Send Email'}
+								{
+									isSubmitting ?
+									t(`${p}.submit.loading`)
+									:
+									emailSent ?
+									t(`${p}.submit.sent`)
+									:
+									t(`${p}.submit.label`)
+								}
 							</Button>
 							<div className="mt-4 text-center">
-								<span>Back to </span>
+								<span>{t(`${p}.login`)} </span>
 								<ActionLink to={signInUrl}>
-									Sign in
+									{t(`${p}.loginLink`)}
 								</ActionLink>
 							</div>
 						</FormContainer>

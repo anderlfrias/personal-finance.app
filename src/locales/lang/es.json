@@ -752,6 +752,35 @@
             "login": "Iniciar sesión"
         }
     },
+    "forgotPassword": {
+        "form": {
+            "title": "¿Ha olvidado su contraseña?",
+            "subtitle": "Introduzca su dirección de correo electrónico y le enviaremos un enlace para restablecer su contraseña",
+            "email": {
+                "label": "Correo electrónico",
+                "placeholder": "Introduzca su correo electrónico",
+                "error": {
+                    "required": "El correo electrónico es obligatorio",
+                    "email": "El correo electrónico no es válido"
+                }
+            },
+            "submit": {
+                "label": "Enviar correo electrónico",
+                "loading": "Enviando correo electrónico...",
+                "sent": "Correo electrónico enviado"
+            },
+            "login": "Volver al",
+            "loginLink": "inicio de sesión",
+            "emailSent": {
+                "title": "Correo electrónico enviado",
+                "subtitle": "Hemos enviado un tú correo electrónico con un enlace para restablecer su contraseña. Por favor, revise su bandeja de entrada y haga clic en el enlace para restablecer su contraseña."
+            },
+            "message": {
+                "success": "Correo electrónico enviado correctamente",
+                "error": "Error al enviar el correo electrónico"
+            }
+        }
+    },
     "message": {
         "success": "Éxito",
         "error": "Error",

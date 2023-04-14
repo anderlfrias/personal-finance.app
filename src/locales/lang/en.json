@@ -777,6 +777,35 @@
             "login": "Back to login"
         }
     },
+    "forgotPassword": {
+        "form": {
+            "title": "Forgot password",
+            "subtitle": "Please enter your email address to reset your password",
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter your email",
+                "error": {
+                    "required": "Email is required",
+                    "email": "Email is not valid"
+                }
+            },
+            "submit": {
+                "label": "Send email",
+                "loading": "Sending email...",
+                "sent": "Email sent"
+            },
+            "login": "Back to",
+            "loginLink": "login",
+            "emailSent": {
+                "title": "Check your email",
+                "subtitle": "We have sent you an email with a link to reset your password. Please check your inbox and click on the link to reset your password."
+            },
+            "message": {
+                "success": "We have sent you an email to <strong>{email}</strong> with a link to reset your password. Please check your inbox and click on the link to reset your password.",
+                "error": "Failed to send email"
+            }
+        }
+    },
     "message": {
         "success": "Success",
         "error": "Error",
