@@ -55,7 +55,7 @@ function Transaction() {
     const onFilter = (query) => {
         console.log(query)
         setQuery(query)
-        // fetchData(query)
+        fetchData(query)
     }
 
     const openForm = () => {
@@ -168,10 +168,10 @@ function Transaction() {
         setStep(page - 1)
     }
 
-    const fetchData = useCallback(async (q = '', top = 10, step = 0) => {
+    const fetchData = useCallback(async (q = '') => {
         setLoading(true)
-        const query = `top=${top}&skip=${step * top}&${q}`
-        const resp = await getTransactions(query);
+        // const query = `top=${top}&skip=${step * top}&${q}`
+        const resp = await getTransactions(q);
         console.log(resp);
         if (resp.status === 'success') {
             setTransactions(resp.data.transactions);
@@ -181,8 +181,8 @@ function Transaction() {
     }, [getTransactions])
 
     useEffect(() => {
-        fetchData(query, top, step);
-    }, [fetchData, query, top, step])
+        fetchData(query);
+    }, [fetchData, query])
 
     useEffect(() => {
         const incomes = transactions.filter(transaction => transaction.type === 'income')

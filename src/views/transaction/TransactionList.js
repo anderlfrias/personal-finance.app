@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TransactionItem from 'views/transaction/TransactionItem'
 import { getIcon } from 'components/helpers/TwoToneIcon'
-import { Pagination, Table, useConfig } from 'components/ui'
+import { Table, useConfig } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import formatCurrency from 'utils/formatCurrency'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
@@ -95,18 +95,9 @@ function TransactionList({ className, transactions, onClickItem, paginationProps
                 )
             }
 
-            <div className='flex items-center justify-end mt-4'>
-                {/* <div style={{ minWidth: 130 }}>
-                    <Select
-                        size="sm"
-                        isSearchable={false}
-                        defaultValue={options[0]}
-                        options={options}
-                        onChange={onPageSelect}
-                    />
-                </div> */}
+            {/* <div className='flex items-center justify-end mt-4'>
                 <Pagination onChange={paginationProps.onChange} pageSize={paginationProps.top} total={paginationProps.total}  />
-            </div>
+            </div> */}
         </>
     )
 }
