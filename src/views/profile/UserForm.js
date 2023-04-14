@@ -1,9 +1,12 @@
 
 import React from 'react'
-import { Input, Button, FormItem, FormContainer } from 'components/ui'
+import { Input, Button, FormItem, FormContainer, Upload } from 'components/ui'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import { useTranslation } from 'react-i18next'
+import ProfilePic from 'components/helpers/ProfilePic'
+import { convertirImagenToBase64 } from 'utils/image'
+import { HiPencil } from 'react-icons/hi'
 
 const validationSchema = Yup.object().shape({
 	name: Yup.string()
@@ -32,6 +35,7 @@ const UserForm = ({ initialValues, onSubmit, onCancel }) => {
                     name: '',
                     firstSurname: '',
                     secondSurname: '',
+					profilePic: '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={async(values, { setSubmitting }) => {
@@ -39,9 +43,35 @@ const UserForm = ({ initialValues, onSubmit, onCancel }) => {
                     setSubmitting(false)
                 }}
             >
-                {({ touched, errors, resetForm, isSubmitting }) => (
+                {({ touched, errors, resetForm, isSubmitting, values }) => (
                     <Form>
                         <FormContainer>
+							<FormItem
+								label="Foto de perfil"
+							>
+								<Field name='profilePic'>
+									{({ field, form }) => (
+										<div className='group relative w-24 h-24'>
+											<ProfilePic size={96} className='absolute w-full h-full' image={values.profilePic} />
+											<Upload
+												className="absolute w-full h-full bg-gray-900/[.7] rounded-full group-hover:flex hidden text-xl items-center justify-center"
+												onChange={(file) => {
+													console.log(file[0]);
+													convertirImagenToBase64(file[0], async(base64Image) => {
+														form.setFieldValue(field.name, base64Image);
+													});
+												}}
+												showList={false}
+												uploadLimit={1}
+											>
+												<span className="text-2xl text-gray-100 hover:text-gray-300 cursor-pointer p-1.5">
+													<HiPencil />
+												</span>
+											</Upload>
+										</div>
+									)}
+								</Field>
+							</FormItem>
 							<FormItem
 								label={t(`${p}.username.label`)}
 								invalid={errors.username && touched.username}

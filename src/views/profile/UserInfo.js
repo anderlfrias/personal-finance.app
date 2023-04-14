@@ -8,6 +8,7 @@ import useUser from "utils/hooks/custom/useUser";
 import UserForm from "./UserForm";
 import openNotification from "utils/openNotification";
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
+import ProfilePic from "components/helpers/ProfilePic";
 
 const p = 'profile.userInfo'
 const UserInfo = () => {
@@ -34,6 +35,7 @@ const UserInfo = () => {
             name: values.name,
             firstSurname: values.firstSurname,
             secondSurname: values.secondSurname,
+            profilePic: values.profilePic,
         }
 
         const resp = await updateUser(userId, data);
@@ -75,6 +77,11 @@ const UserInfo = () => {
                 {/* <p>
                     {t(`${p}.subTitle`)}
                 </p> */}
+            </div>
+
+            {/* Imagen de perfil */}
+            <div className="mb-2">
+                <ProfilePic size={96} image={user?.profilePic} />
             </div>
 
             <Loading loading={loading} >

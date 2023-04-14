@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { HiOutlineUser, HiOutlineLogout, HiOutlineCog } from 'react-icons/hi'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import ProfilePic from 'components/helpers/ProfilePic'
 
 const dropdownItemList = [
 	{
@@ -32,7 +33,8 @@ export const UserDropdown = ({ className }) => {
 
 	const UserAvatar = (
 		<div className={classNames(className, 'flex items-center gap-2')}>
-			<Avatar size={32} shape="circle" icon={<HiOutlineUser />} />
+			{/* <Avatar size={32} shape="circle" icon={<HiOutlineUser />} /> */}
+			<ProfilePic className="w-8 h-8" image={userInfo.profilePic} size={32} />
 			<div className="hidden md:block">
 				{/* <div className="text-xs capitalize">admin</div> */}
 				<div className="font-bold">{userInfo.username}</div>
