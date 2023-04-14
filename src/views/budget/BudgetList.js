@@ -26,12 +26,12 @@ function BudgetList({ budgets, onClickItem }) {
         <>
             {
                 screenWidth < 768 ? (
-                    <>{
+                    <div className=' overflow-x-auto'>{
                         budgets.length > 0 ? budgets.map((item, index) => (
                             <BudgetItem key={index} budget={item} onClick={() => onClickItem(item)} />
                         )) :
                             <div className='text-center text-gray-500'>{t(`${p}.table.empty`)}</div>
-                    }</>
+                    }</div>
                 ) : (
                     <Table>
                         <THead>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Button, FormItem, FormContainer, Alert } from 'components/ui'
 import { PasswordInput, ActionLink } from 'components/shared'
-import { apiResetPassword } from 'services/AuthService'
 import useTimeOutMessage from 'utils/hooks/useTimeOutMessage'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
+import useAuth from 'utils/hooks/useAuth'
 
 const validationSchema = Yup.object().shape({
 	password: Yup.string().required('Please enter your password'),
@@ -13,7 +13,8 @@ const validationSchema = Yup.object().shape({
 })
 
 const ResetPasswordForm = props => {
-	
+	const { token } = useParams()
+	const { resetPassword } = useAuth()
 	const { disableSubmit = false, className, signInUrl = '/sign-in' } = props
 
 	const [ resetComplete, setResetComplete ] = useState(false)
@@ -25,14 +26,15 @@ const ResetPasswordForm = props => {
 	const onSubmit = async (values, setSubmitting) => {
 		const { password } = values
 		setSubmitting(true)
-		try {
-			const resp = await apiResetPassword({ password })
-			if (resp.data) {
-				setSubmitting(false)
-				setResetComplete(true)
-			}
-		} catch (errors) {
-			setMessage(errors?.response?.data?.message || errors.toString())
+
+		const resp = await resetPassword({ password }, token)
+		if (resp.status === 'success') {
+			setSubmitting(false)
+			setResetComplete(true)
+		}
+
+		if (resp.status === 'failed') {
+			setMessage(resp.message)
 			setSubmitting(false)
 		}
 	}

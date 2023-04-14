@@ -7,10 +7,12 @@ import { useSelector } from "react-redux";
 import useUser from "utils/hooks/custom/useUser";
 import UserForm from "./UserForm";
 import openNotification from "utils/openNotification";
+import useScreenSize from 'utils/hooks/custom/useScreenSize'
 
 const p = 'profile.userInfo'
 const UserInfo = () => {
     const { t } = useTranslation()
+    const { width: screenWidth } = useScreenSize()
 	const { id: userId } = useSelector((state) => state.auth.user)
     const { getUserById, updateUser } = useUser();
     const [user, setUser] = useState({});
@@ -115,6 +117,7 @@ const UserInfo = () => {
                 title={t(`${p}.form.title`)}
                 isOpen={isFormOpen}
                 onClose={closeForm}
+                width={ screenWidth >= 768 ? 500 : screenWidth}
             >
                 <UserForm initialValues={user} onSubmit={onSubmit} onCancel={closeForm} />
             </Drawer>

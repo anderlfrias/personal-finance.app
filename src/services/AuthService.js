@@ -54,10 +54,13 @@ export async function apiForgotPassword (data) {
     })
 }
 
-export async function apiResetPassword (data) {
+export async function apiResetPassword (data, token) {
     return ApiService.fetchData({
-        url: '/reset-password',
+        url: `${URL}/v1/user/reset-password`,
         method: 'post',
-        data
+        data,
+        headers: {
+            [REQUEST_HEADER_AUTH_KEY] : `${token}`,
+        }
     })
 }

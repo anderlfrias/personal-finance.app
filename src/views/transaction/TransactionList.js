@@ -84,14 +84,14 @@ function TransactionList({ className, transactions, onClickItem, paginationProps
                         </TBody>
                     </Table>
                 ) : (
-                    <>{
+                    <div className='overflow-x-auto'>{
                         transactions.length > 0 ? transactions.map((transaction, index) => (
                             <TransactionItem key={index} transaction={transaction} onClick={() => onClickItem(transaction)} />
                         )) :
                         <div className='text-center'>
                             {t(`${p}.table.empty`)}
                         </div>
-                    }</>
+                    }</div>
                 )
             }
 
