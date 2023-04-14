@@ -73,7 +73,7 @@ function BudgetList({ budgets, onClickItem }) {
                                     </Tr>
                                 )) :
                                 <Tr>
-                                    <Td colSpan={6} className='text-center'>
+                                    <Td colSpan={7} className='text-center'>
                                         {t(`${p}.table.empty`)}
                                     </Td>
                                 </Tr>

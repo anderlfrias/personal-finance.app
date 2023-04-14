@@ -173,7 +173,7 @@ function Wallet() {
                                 </Tr>
                             )) :
                             <Tr>
-                                <Td colSpan={4} className='text-center'>
+                                <Td colSpan={5} className='text-center'>
                                     {t(`${p}.table.empty`)}
                                 </Td>
                             </Tr>

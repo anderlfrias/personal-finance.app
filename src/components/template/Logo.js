@@ -28,7 +28,7 @@ const Logo = props => {
 			}
 		>
 			<img 
-				className={imgClass} 
+				className={imgClass + ' max-h-[64px}'} 
 				src={`${LOGO_SRC_PATH}logo-${mode}-${type}.png`} 
 				alt={`${APP_NAME} logo`}
 			/>
