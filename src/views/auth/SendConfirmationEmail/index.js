@@ -22,7 +22,6 @@ function SendConfirmationEmail() {
     }
 
     const onResendEmail = async() => {
-        console.log('resend email')
         await sendEmail(token)
     }
 
@@ -36,9 +35,7 @@ function SendConfirmationEmail() {
     const sendEmail = useCallback(async () => {
         setLoading(true)
         const resp = await sendConfirmEmail(token)
-        console.log(resp)
         if (resp.status === 'success') {
-            console.log('email sent')
             setEmailSent(true)
         }
         setLoading(false)

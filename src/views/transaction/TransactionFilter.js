@@ -46,17 +46,6 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
     }
 
     const handleSubmit = () => {
-        // console.log('values', values)
-        // const newObject = {
-        //     q: values.search,
-        //     startDate: values.dateRange[0] ? new Date(values.dateRange[0]).toISOString() : null,
-        //     endDate: values.dateRange[1] ? new Date(values.dateRange[1]).toISOString() : null,
-        //     wallets: values.wallets.join(','),
-        //     categories: values.categories.join(','),
-        // }
-
-        // console.log('newObject', newObject)
-        // console.log('getQueryByObject', getQueryByObject(newObject));
         const query = getQueryByObject({
             q: values.search,
             startDate: values.dateRange[0] ? new Date(values.dateRange[0]).toISOString() : '',
@@ -65,20 +54,6 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
             categories: values.categories.join(','),
         });
 
-        // const query = Object.keys(values).map(key => {
-        //     if (key === 'search') return `${values[key]}`;
-        //     if (key === 'dateRange') {
-        //         const startDate = values[key][0] ? new Date(values[key][0]).toISOString() : null;
-        //         const endDate = values[key][1] ? new Date(values[key][1]).toISOString() : null;
-        //         if (startDate && endDate) return `&startDate=${startDate}&endDate=${endDate}`;
-        //         if (startDate) return `&startDate=${startDate}`;
-        //         if (endDate) return `&endDate=${endDate}`;
-        //         return '';
-        //     }
-        //     return `&${key}=${values[key]}`;
-        // }).join('');
-
-        // console.log('query', query);
         onSubmit(query);
         onClose();
     }

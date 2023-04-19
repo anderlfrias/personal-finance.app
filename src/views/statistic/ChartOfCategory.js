@@ -55,7 +55,6 @@ const ChartOfCategory = ({ type = 'income' }) => {
 
         if (resp.status === 'success') {
             const { categories, incomes, expenses } = handleResp(resp)
-            console.log(categories, incomes, expenses)
             setCategories(categories)
             setData(resp.data)
             setIncomes(incomes)

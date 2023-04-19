@@ -50,7 +50,6 @@ const SignUpForm = props => {
 		const result = await signUp({ name, firstSurname, secondSurname, username, password, email })
 
 		if (result.status === 'success') {
-			console.log(result)
 			navigate(`/send-confirm-email/${result.data.user.id}`, { state: { email: result.data.user.email } })
 			openNotification({
 				type: 'success',
@@ -60,7 +59,6 @@ const SignUpForm = props => {
 		}
 
 		if (result.status === 'failed') {
-			console.log(result)
 			openNotification({ type: 'danger', title: t(result.message) })
 		}
 

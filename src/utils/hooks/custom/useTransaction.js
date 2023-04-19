@@ -15,7 +15,6 @@ function useTransaction() {
     const getTransactions = useCallback(async (q = '') => {
         try {
             const resp = await apiGetTransactions(q);
-            console.log(resp);
             return SuccessResponse(resp.data);
         } catch (error) {
             return FailedResponse(error);

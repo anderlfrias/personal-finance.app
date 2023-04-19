@@ -56,7 +56,6 @@ const UserForm = ({ initialValues, onSubmit, onCancel }) => {
 											<Upload
 												className="absolute w-full h-full bg-gray-900/[.7] rounded-full group-hover:flex hidden text-xl items-center justify-center"
 												onChange={(file) => {
-													console.log(file[0]);
 													convertirImagenToBase64(file[0], async(base64Image) => {
 														form.setFieldValue(field.name, base64Image);
 													});

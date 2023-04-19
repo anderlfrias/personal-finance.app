@@ -26,7 +26,6 @@ function Wallet() {
     const fetchData = useCallback(async(filter = '') => {
         setIsLoading(true)
         const resp = await getWallets(filter)
-        console.log(resp)
         setIsLoading(false)
         if (resp.status === 'success') {
             setWallets(resp.data)

@@ -53,7 +53,6 @@ function Transaction() {
     const onCloseFilter = () => setIsFilterOpen(false)
 
     const onFilter = (query) => {
-        console.log(query)
         setQuery(query)
         fetchData(query)
     }
@@ -74,7 +73,6 @@ function Transaction() {
             ...values,
             date: new Date(values.date).toISOString()
         }
-        console.log(data);
 
         if (isEditing) {
             await onUpdate(data)
@@ -100,9 +98,6 @@ function Transaction() {
     }
 
     const onUpdate = async (data) => {
-        console.log('update')
-        console.log(data)
-        console.log(selectedTransactionId)
         const resp = await updateTransaction(selectedTransactionId, data)
 
         if (resp.status === 'success') {
@@ -113,13 +108,11 @@ function Transaction() {
         }
 
         if (resp.status === 'failed') {
-            console.log(resp)
             openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(resp.message || `${p}.message.error.update`) })
         }
     }
 
     const onDelete = async (id) => {
-        console.log(id)
         const resp = await deleteTransaction(id)
 
         if (resp.status === 'success') {
@@ -130,7 +123,6 @@ function Transaction() {
         }
 
         if (resp.status === 'failed') {
-            console.log(resp.message)
             openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(resp.message || `${p}.message.error.delete`) })
         }
     }
@@ -140,15 +132,6 @@ function Transaction() {
     }
 
     const handleEdit = (transaction) => {
-        console.log('edit')
-        // console.log(transaction)
-        console.log({
-            ...transaction,
-            date: transaction?.date ? new Date(transaction.date) : new Date(),
-            wallet: transaction.wallet?.id || '',
-            category: transaction.category?.id || '',
-            budget: transaction.budget?.id || '',
-        })
         onCloseDetail()
         setSelectedTransactionId(transaction.id)
         setSelectedTransaction({
@@ -164,7 +147,6 @@ function Transaction() {
     }
 
     const onPaginationChange = (page) => {
-        console.log(page)
         setStep(page - 1)
     }
 
@@ -172,7 +154,6 @@ function Transaction() {
         setLoading(true)
         // const query = `top=${top}&skip=${step * top}&${q}`
         const resp = await getTransactions(q);
-        console.log(resp);
         if (resp.status === 'success') {
             setTransactions(resp.data.transactions);
             setTotal(resp.data.total)

@@ -76,7 +76,6 @@ function OverallChart() {
         setLoading(true)
         const resp = await getStatisticsByTimeFrame(searchRange)
         if (resp.status === 'success') {
-            console.log(handleResp(resp.data))
             const { series, categories } = handleResp(resp.data)
             setData(series.map((item) => ({ ...item, name: t(`statistic.${item.name}`) })))
             setCategories(categories.map((item) => {

@@ -29,8 +29,6 @@ const UserInfo = () => {
     }
 
     const onSubmit = async(values) => {
-        console.log(values);
-
         const data = {
             name: values.name,
             firstSurname: values.firstSurname,
@@ -54,7 +52,6 @@ const UserInfo = () => {
     const fetchData = useCallback(async (id) => {
         setLoading(true);
         const resp = await getUserById(id);
-        console.log(resp);
 
         if (resp.status === 'success') {
             setUser(resp.data);
@@ -64,7 +61,6 @@ const UserInfo = () => {
 
     useEffect(() => {
         return async() => {
-            console.log(userId)
             await fetchData(userId);
         }
     }, [userId, fetchData]);

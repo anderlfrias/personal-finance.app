@@ -45,7 +45,6 @@ function Budget() {
     }
 
     const onSubmit = async(values) => {
-        console.log('onSubmit', values)
         const data = {
             ...values,
             amount: parseFloat(values.amount),
@@ -59,10 +58,7 @@ function Budget() {
     }
 
     const Create = async(data) => {
-        console.log('onCreate', data)
         const resp = await createBudget(data)
-        console.log('res', resp)
-
         if (resp.status === 'success') {
             onCloseForm()
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.create`)})
@@ -75,9 +71,7 @@ function Budget() {
     }
 
     const Update = async(id, data) => {
-        console.log('onUpdate', data)
         const resp = await updateBudget(id, data)
-        console.log('res', resp)
 
         if (resp.status === 'success') {
             onCloseForm()
@@ -101,7 +95,6 @@ function Budget() {
         }
 
         if (resp.status === 'failed') {
-            console.log(resp)
             openNotification({ title: t(`message.error`), type: 'danger', subtitle: t(`${p}.message.error.delete`)})
         }
     }
@@ -124,7 +117,6 @@ function Budget() {
     const fetchData = useCallback(async(filter = '') => {
         setLoading(true)
         const resp = await getBudgets({filter})
-        console.log('resp', resp)
 
         if (resp.status === 'success') {
             setBudgets(resp.data)

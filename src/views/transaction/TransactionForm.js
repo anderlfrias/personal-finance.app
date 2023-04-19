@@ -119,7 +119,6 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                 }}
                 validationSchema={validationSchema}
                 onSubmit={async (values, { setSubmitting }) => {
-                    console.log(values)
                     setSubmitting(true)
                     await onSubmit(values)
                     setSubmitting(false)

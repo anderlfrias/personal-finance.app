@@ -49,7 +49,6 @@ function ChartByFilter() {
     const onCloseFilter = () => setIsFilterOpen(false)
 
     const onSubmitFilter = async(values) => {
-        console.log('values', values)
         await fetchData(values)
     }
 
@@ -72,10 +71,6 @@ function ChartByFilter() {
     useEffect(() => {
         fetchData()
     }, [fetchData])
-
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
 
     return (
         <>

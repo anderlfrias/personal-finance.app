@@ -32,36 +32,30 @@ function Category() {
     }
 
     const onDelete = (category) => {
-        console.log('delete', category)
         setSelectedCategory(category)
         setIsOpenConfirm(true)
     }
 
     const onEdit = (category) => {
-        console.log('edit', category)
         setSelectedCategory(category)
         setIsEdit(true)
         setIsFormOpen(true)
     }
 
     const onCloseDelete = () => {
-        console.log('cancel delete')
         setSelectedCategory(null)
         setIsOpenConfirm(false)
     }
 
     const onConfirmDelete = async() => {
-        console.log('confirm delete')
         await Delete()
     }
 
     const onCloseForm = () => {
-        console.log('close form')
         setIsFormOpen(false)
     }
 
     const onSubmit = async(data) => {
-        console.log('submit', data)
 
         if (isEdit) {
             await Update(data)
@@ -116,7 +110,6 @@ function Category() {
     const fetchData = useCallback(async(filter = '') => {
         setLoading(true)
         const resp = await getCategories(filter)
-        console.log(resp)
         if (resp.status === 'success') {
             setCategories(resp.data)
         }

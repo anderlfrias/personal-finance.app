@@ -22,10 +22,8 @@ function Confirmpassword() {
         const confirm = async () => {
             setLoading(true)
             const resp = await confirmEmail(token)
-            console.log(resp)
             if (resp.status === 'success') {
                 setEmailConfirmed(true)
-                console.log('email confirmed')
             }
             setLoading(false)
         }

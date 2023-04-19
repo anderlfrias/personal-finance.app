@@ -18,10 +18,6 @@ function BudgetList({ budgets, onClickItem }) {
     const { t } = useTranslation();
     const { width: screenWidth } = useScreenSize()
 
-    React.useEffect(() => {
-        console.log('BudgetList: budgets', budgets)
-    }, [budgets])
-
     return (
         <>
             {

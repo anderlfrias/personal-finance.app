@@ -24,7 +24,6 @@ function useStatistic() {
     const getStatisticOfCategory = useCallback(async (q = '') => {
         try {
             const resp = await apiGetAverageByCategory(q);
-            console.log('resp', resp)
             return SuccessResponse(resp.data);
         } catch (error) {
             return FailedResponse(error);

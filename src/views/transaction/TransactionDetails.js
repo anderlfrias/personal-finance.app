@@ -58,7 +58,6 @@ function TransactionDetails({ transactionId, isOpen, onClose, onEdit, onDelete }
         const fetchData = async () => {
             setIsLoading(true)
             const resp = await getTransactionById(transactionId)
-            console.log(resp)
             if (resp.status === 'success') {
                 setTransaction(resp.data)
             }

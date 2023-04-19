@@ -62,7 +62,6 @@ const Password = () => {
         }
 
         const resp = await changePassword(userId, data)
-        console.log(resp)
 
         if (resp.status === 'success') {
             openNotification({ title: t(`message.success`), subtitle: t(`${p}.message.success`), type: 'success' })
@@ -70,8 +69,6 @@ const Password = () => {
         }
 
         if (resp.status === 'failed') {
-            const message = resp.message === 'errors.invalid-password' ? `${p}.message.errors.currentPassword` : resp.message
-            console.log(message)
             openNotification({ title: t(`message.error`), subtitle: t(`${resp.message}`), type: 'danger' })
         }
         setSubmitting(false)

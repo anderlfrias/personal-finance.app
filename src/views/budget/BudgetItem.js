@@ -7,15 +7,8 @@ import { getState, isActive } from './utils';
 import formatDate from 'utils/formatDate';
 
 function BudgetItem({ budget, onClick }) {
-    console.log(budget)
     const { name, startDate, endDate } = budget;
 
-    // const color = {
-    //     overdrafted: 'red-500',
-    //     great: 'green-500',
-    //     caution: 'amber-500',
-    //     warning: 'amber-500',
-    // }
     return (
         <>
             <div className='flex justify-between items-center gap-4 p-2 cursor-pointer hover:shadow' onClick={onClick}>

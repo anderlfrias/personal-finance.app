@@ -32,7 +32,6 @@ function useAuth() {
 					authority: [decoded.role.toUpperCase()]
 				}
 				delete user.role;
-				console.log(user)
 
 				if (user.isActive) {
 					dispatch(onSignInSuccess(token))
@@ -59,7 +58,6 @@ function useAuth() {
 				secondSurname: values.secondSurname.trim(),
 			}
 			const resp = await apiSignUp(data)
-			console.log(resp)
 			if (resp.data) {
 				const { token } = resp.data;
 				const decoded = jwt_decode(token);
@@ -123,7 +121,6 @@ function useAuth() {
 	const resetPassword = useCallback(async (values, token) => {
 		try {
 			const resp = await apiResetPassword(values, token)
-			console.log(resp);
 			return SuccessResponse(resp.data)
 		} catch (errors) {
 			return FailedResponse(errors)
