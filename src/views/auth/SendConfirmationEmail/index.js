@@ -42,12 +42,10 @@ function SendConfirmationEmail() {
     }, [sendConfirmEmail, token])
 
     useEffect(() => {
-        return () => {
-            !emailSent && sendEmail()
-            if (state) {
-                const text = t(`${p}.message`).replace('{email}', hideEmail(state.email))
-                innerHtml(text, 'message')
-            }
+        !emailSent && sendEmail()
+        if (state) {
+            const text = t(`${p}.message`).replace('{email}', hideEmail(state.email))
+            innerHtml(text, 'message')
         }
     }, [emailSent, sendEmail, state, t])
 

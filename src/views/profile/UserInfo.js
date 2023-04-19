@@ -60,9 +60,7 @@ const UserInfo = () => {
     }, [getUserById]);
 
     useEffect(() => {
-        return async() => {
-            await fetchData(userId);
-        }
+        fetchData(userId);
     }, [userId, fetchData]);
     return (
         <>
