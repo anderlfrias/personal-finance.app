@@ -34,6 +34,10 @@ function TransactionList({ className, transactions, onClickItem, paginationProps
         if (screenWidth < 768) setViewTable(false)
     }, [screenWidth])
 
+    useEffect(() => {
+        console.log('transactions', transactions)
+    }, [transactions])
+
     return (
         <>
             {
@@ -59,7 +63,7 @@ function TransactionList({ className, transactions, onClickItem, paginationProps
                                             <div className='min-w-[130px]'>{formatDateTime(new Date(transaction.date))}</div>
                                         </Td>
                                         <Td>{transaction.description}</Td>
-                                        <Td>{transaction.wallet.name}</Td>
+                                        <Td>{transaction?.wallet?.name}</Td>
                                         <Td>{transaction?.category?.name || 'N/A'}</Td>
                                         <Td>
                                             <div className='min-w-max'>
