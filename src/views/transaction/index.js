@@ -74,6 +74,8 @@ function Transaction() {
             date: new Date(values.date).toISOString()
         }
 
+        console.log(data);
+
         if (isEditing) {
             await onUpdate(data)
             return
@@ -194,7 +196,7 @@ function Transaction() {
                     </div>
                 </div>
 
-                <Loading loading={loading} type='cover'>
+                {/* <Loading loading={loading} type='cover'> */}
 
                 <div className='mb-6'>
                     {/* <h3 className='text-lg font-semibold mb-2'>
@@ -214,6 +216,7 @@ function Transaction() {
                         </h3> */}
                     </div>
                     <TransactionList
+                        loading={loading}
                         transactions={transactions}
                         onClickItem={openDetail}
                         paginationProps={{
@@ -225,7 +228,7 @@ function Transaction() {
                         onPaginationChange={onPaginationChange}
                     />
                 </Card>
-                </Loading>
+                {/* </Loading> */}
             </div>
 
             {/* Form */}

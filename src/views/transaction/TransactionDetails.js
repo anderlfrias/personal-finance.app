@@ -101,28 +101,50 @@ function TransactionDetails({ transactionId, isOpen, onClose, onEdit, onDelete }
                             </p>
                         </div>
 
-                        <div className="flex flex-col border-b">
-                            <p>{t(`${p}.wallet`)}</p>
-                            <p className='font-bold text-right'>
-                                {transaction?.wallet?.name}
-                            </p>
-                        </div>
-
-                        <div className="flex flex-col border-b">
-                            <p>{t(`${p}.category`)}</p>
-
-                            {
-                                    transaction?.category?.name ? (
+                        {transaction?.type === 'transfer' ?
+                            (
+                                <>
+                                    <div className="flex flex-col border-b">
+                                        <p>{t(`${p}.sourceWallet`)}</p>
                                         <p className='font-bold text-right'>
-                                            {transaction?.category?.name}
+                                            {transaction?.sourceWallet?.name}
                                         </p>
-                                    ) : (
-                                        <p className='italic text-right'>
-                                            {t(`${p}.noCategory`)}
+                                    </div>
+                                    <div className="flex flex-col border-b">
+                                        <p>{t(`${p}.targetWallet`)}</p>
+                                        <p className='font-bold text-right'>
+                                            {transaction?.targetWallet?.name}
                                         </p>
-                                    )
-                                }
-                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="flex flex-col border-b">
+                                        <p>{t(`${p}.wallet`)}</p>
+                                        <p className='font-bold text-right'>
+                                            {transaction?.wallet?.name}
+                                        </p>
+                                    </div>
+
+                                    <div className="flex flex-col border-b">
+                                        <p>{t(`${p}.category`)}</p>
+
+                                        {
+                                                transaction?.category?.name ? (
+                                                    <p className='font-bold text-right'>
+                                                        {transaction?.category?.name}
+                                                    </p>
+                                                ) : (
+                                                    <p className='italic text-right'>
+                                                        {t(`${p}.noCategory`)}
+                                                    </p>
+                                                )
+                                            }
+                                    </div>
+                                </>
+                            )
+                        }
+
 
                         {transaction?.type === 'expense' && (
                             <div className="flex flex-col border-b">

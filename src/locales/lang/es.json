@@ -26,7 +26,8 @@
         },
         "type": {
             "income": "Ingreso",
-            "expense": "Gasto"
+            "expense": "Gasto",
+            "transfer": "Transferencia"
         },
         "summary": {
             "title": "Resumen",
@@ -41,6 +42,8 @@
             "date": "Fecha",
             "type": "Tipo",
             "wallet": "Cuenta",
+            "sourceWallet": "Cuenta de origen",
+            "targetWallet": "Cuenta de destino",
             "category": "Categoría",
             "noCategory": "Sin categoría",
             "description": "Descripción",
@@ -88,6 +91,20 @@
                 "placeholder": "Seleccione la cuenta",
                 "error": {
                     "required": "La cuenta es obligatoria"
+                }
+            },
+            "sourceWallet": {
+                "label": "Cuenta de origen",
+                "placeholder": "Seleccione la cuenta de origen",
+                "error": {
+                    "required": "La cuenta de origen es obligatoria"
+                }
+            },
+            "targetWallet": {
+                "label": "Cuenta de destino",
+                "placeholder": "Seleccione la cuenta de destino",
+                "error": {
+                    "required": "La cuenta de destino es obligatoria"
                 }
             },
             "category": {
@@ -837,6 +854,7 @@
         "username_exists": "El nombre de usuario ya está en uso",
         "user_not_active": "El usuario no está activo",
         "invalid-password": "La contraseña actual no es válida",
-        "user-not-found": "El usuario no existe"
+        "user-not-found": "El usuario no existe",
+        "server-error": "Error del servidor"
     }
 }

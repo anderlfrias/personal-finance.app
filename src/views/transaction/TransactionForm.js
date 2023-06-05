@@ -7,11 +7,12 @@ import useWallet from 'utils/hooks/custom/useWallet';
 import useCategory from 'utils/hooks/custom/useCategory';
 import * as Yup from 'yup'
 import { Loading, SegmentItemOption } from 'components/shared';
-import { HiCheckCircle } from 'react-icons/hi';
+import { HiCheckCircle, HiSwitchHorizontal } from 'react-icons/hi';
 import { BiLineChart, BiLineChartDown } from 'react-icons/bi';
 import useBudget from 'utils/hooks/custom/useBudget';
 import { convertirImagenToBase64, resizeImage } from 'utils/image';
 import Image from 'components/helpers/Image';
+import openNotification from 'utils/openNotification';
 
 const { DateTimepicker } = DatePicker
 
@@ -27,8 +28,9 @@ const validationSchema = Yup.object().shape({
     date: Yup.date()
         .required('.date.error.required')
         .nullable(),
-    wallet: Yup.string()
-        .required('.wallet.error.required'),
+    wallet: Yup.string(),
+    sourceWallet: Yup.string(),
+    targetWallet: Yup.string(),
     category: Yup.string()
         .nullable(),
     budget: Yup.string()
@@ -38,7 +40,8 @@ const validationSchema = Yup.object().shape({
 
 const typeOptions = [
     { value: 'income', icon: <BiLineChart /> },
-    { value: 'expense', icon: <BiLineChartDown /> }
+    { value: 'expense', icon: <BiLineChartDown /> },
+    { value: 'transfer', icon: <HiSwitchHorizontal /> },
 ]
 
 const p = 'transaction.form' // path to translation file
@@ -104,6 +107,26 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
         fetchBudgets()
     }, [getWallets, getCategories, getBudgets])
 
+    const validateFieldRequired = (values) => {
+        if (values.type === 'transfer') {
+            if (!values.sourceWallet) {
+                openNotification({title: 'Error', subtitle: `${p}.sourceWallet.error.required`, type: 'danger'})
+                return false;
+            }
+            if (!values.targetWallet) {
+                openNotification({title: 'Error', subtitle: `${p}.targetWallet.error.required`, type: 'danger'})
+                return false;
+            }
+        } else {
+            if (!values.wallet) {
+                openNotification({title: 'Error', subtitle: `${p}.wallet.error.required`, type: 'danger'})
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     return (
         <div>
             <Formik
@@ -113,6 +136,8 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                     description: '',
                     date: new Date(),
                     wallet: '',
+                    sourceWallet: '',
+                    targetWallet: '',
                     category: '',
                     budget: '',
                     evidence: []
@@ -120,6 +145,11 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                 validationSchema={validationSchema}
                 onSubmit={async (values, { setSubmitting }) => {
                     setSubmitting(true)
+                    const success = validateFieldRequired(values)
+                    if (!success) {
+                        setSubmitting(false)
+                        return
+                    }
                     await onSubmit(values)
                     setSubmitting(false)
                 }}
@@ -169,7 +199,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                                                 )
                                             }
                                         >
-                                            <div className="flex w-full items-center gap-3">
+                                            <div className="flex w-full items-center gap-3 flex-wrap">
                                                 {typeOptions.map((item) => (
                                                     <Segment.Item value={item.value} key={item.value} disabled={isEditing}>
                                                         {({ ref, active, onSegmentItemClick, disabled }) => {
@@ -233,64 +263,130 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                                 />
                             </FormItem>
 
-                            <FormItem
-                                label={t(`${p}.wallet.label`)}
-                                invalid={errors.wallet && touched.wallet}
-                                errorMessage={t(`${p}${errors.wallet}`)}
-                            >
-                                <Field name="wallet">
-                                    {({ field, form }) => (
-                                        <Select
-                                            placeholder={t(`${p}.wallet.placeholder`)}
-                                            field={field}
-                                            form={form}
-                                            options={wallets}
-                                            value={wallets.filter(
-                                                (option) =>
-                                                    option.value ===
-                                                    values.wallet
-                                            )}
-                                            onChange={(option) =>
-                                                form.setFieldValue(
-                                                    field.name,
-                                                    option?.value || ''
-                                                )
-                                            }
-                                            isDisabled={isEditing}
-                                        />
-                                    )}
-                                </Field>
-                            </FormItem>
+                            {
+                                values?.type === 'transfer' ? (
+                                    <>
+                                        <FormItem
+                                            label={t(`${p}.sourceWallet.label`)}
+                                            invalid={errors.sourceWallet && touched.sourceWallet}
+                                            errorMessage={t(`${p}${errors.sourceWallet}`)}
+                                        >
+                                            <Field name="sourceWallet">
+                                                {({ field, form }) => (
+                                                    <Select
+                                                        placeholder={t(`${p}.sourceWallet.placeholder`)}
+                                                        field={field}
+                                                        form={form}
+                                                        options={wallets.map((wallet) => ({ ...wallet, isDisabled: wallet.value === values.targetWallet }))} // disable target wallet
+                                                        value={wallets.filter(
+                                                            (option) =>
+                                                                option.value ===
+                                                                values.sourceWallet
+                                                        )}
+                                                        onChange={(option) =>
+                                                            form.setFieldValue(
+                                                                field.name,
+                                                                option?.value || ''
+                                                            )
+                                                        }
+                                                        isDisabled={isEditing}
+                                                    />
+                                                )}
+                                            </Field>
+                                        </FormItem>
+                                        <FormItem
+                                            label={t(`${p}.targetWallet.label`)}
+                                            invalid={errors.targetWallet && touched.targetWallet}
+                                            errorMessage={t(`${p}${errors.targetWallet}`)}
+                                        >
+                                            <Field name="targetWallet">
+                                                {({ field, form }) => (
+                                                    <Select
+                                                        placeholder={t(`${p}.targetWallet.placeholder`)}
+                                                        field={field}
+                                                        form={form}
+                                                        options={wallets.map((wallet) => ({ ...wallet, isDisabled: wallet.value === values.sourceWallet }))} // disable target wallet
+                                                        value={wallets.filter(
+                                                            (option) =>
+                                                                option.value ===
+                                                                values.targetWallet
+                                                        )}
+                                                        onChange={(option) =>
+                                                            form.setFieldValue(
+                                                                field.name,
+                                                                option?.value || ''
+                                                            )
+                                                        }
+                                                        isDisabled={isEditing}
+                                                    />
+                                                )}
+                                            </Field>
+                                        </FormItem>
+                                    </>
+                                ) : (
+                                    <>
+                                        <FormItem
+                                            label={t(`${p}.wallet.label`)}
+                                            invalid={errors.wallet && touched.wallet}
+                                            errorMessage={t(`${p}${errors.wallet}`)}
+                                        >
+                                            <Field name="wallet">
+                                                {({ field, form }) => (
+                                                    <Select
+                                                        placeholder={t(`${p}.wallet.placeholder`)}
+                                                        field={field}
+                                                        form={form}
+                                                        options={wallets}
+                                                        value={wallets.filter(
+                                                            (option) =>
+                                                                option.value ===
+                                                                values.wallet
+                                                        )}
+                                                        onChange={(option) =>
+                                                            form.setFieldValue(
+                                                                field.name,
+                                                                option?.value || ''
+                                                            )
+                                                        }
+                                                        isDisabled={isEditing}
+                                                    />
+                                                )}
+                                            </Field>
+                                        </FormItem>
 
-                            <FormItem
-                                label={t(`${p}.category.label`)}
-                                invalid={errors.category && touched.category}
-                                errorMessage={t(`${p}${errors.category}`)}
-                            >
-                                <Field name="category">
-                                    {({ field, form }) => (
-                                        <Select
-                                            placeholder={t(`${p}.category.placeholder`)}
-                                            field={field}
-                                            form={form}
-                                            options={categories}
-                                            value={categories.filter(
-                                                (option) =>
-                                                    option.value ===
-                                                    values.category
-                                            )}
-                                            onChange={(option) =>
-                                                form.setFieldValue(
-                                                    field.name,
-                                                    option?.value || ''
-                                                )
-                                            }
-                                            disabled={isEditing}
-                                            isClearable
-                                        />
-                                    )}
-                                </Field>
-                            </FormItem>
+                                        <FormItem
+                                            label={t(`${p}.category.label`)}
+                                            invalid={errors.category && touched.category}
+                                            errorMessage={t(`${p}${errors.category}`)}
+                                        >
+                                            <Field name="category">
+                                                {({ field, form }) => (
+                                                    <Select
+                                                        placeholder={t(`${p}.category.placeholder`)}
+                                                        field={field}
+                                                        form={form}
+                                                        options={categories}
+                                                        value={categories.filter(
+                                                            (option) =>
+                                                                option.value ===
+                                                                values.category
+                                                        )}
+                                                        onChange={(option) =>
+                                                            form.setFieldValue(
+                                                                field.name,
+                                                                option?.value || ''
+                                                            )
+                                                        }
+                                                        disabled={isEditing}
+                                                        isClearable
+                                                    />
+                                                )}
+                                            </Field>
+                                        </FormItem>
+                                    </>
+                                )
+                            }
+
 
                             {
                                 values?.type === 'expense' && (

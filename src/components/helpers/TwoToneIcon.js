@@ -9,7 +9,7 @@ export const getIcon = (type, size = 'sm') => {
         case 'expense':
             return <TowToneIcon size={size} color={'red'} icon={<HiArrowDown className='rotate-45' />}/>
         default:
-            return <TowToneIcon size={size} color={'emerald'} icon={<HiSwitchHorizontal />}/>
+            return <TowToneIcon size={size} color={'indigo'} icon={<HiSwitchHorizontal />}/>
     }
 }
 

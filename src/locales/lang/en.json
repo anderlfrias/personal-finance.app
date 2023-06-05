@@ -40,7 +40,8 @@
         },
         "type": {
             "income": "Income",
-            "expense": "Expense"
+            "expense": "Expense",
+            "tranfer": "Transfer"
         },
         "summary": {
             "title": "Summary",
@@ -54,6 +55,8 @@
             "subtitle": "ID: {id}",
             "date": "Date",
             "wallet": "Wallet",
+            "sourceWallet": "Source wallet",
+            "targetWallet": "Target wallet",
             "category": "Category",
             "noCategory": "No category",
             "type": "Type",
@@ -85,6 +88,20 @@
                 "placeholder": "Select wallet",
                 "error": {
                     "required": "Wallet is required"
+                }
+            },
+            "sourceWallet": {
+                "label": "Source wallet",
+                "placeholder": "Select source wallet",
+                "error": {
+                    "required": "Source wallet is required"
+                }
+            },
+            "targetWallet": {
+                "label": "Target wallet",
+                "placeholder": "Select target wallet",
+                "error": {
+                    "required": "Target wallet is required"
                 }
             },
             "category": {
@@ -862,6 +879,7 @@
         "username_exists": "Username already exists",
         "user_not_active": "User is not active",
         "invalid-password": "Current password is incorrect",
-        "user-not-found": "User not found"
+        "user-not-found": "User not found",
+        "server-error": "Server errors"
     }
 }
