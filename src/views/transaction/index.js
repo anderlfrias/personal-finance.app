@@ -138,6 +138,8 @@ function Transaction() {
             ...transaction,
             date: transaction?.date ? new Date(transaction.date) : new Date(),
             wallet: transaction.wallet?.id || '',
+            sourceWallet: transaction.sourceWallet?.id || '',
+            targetWallet: transaction.targetWallet?.id || '',
             category: transaction.category?.id || '',
             budget: transaction.budget?.id || '',
             evidence: transaction.evidence || [],
@@ -152,6 +154,7 @@ function Transaction() {
 
     const fetchData = useCallback(async (q = '') => {
         setLoading(true)
+        setTransactions([])
         // const query = `top=${top}&skip=${step * top}&${q}`
         const resp = await getTransactions(q);
         if (resp.status === 'success') {
