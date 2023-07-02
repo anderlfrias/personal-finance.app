@@ -13,6 +13,7 @@ import useBudget from 'utils/hooks/custom/useBudget';
 import { convertirImagenToBase64, resizeImage } from 'utils/image';
 import Image from 'components/helpers/Image';
 import openNotification from 'utils/openNotification';
+import formatCurrency from 'utils/formatCurrency';
 
 const { DateTimepicker } = DatePicker
 
@@ -28,9 +29,9 @@ const validationSchema = Yup.object().shape({
     date: Yup.date()
         .required('.date.error.required')
         .nullable(),
-    wallet: Yup.string(),
-    sourceWallet: Yup.string(),
-    targetWallet: Yup.string(),
+    wallet: Yup.string().nullable(),
+    sourceWallet: Yup.string().nullable(),
+    targetWallet: Yup.string().nullable(),
     category: Yup.string()
         .nullable(),
     budget: Yup.string()
@@ -71,7 +72,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                 setWallets(
                     resp.data.map((wallet) => ({
                         value: wallet.id,
-                        label: wallet.name,
+                        label: `${wallet.name} - ${formatCurrency(wallet.balance)}`,
                     }))
                 )
             }

@@ -3,6 +3,7 @@ module.exports = {
         {
             name: "wallet-app",
             script: "serve",
+            autorestart: true,
             env: {
                 NODE_ENV: "production",
                 PM2_SERVE_PATH: './build',
