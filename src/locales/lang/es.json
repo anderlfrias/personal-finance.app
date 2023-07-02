@@ -347,7 +347,8 @@
             "description": "Descripción",
             "balance": "Saldo",
             "actions": "Acciones",
-            "empty": "No hay cuentas"
+            "empty": "No hay cuentas",
+            "details": "Ver detalles"
         },
         "confirm": {
             "delete": {

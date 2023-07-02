@@ -1,15 +1,13 @@
 import CreateButton from 'components/helpers/CreateButton';
 import { ConfirmDialog, Loading } from 'components/shared';
-import { Button, Card, Dialog, Input, Table } from 'components/ui';
+import { Button, Card, Dialog, Input } from 'components/ui';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next'
-import { HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSearch } from 'react-icons/hi';
-import formatCurrency from 'utils/formatCurrency';
+import { HiOutlineAdjustments, HiPlusCircle, HiSearch } from 'react-icons/hi';
 import useWallet from 'utils/hooks/custom/useWallet';
 import openNotification from 'utils/openNotification';
 import WalletForm from './WalletForm';
-
-const { Tr, Th, Td, THead, TBody } = Table
+import WalletList from './WalletList';
 
 const p = 'wallet'
 function Wallet() {
@@ -84,15 +82,19 @@ function Wallet() {
         setIsEdit(false)
     }
 
-    const onEdit = (wallet) => {
-        setSelectedWallet(wallet)
-        setIsEdit(true)
-        openForm()
-    }
+    // const onEdit = (wallet) => {
+    //     setSelectedWallet(wallet)
+    //     setIsEdit(true)
+    //     openForm()
+    // }
 
-    const onDelete = (wallet) => {
-        setSelectedWallet(wallet)
-        setIsOpenConfirm(true)
+    // const onDelete = (wallet) => {
+    //     setSelectedWallet(wallet)
+    //     setIsOpenConfirm(true)
+    // }
+
+    const onDetails = (wallet) => {
+        console.log(wallet);
     }
 
     const onConfirmDelete = async () => {
@@ -146,40 +148,7 @@ function Wallet() {
                         </form>
                     </div>
                     <Loading loading={isLoading}>
-                    <Table>
-                    <THead>
-                        <Tr>
-                            <Th>#</Th>
-                            <Th>{t(`${p}.table.name`)}</Th>
-                            <Th>{t(`${p}.table.description`)}</Th>
-                            <Th>{t(`${p}.table.balance`)}</Th>
-                            <Th />
-                        </Tr>
-                    </THead>
-                    <TBody>
-                        {
-                            wallets.length > 0 ? wallets.map((wallet, index) => (
-                                <Tr key={index}>
-                                    <Td>{index + 1}</Td>
-                                    <Td>{wallet.name}</Td>
-                                    <Td>{wallet.description}</Td>
-                                    <Td>{formatCurrency(wallet.balance)}</Td>
-                                    <Td>
-                                        <div className='flex gap-2'>
-                                            <Button variant='twoTone' size='sm' icon={<HiOutlineTrash />} onClick={() => onDelete(wallet)} color={'red-500'} />
-                                            <Button variant='twoTone' size='sm' icon={<HiPencilAlt />} onClick={() => onEdit(wallet)} />
-                                        </div>
-                                    </Td>
-                                </Tr>
-                            )) :
-                            <Tr>
-                                <Td colSpan={5} className='text-center'>
-                                    {t(`${p}.table.empty`)}
-                                </Td>
-                            </Tr>
-                        }
-                    </TBody>
-                </Table>
+                        <WalletList wallets={wallets} onClickItem={onDetails}/>
                 </Loading>
             </Card>
             </div>

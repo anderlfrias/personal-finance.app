@@ -358,7 +358,8 @@
             "description": "Description",
             "balance": "Balance",
             "action": "Action",
-            "empty": "No wallets found"
+            "empty": "No wallets found",
+            "details": "Details"
         },
         "message":{
             "success": {
