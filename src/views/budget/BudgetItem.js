@@ -3,7 +3,7 @@ import React from 'react'
 import { HiCalendar, HiLockClosed, HiLockOpen } from 'react-icons/hi';
 import formatCurrency from 'utils/formatCurrency';
 import State from './State';
-import { getState, isActive } from './utils';
+import { getRemain, getState, isActive } from './utils';
 import formatDate from 'utils/formatDate';
 
 function BudgetItem({ budget, onClick }) {
@@ -31,7 +31,7 @@ function BudgetItem({ budget, onClick }) {
                 </div>
                 <div className='flex flex-col items-end'>
                     <h6 className={`font-bold text-sm`}>
-                        {formatCurrency(budget.amount)}
+                        {formatCurrency(getRemain(budget))}
                     </h6>
                     <State state={getState(budget)} />
                 </div>

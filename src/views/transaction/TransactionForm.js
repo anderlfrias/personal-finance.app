@@ -14,6 +14,7 @@ import { convertirImagenToBase64, resizeImage } from 'utils/image';
 import Image from 'components/helpers/Image';
 import openNotification from 'utils/openNotification';
 import formatCurrency from 'utils/formatCurrency';
+import { getRemain } from 'views/budget/utils';
 
 const { DateTimepicker } = DatePicker
 
@@ -97,7 +98,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                 setBudgets(
                     resp.data.map((budget) => ({
                         value: budget.id,
-                        label: budget.name
+                        label: `${budget.name} - ${formatCurrency(getRemain(budget))} / ${formatCurrency(budget.amount)}`
                     }))
                 )
             }
