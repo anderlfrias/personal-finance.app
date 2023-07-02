@@ -11,7 +11,7 @@ import TransactionList from './TransactionList'
 import TransactionFilter from './TransactionFilter'
 import TransactionDetails from './TransactionDetails'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
-import { ConfirmDialog, Loading } from 'components/shared'
+import { ConfirmDialog } from 'components/shared'
 import CreateButton from 'components/helpers/CreateButton'
 
 const p = 'transaction' // path to translation file
