@@ -21,17 +21,19 @@ function useAuth() {
     const { token, signedIn, user } = useSelector((state) => state.auth.session)
 
     const signIn = async (values) => {
-        try {
+    try {
 			const resp = await apiSignIn(values)
-			if (resp.data) {
+			if (resp.data?.token) {
+				console.log(resp.data)
 				const { token } = resp.data;
-				const decoded = jwt_decode(token);
+				// const decoded = jwt_decode(token); // delete this
+
 				const user = {
-					...decoded,
-					avatar: '',
-					authority: [decoded.role.toUpperCase()]
+					...resp.data.user,
+					avatar: resp.data.user?.profilePic || '',
+					authority: [resp.data.user.role.toUpperCase()]
 				}
-				delete user.role;
+				// delete user.role; // also delete this
 
 				if (user.isActive) {
 					dispatch(onSignInSuccess(token))
@@ -44,6 +46,8 @@ function useAuth() {
 
 				navigate(`/send-confirm-email/${token}`, { replace: true, state: { email: user.email } })
 			}
+
+			throw Error()
 		} catch (errors) {
 			return FailedResponse(errors)
 		}
@@ -138,16 +142,16 @@ function useAuth() {
 	}
 
     return {
-		user,
-		activated: user && user.isActive,
-        authenticated: token && signedIn,
-        signIn,
-		signUp,
-        signOut,
-		confirmEmail,
-		sendConfirmEmail,
-		forgotPassword,
-		resetPassword
+			user,
+			activated: user && user.isActive,
+			authenticated: token && signedIn,
+			signIn,
+			signUp,
+			signOut,
+			confirmEmail,
+			sendConfirmEmail,
+			forgotPassword,
+			resetPassword
     }
 }
 

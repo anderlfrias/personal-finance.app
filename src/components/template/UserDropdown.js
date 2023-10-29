@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Dropdown } from 'components/ui'
+import { Dropdown } from 'components/ui'
 import withHeaderItem from 'utils/hoc/withHeaderItem'
 import useAuth from 'utils/hooks/useAuth'
 // import { useSelector } from 'react-redux'
@@ -28,13 +28,12 @@ export const UserDropdown = ({ className }) => {
 	const { t } = useTranslation()
 	// bind this
 	const userInfo = useSelector((state) => state.auth.user)
-
 	const { signOut } = useAuth()
 
 	const UserAvatar = (
 		<div className={classNames(className, 'flex items-center gap-2')}>
 			{/* <Avatar size={32} shape="circle" icon={<HiOutlineUser />} /> */}
-			<ProfilePic className="w-8 h-8" image={userInfo.profilePic} size={32} />
+			<ProfilePic className="w-8 h-8" image={userInfo.avatar} size={32} />
 			<div className="hidden md:block">
 				{/* <div className="text-xs capitalize">admin</div> */}
 				<div className="font-bold">{userInfo.username}</div>
@@ -47,7 +46,7 @@ export const UserDropdown = ({ className }) => {
 			<Dropdown menuStyle={{minWidth: 240}} renderTitle={UserAvatar} placement="bottom-end">
 				<Dropdown.Item variant="header">
 					<div className="py-2 px-3 flex items-center gap-2">
-						<Avatar shape="circle" icon={<HiOutlineUser />} />
+						<ProfilePic className="w-8 h-8" image={userInfo.avatar} size={32} />
 						<div>
 							<div className="font-bold text-gray-900 dark:text-gray-100">{userInfo.name}  {userInfo.firstSurname}</div>
 							<div className="text-xs"> {userInfo.email}</div>
