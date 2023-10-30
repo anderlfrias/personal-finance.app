@@ -19,6 +19,11 @@ export const getLastHoursOfDay = (date) => {
     return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59);
 }
 
+export const getStartHoursOfDay = (date) => {
+    const d = date ? new Date(date) : new Date();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
 export const getStartDateOfYears = (year) => {
     return new Date(year, 0, 1)
 }

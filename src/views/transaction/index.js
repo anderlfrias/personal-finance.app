@@ -14,6 +14,7 @@ import useScreenSize from 'utils/hooks/custom/useScreenSize'
 import { ConfirmDialog } from 'components/shared'
 import CreateButton from 'components/helpers/CreateButton'
 import DisplayFilter from './DisplayFilter'
+import { getLastHoursOfDay, getStartHoursOfDay } from 'utils/date'
 
 const p = 'transaction' // path to translation file
 
@@ -32,7 +33,7 @@ function Transaction() {
     const [isEditing, setIsEditing] = useState(false)
     const [selectedTransactionId, setSelectedTransactionId] = useState(null)
     const [isOpenConfirm, setIsOpenConfirm] = useState(false)
-    const [query, setQuery] = useState('')
+    const [query, setQuery] = useState(`startDate=${getStartHoursOfDay(new Date()).toISOString()}&endDate=${getLastHoursOfDay(new Date()).toISOString()}`)
     const [top] = useState(10)
     const [step, setStep] = useState(0)
     const [total, setTotal] = useState(0)

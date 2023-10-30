@@ -15,7 +15,6 @@ export default function DisplayFilter({ query, setQuery }) {
   }
 
   const onDeleteItem = (key) => {
-    console.log('delete', key)
     const newObj = {
       ...getObjectByQuery(query),
       [key]: ''
@@ -27,13 +26,10 @@ export default function DisplayFilter({ query, setQuery }) {
       delete newObj.dateRange;
     }
 
-    console.log(newObj)
     const newQuery = getQueryByObject(newObj);
-    console.log(newQuery)
     setQuery(newQuery)
   }
 
-  console.log(obj)
   return (
     <div className='flex gap-1 flex-wrap mb-2'>
       {Object.keys(obj).map((key) => (
