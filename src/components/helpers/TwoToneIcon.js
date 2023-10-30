@@ -16,7 +16,7 @@ export const getIcon = (type, size = 'sm') => {
 
 function TowToneIcon({ icon, color, size, className = '' }) {
     return <Avatar
-            className={`${className} bg-${color}-100 dark:bg-${color}-500/20 dark:text-${color}-100 text-${color}-600`}
+            className={`${className} bg-${color}-100 dark:bg-${color}-600 dark:text-${color}-100 text-${color}-600`}
             icon={icon}
             size={size}
         />

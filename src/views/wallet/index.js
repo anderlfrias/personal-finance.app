@@ -50,7 +50,7 @@ function Wallet() {
         if (resp.status === 'success') {
             onClose()
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.create`)})
-            fetchData()
+            fetchData(filter)
         }
 
         if (resp.status === 'failed') {
@@ -64,7 +64,7 @@ function Wallet() {
         if (resp.status === 'success') {
             onClose()
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.update`)})
-            fetchData()
+            fetchData(filter)
         }
 
         if (resp.status === 'failed') {

@@ -16,6 +16,17 @@ export function getQueryByObject (obj) {
     }).join('&');
 }
 
+export function getObjectByQuery (query) {
+    const obj = {};
+    if (!query) return obj;
+    const arr = query.split('&');
+    arr.forEach(item => {
+        const [key, value] = item.split('=');
+        obj[key] = value;
+    })
+    return obj;
+}
+
 const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
     const { t } = useTranslation();
     const { getWallets } = useWallet();

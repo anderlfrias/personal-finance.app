@@ -13,6 +13,7 @@ import TransactionDetails from './TransactionDetails'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
 import { ConfirmDialog } from 'components/shared'
 import CreateButton from 'components/helpers/CreateButton'
+import DisplayFilter from './DisplayFilter'
 
 const p = 'transaction' // path to translation file
 
@@ -88,7 +89,7 @@ function Transaction() {
         if (resp.status === 'success') {
             onCloseForm()
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.create`) })
-            fetchData()
+            fetchData(query)
             return
         }
 
@@ -103,7 +104,7 @@ function Transaction() {
         if (resp.status === 'success') {
             onCloseForm();
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.update`)})
-            fetchData()
+            fetchData(query)
             return;
         }
 
@@ -119,7 +120,7 @@ function Transaction() {
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.delete`) })
             onCloseDetail()
             onCloseConfirm()
-            fetchData()
+            fetchData(query)
         }
 
         if (resp.status === 'failed') {
@@ -196,6 +197,8 @@ function Transaction() {
                         </Button>
                     </div>
                 </div>
+
+                <DisplayFilter query={query} setQuery={setQuery} />
 
                 {/* <Loading loading={loading} type='cover'> */}
 
