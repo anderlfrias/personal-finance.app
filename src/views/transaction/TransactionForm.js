@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { Input, Button, FormItem, FormContainer, DatePicker, Select, Segment, Upload, useConfig } from 'components/ui'
+import { Input, FormItem, FormContainer, DatePicker, Select, Segment, Upload, useConfig } from 'components/ui'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import useWallet from 'utils/hooks/custom/useWallet';
@@ -47,7 +47,7 @@ const typeOptions = [
 ]
 
 const p = 'transaction.form' // path to translation file
-const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
+const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRef  }) => {
 	const { themeColor, primaryColorLevel, mode } = useConfig()
     const { t } = useTranslation()
     const { getWallets } = useWallet();
@@ -132,6 +132,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
     return (
         <div>
             <Formik
+                innerRef={innerRef }
                 initialValues={initialValues || {
                     type: '',
                     amount: '',
@@ -470,22 +471,27 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing }) => {
                             </FormItem>
                             {/* </div> */}
 
-                            <FormItem className='mt-2'>
-                                <Button
-                                    type="reset"
-                                    className="ltr:mr-2 rtl:ml-2"
-                                    variant="plain"
-                                    onClick={() => {
-                                        resetForm()
-                                        onCancel()
-                                    }}
-                                >
-                                    {t(`${p}.cancel`)}
-                                </Button>
-                                <Button variant="solid" type="submit" loading={isSubmitting}>
-                                    {isSubmitting ? t(`${p}.submit.loading`) : t(`${p}.submit.label`)}
-                                </Button>
-                            </FormItem>
+                            {/* <StickyFooter
+                                className="px-8 flex items-center justify-between py-4"
+                                stickyClass="border rounded-lg bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                            >
+                                <div className='mt-2'>
+                                    <Button
+                                        type="reset"
+                                        className="ltr:mr-2 rtl:ml-2"
+                                        variant="plain"
+                                        onClick={() => {
+                                            resetForm()
+                                            onCancel()
+                                        }}
+                                    >
+                                        {t(`${p}.cancel`)}
+                                    </Button>
+                                    <Button variant="solid" type="submit" loading={isSubmitting}>
+                                        {isSubmitting ? t(`${p}.submit.loading`) : t(`${p}.submit.label`)}
+                                    </Button>
+                                </div>
+                            </StickyFooter> */}
                         </FormContainer>
                     </Form>
                 )}

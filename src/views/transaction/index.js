@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Button, Card, Drawer } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import { HiOutlineAdjustments, HiPlusCircle } from 'react-icons/hi'
@@ -20,6 +20,7 @@ const p = 'transaction' // path to translation file
 
 function Transaction() {
     const { t } = useTranslation()
+    const formRef = useRef()
     const { getTransactions, createTransaction, updateTransaction, deleteTransaction } = useTransaction()
     const { width: screenWidth } = useScreenSize()
     const [transactions, setTransactions] = useState([])
@@ -38,6 +39,7 @@ function Transaction() {
     const [step, setStep] = useState(0)
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const onCloseConfirm = () => setIsOpenConfirm(false)
     const openConfirm = () => setIsOpenConfirm(true)
@@ -71,6 +73,7 @@ function Transaction() {
     }
 
     const onSubmit = async (values) => {
+        setIsSubmitting(true)
         const data = {
             ...values,
             date: new Date(values.date).toISOString()
@@ -82,6 +85,7 @@ function Transaction() {
         }
 
         await onCreate(data);
+        setIsSubmitting(false)
     }
 
     const onCreate = async (data) => {
@@ -149,6 +153,17 @@ function Transaction() {
         setIsEditing(true)
         openForm()
     }
+
+    const Footer = (
+        <div className="text-right w-full">
+            <Button size="sm" className="mr-2" onClick={onCloseForm}>
+                {t(`${p}.form.cancel`)}
+            </Button>
+            <Button size="sm" variant="solid" type="submit" loading={isSubmitting} onClick={() => formRef.current.handleSubmit()}>
+                {isSubmitting ? t(`${p}.form.submit.loading`) : t(`${p}.form.submit.label`)}
+            </Button>
+        </div>
+    )
 
     const onPaginationChange = (page) => {
         setStep(page - 1)
@@ -242,8 +257,9 @@ function Transaction() {
                 isOpen={isFormOpen}
                 onClose={onCloseForm}
                 width={ screenWidth >= 768 ? 500 : screenWidth}
+                footer={Footer}
             >
-                <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={selectedTransaction} isEditing={isEditing} />
+                <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={selectedTransaction} isEditing={isEditing} innerRef ={formRef} />
             </Drawer>
 
             <TransactionFilter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onFilter} />
