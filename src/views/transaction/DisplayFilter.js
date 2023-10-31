@@ -1,54 +1,56 @@
 import React from 'react';
-import { getObjectByQuery, getQueryByObject } from './TransactionFilter';
 import { Tag, useConfig } from 'components/ui';
 import { HiX } from 'react-icons/hi';
 import formatDate from 'utils/formatDate';
-import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
-const p = 'transaction.filter';
-export default function DisplayFilter({ query, setQuery }) {
-  const { t } = useTranslation();
+export default function DisplayFilter({ className, filter, setFilter }) {
   const { themeColor, primaryColorLevel, } = useConfig()
-  const { startDate, endDate, wallets, categories, q } = getObjectByQuery(query)
-  const obj = {
-    q: q,
-    dateRange: startDate && endDate ? `${formatDate(new Date(startDate))} ~ ${formatDate(new Date(endDate))}` : null,
-    wallets: wallets,
-    categories: categories
-  }
+  const { search, dateRange, wallets, categories } = filter
 
-  const onDeleteItem = (key) => {
-    const newObj = {
-      ...getObjectByQuery(query),
-      [key]: ''
-    };
-
-    if (key === 'dateRange') {
-      newObj.startDate = '';
-      newObj.endDate = '';
-      delete newObj.dateRange;
-    }
-
-    const newQuery = getQueryByObject(newObj);
-    setQuery(newQuery)
-  }
+  const deleteDateRange = () => setFilter((prev) => ({ ...prev, dateRange: [null, null] }))
+  const deleteWallet = (id) => setFilter((prev) => ({ ...prev, wallets: wallets.filter(item => item.id !== id) }))
+  const deleteCategory = (id) => setFilter((prev) => ({ ...prev, categories: categories.filter(item => item.id !== id) }))
+  const deleteSearch = () => setFilter((prev) => ({ ...prev, search: '' }))
 
   return (
-    <div className='flex gap-1 flex-wrap mb-2'>
-      {Object.keys(obj).map((key) => (
-        <div key={key}>
-          {obj[key] && (
-            <Tag
-              key={key}
-              suffix={<HiX className="ml-1 rtl:mr-1 cursor-pointer" onClick={() => onDeleteItem(key)} />}
-              className={`bg-${themeColor}-100 text-${themeColor}-${primaryColorLevel} dark:bg-${themeColor}-${primaryColorLevel} dark:text-${themeColor}-100 border-0 rounded`}
-            >
-              <div className='min-w-max'>
-                {t(`${p}.${key}`)}: {obj[key]}
-              </div>
-            </Tag>
-          )}
-        </div>
+    <div className={classNames('flex gap-1 flex-wrap', className)}>
+      {search && (
+        <Tag
+          suffix={<HiX className='ml-1 cursor-pointer' onClick={deleteSearch} />}
+          className={`bg-${themeColor}-100 text-${themeColor}-${primaryColorLevel} dark:bg-${themeColor}-${primaryColorLevel} dark:text-${themeColor}-100 border-0 rounded`}
+        >
+          {search}
+        </Tag>
+      )}
+
+      {(dateRange[0] && dateRange[1]) && (
+        <Tag
+          suffix={<HiX className='ml-1 cursor-pointer' onClick={deleteDateRange} />}
+          className={`bg-${themeColor}-100 text-${themeColor}-${primaryColorLevel} dark:bg-${themeColor}-${primaryColorLevel} dark:text-${themeColor}-100 border-0 rounded`}
+        >
+          {formatDate(dateRange[0])} ~ {formatDate(dateRange[1])}
+        </Tag>
+      )}
+
+      {wallets.length > 0 && wallets.map((item) => (
+        <Tag
+          key={item.id}
+          suffix={<HiX className='ml-1 cursor-pointer' onClick={() => deleteWallet(item.id)} />}
+          className={`bg-${themeColor}-100 text-${themeColor}-${primaryColorLevel} dark:bg-${themeColor}-${primaryColorLevel} dark:text-${themeColor}-100 border-0 rounded`}
+        >
+          {item.name}
+        </Tag>
+      ))}
+
+      {categories.length > 0 && categories.map((item) => (
+        <Tag
+          key={item.id}
+          suffix={<HiX className='ml-1 cursor-pointer' onClick={() => deleteCategory(item.id)} />}
+          className={`bg-${themeColor}-100 text-${themeColor}-${primaryColorLevel} dark:bg-${themeColor}-${primaryColorLevel} dark:text-${themeColor}-100 border-0 rounded`}
+        >
+          {item.name}
+        </Tag>
       ))}
     </div>
   );

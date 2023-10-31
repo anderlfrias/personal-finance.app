@@ -15,6 +15,14 @@ import { ConfirmDialog } from 'components/shared'
 import CreateButton from 'components/helpers/CreateButton'
 import DisplayFilter from './DisplayFilter'
 import { getLastHoursOfDay, getStartHoursOfDay } from 'utils/date'
+import { getQueryByObject } from 'utils/query'
+
+const defaultFilterValues = {
+    search: '',
+    dateRange: [getStartHoursOfDay(new Date()), getLastHoursOfDay(new Date())], // Por defecto solo cargan las transacciones del dia de hoy
+    wallets: [],
+    categories: []
+}
 
 const p = 'transaction' // path to translation file
 
@@ -34,7 +42,7 @@ function Transaction() {
     const [isEditing, setIsEditing] = useState(false)
     const [selectedTransactionId, setSelectedTransactionId] = useState(null)
     const [isOpenConfirm, setIsOpenConfirm] = useState(false)
-    const [query, setQuery] = useState(`startDate=${getStartHoursOfDay(new Date()).toISOString()}&endDate=${getLastHoursOfDay(new Date()).toISOString()}`)
+    const [filter, setFilter] = useState(defaultFilterValues)
     const [top] = useState(10)
     const [step, setStep] = useState(0)
     const [total, setTotal] = useState(0)
@@ -55,11 +63,6 @@ function Transaction() {
     }
     const openFilter = () => setIsFilterOpen(true)
     const onCloseFilter = () => setIsFilterOpen(false)
-
-    const onFilter = (query) => {
-        setQuery(query)
-        fetchData(query)
-    }
 
     const openForm = () => {
         setIsFormOpen(true)
@@ -94,7 +97,7 @@ function Transaction() {
         if (resp.status === 'success') {
             onCloseForm()
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.create`) })
-            fetchData(query)
+            fetchData(filter)
             return
         }
 
@@ -109,7 +112,7 @@ function Transaction() {
         if (resp.status === 'success') {
             onCloseForm();
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.update`)})
-            fetchData(query)
+            fetchData(filter)
             return;
         }
 
@@ -125,7 +128,7 @@ function Transaction() {
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.delete`) })
             onCloseDetail()
             onCloseConfirm()
-            fetchData(query)
+            fetchData(filter)
         }
 
         if (resp.status === 'failed') {
@@ -182,8 +185,17 @@ function Transaction() {
     }, [getTransactions])
 
     useEffect(() => {
-        fetchData(query);
-    }, [fetchData, query])
+        fetchData(filter ?
+            getQueryByObject({
+                q: filter?.search,
+                startDate: filter?.dateRange[0] ? new Date(filter.dateRange[0]).toISOString() : '',
+                endDate: filter?.dateRange[0] ? new Date(filter.dateRange[1]).toISOString() : '',
+                wallets: filter?.wallets.map(item => item.id).join(','),
+                categories: filter?.categories.map(item => item.id).join(','),
+            }) :
+            ''
+        );
+    }, [fetchData, filter])
 
     useEffect(() => {
         const incomes = transactions.filter(transaction => transaction.type === 'income')
@@ -198,7 +210,7 @@ function Transaction() {
     return (
         <>
             <div className='container mx-auto'>
-                <div className='flex flex-wrap justify-between mb-4'>
+                <div className='flex flex-wrap justify-between mb-2'>
                     <h2>
                         {t(`${p}.title`)}
                     </h2>
@@ -214,7 +226,7 @@ function Transaction() {
                     </div>
                 </div>
 
-                <DisplayFilter query={query} setQuery={setQuery} />
+                <DisplayFilter className='mb-4' filter={filter} setFilter={setFilter} />
 
                 {/* <Loading loading={loading} type='cover'> */}
 
@@ -262,7 +274,7 @@ function Transaction() {
                 <TransactionForm onSubmit={onSubmit} onCancel={onCloseForm} initialValues={selectedTransaction} isEditing={isEditing} innerRef ={formRef} />
             </Drawer>
 
-            <TransactionFilter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onFilter} />
+            <TransactionFilter isOpen={isFilterOpen} onClose={onCloseFilter} filter={filter} setFilter={setFilter} />
 
             <TransactionDetails
                 isOpen={isDetailOpen}

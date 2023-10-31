@@ -8,26 +8,16 @@ import useCategory from 'utils/hooks/custom/useCategory';
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
 import { getLastHoursOfDay } from 'utils/date';
 
+export const getArrayObjByIds = (arr, ids) => {
+    return arr.filter(item => ids.includes(item.id))
+}
+
+export const getIdsByArrayObj = (arr) => {
+    return arr.map(item => item.id)
+}
+
 const p = 'transaction.filter';
-
-export function getQueryByObject (obj) {
-    return Object.keys(obj).map(key => {
-        return `${key}=${obj[key]}`;
-    }).join('&');
-}
-
-export function getObjectByQuery (query) {
-    const obj = {};
-    if (!query) return obj;
-    const arr = query.split('&');
-    arr.forEach(item => {
-        const [key, value] = item.split('=');
-        obj[key] = value;
-    })
-    return obj;
-}
-
-const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
+const TransactionFilter = ({ isOpen, onClose, filter, setFilter }) => {
     const { t } = useTranslation();
     const { getWallets } = useWallet();
     const { getCategories } = useCategory();
@@ -35,12 +25,7 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
     const [categories, setCategories] = useState([]);
     const { width: screenWidth } = useScreenSize()
 
-    const [values, setValues] = useState({
-        search: '',
-        dateRange: [null, null],
-        wallets: [],
-        categories: []
-    })
+    const [values, setValues] = useState(filter)
 
     const onChangeValues = (name, value) => {
         setValues({
@@ -57,17 +42,7 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
     }
 
     const handleSubmit = () => {
-        const query = getQueryByObject({
-            q: values.search,
-            startDate: values.dateRange[0] ? new Date(values.dateRange[0]).toISOString() : '',
-            endDate: values.dateRange[1] ? new Date(values.dateRange[1]).toISOString() : '',
-            wallets: values.wallets.join(','),
-            categories: values.categories.join(','),
-            walletsLabel: wallets.filter(item => values.wallets.includes(item.id)).map(item => item.name).join(', '),
-            categoriesLabel: categories.filter(item => values.categories.includes(item.id)).map(item => item.name).join(', ')
-        });
-
-        onSubmit(query);
+        setFilter(values);
         onClose();
     }
 
@@ -100,14 +75,12 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
         });
     }, [getWallets, getCategories])
 
-    // useEffect(() => {
-    //     setValues({
-    //         search: '',
-    //         dateRange: [null, null],
-    //         wallets: wallets.map(item => item.id),
-    //         categories: categories.map(item => item.id)
-    //     })
-    // }, [wallets, categories])
+    useEffect(() => {
+        setValues(filter)
+    }, [filter])
+
+    console.log('TransactionFilter', values)
+
     return (
         <div>
             <Drawer
@@ -151,7 +124,7 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
                         <h6>
                             {t(`${p}.wallet.label`)}
                         </h6>
-                        <Checkbox.Group vertical={true} onChange={(values) => onChangeValues('wallets', values)} value={values.wallets}>
+                        <Checkbox.Group vertical={true} onChange={(values) => onChangeValues('wallets', getArrayObjByIds(wallets, values))} value={getIdsByArrayObj(values.wallets)}>
                             {
                                 wallets.map((item, index) => (
                                     <Checkbox key={index} value={item.id}>
@@ -166,7 +139,7 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
                         <h6>
                             {t(`${p}.category.label`)}
                         </h6>
-                        <Checkbox.Group vertical={true} onChange={(values) => onChangeValues('categories', values)} value={values.categories}>
+                        <Checkbox.Group vertical={true} onChange={(values) => onChangeValues('categories', getArrayObjByIds(categories, values))} value={getIdsByArrayObj(values.categories)}>
                             {
                                 categories.map((item, index) => (
                                     <Checkbox key={index} value={item.id}>
