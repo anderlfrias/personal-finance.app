@@ -3,8 +3,11 @@ import { getObjectByQuery, getQueryByObject } from './TransactionFilter';
 import { Tag, useConfig } from 'components/ui';
 import { HiX } from 'react-icons/hi';
 import formatDate from 'utils/formatDate';
+import { useTranslation } from 'react-i18next';
 
+const p = 'transaction.filter';
 export default function DisplayFilter({ query, setQuery }) {
+  const { t } = useTranslation();
   const { themeColor, primaryColorLevel, } = useConfig()
   const { startDate, endDate, wallets, categories, q } = getObjectByQuery(query)
   const obj = {
@@ -41,7 +44,7 @@ export default function DisplayFilter({ query, setQuery }) {
               className={`bg-${themeColor}-100 text-${themeColor}-${primaryColorLevel} dark:bg-${themeColor}-${primaryColorLevel} dark:text-${themeColor}-100 border-0 rounded`}
             >
               <div className='min-w-max'>
-                {key}: {obj[key]}
+                {t(`${p}.${key}`)}: {obj[key]}
               </div>
             </Tag>
           )}

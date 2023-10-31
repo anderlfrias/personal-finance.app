@@ -63,6 +63,8 @@ const TransactionFilter = ({ isOpen, onClose, onSubmit }) => {
             endDate: values.dateRange[1] ? new Date(values.dateRange[1]).toISOString() : '',
             wallets: values.wallets.join(','),
             categories: values.categories.join(','),
+            walletsLabel: wallets.filter(item => values.wallets.includes(item.id)).map(item => item.name).join(', '),
+            categoriesLabel: categories.filter(item => values.categories.includes(item.id)).map(item => item.name).join(', ')
         });
 
         onSubmit(query);

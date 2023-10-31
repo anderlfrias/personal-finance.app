@@ -188,7 +188,11 @@
                 "placeholder": "Seleccione la categoría"
             },
             "submit": "Enviar",
-            "cancel": "Limpiar filtro"
+            "cancel": "Limpiar filtro",
+            "dateRange": "Rango de fechas",
+            "wallets": "Cuentas",
+            "categories": "Categorías",
+            "q": "Buscar"
         },
         "confirm": {
             "delete": {

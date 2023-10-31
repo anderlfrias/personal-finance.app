@@ -201,7 +201,11 @@
                 "placeholder": "Select date range"
             },
             "submit": "Submit",
-            "cancel": "Clear filter"
+            "cancel": "Clear filter",
+            "dateRange": "Date range",
+            "wallets": "Wallets",
+            "categories": "Categories",
+            "q": "Search"
         },
         "confirm": {
             "title": "Delete transaction",
