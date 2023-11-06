@@ -377,6 +377,13 @@
         "filter": {
             "title": "Filtrar",
             "search": "Buscar cuenta"
+        },
+        "details": {
+            "title": "Detalles de la cuanta",
+            "subtitle": "ID: {id}",
+            "balance": "Saldo",
+            "transactions": "Transacciones",
+            "noTransactions":"No se encontraron transacciones"
         }
     },
     "category": {

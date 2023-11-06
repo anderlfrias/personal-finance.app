@@ -6,6 +6,7 @@ import {
     apiCreateTransaction,
     apiUpdateTransaction,
     apiDeleteTransaction,
+    apiGetTransactionByWalletId,
 } from 'services/TransactionService'
 import { FailedResponse, SuccessResponse } from 'utils/response';
 
@@ -24,6 +25,15 @@ function useTransaction() {
     const getTransactionById = useCallback(async (id) => {
         try {
             const resp = await apiGetTransactionById(id);
+            return SuccessResponse(resp.data);
+        } catch (error) {
+            return FailedResponse(error);
+        }
+    }, []);
+
+    const getTransactionByWalletId = useCallback(async (id) => {
+        try {
+            const resp = await apiGetTransactionByWalletId(id);
             return SuccessResponse(resp.data);
         } catch (error) {
             return FailedResponse(error);
@@ -60,6 +70,7 @@ function useTransaction() {
     return {
         getTransactions,
         getTransactionById,
+        getTransactionByWalletId,
         createTransaction,
         updateTransaction,
         deleteTransaction,

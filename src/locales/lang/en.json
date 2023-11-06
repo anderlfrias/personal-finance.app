@@ -388,6 +388,13 @@
         "filter": {
             "title": "Filter",
             "search": "Search wallet"
+        },
+        "details": {
+            "title": "Wallet details",
+            "subtitle": "ID: {id}",
+            "balance": "Balance",
+            "transactions": "Transactions",
+            "noTransactions": "No transactions found"
         }
     },
     "category": {

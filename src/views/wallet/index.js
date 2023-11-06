@@ -8,6 +8,7 @@ import useWallet from 'utils/hooks/custom/useWallet';
 import openNotification from 'utils/openNotification';
 import WalletForm from './WalletForm';
 import WalletList from './WalletList';
+import WalletDetails from './WalletDetails';
 
 const p = 'wallet'
 function Wallet() {
@@ -82,19 +83,18 @@ function Wallet() {
         setIsEdit(false)
     }
 
-    // const onEdit = (wallet) => {
-    //     setSelectedWallet(wallet)
-    //     setIsEdit(true)
-    //     openForm()
-    // }
+    const onEdit = () => {
+        setIsEdit(true)
+        openForm()
+    }
 
-    // const onDelete = (wallet) => {
-    //     setSelectedWallet(wallet)
-    //     setIsOpenConfirm(true)
-    // }
+    const onDelete = () => {
+        setIsOpenConfirm(true)
+    }
 
     const onDetails = (wallet) => {
         console.log(wallet);
+        setSelectedWallet(wallet)
     }
 
     const onConfirmDelete = async () => {
@@ -181,6 +181,14 @@ function Wallet() {
             >
                 {t(`${p}.confirm.delete.message`)}
             </ConfirmDialog>
+
+            <WalletDetails
+                isOpen={!!selectedWallet}
+                wallet={selectedWallet}
+                onClose={onClose}
+                onEdit={onEdit}
+                onDelete={onDelete}
+            />
 
             <CreateButton onClick={openForm} />
         </>
