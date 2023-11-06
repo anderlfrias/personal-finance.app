@@ -79,8 +79,6 @@ const TransactionFilter = ({ isOpen, onClose, filter, setFilter }) => {
         setValues(filter)
     }, [filter])
 
-    console.log('TransactionFilter', values)
-
     return (
         <div>
             <Drawer

@@ -82,12 +82,26 @@ function Transaction() {
             date: new Date(values.date).toISOString()
         }
 
-        if (isEditing) {
-            await onUpdate(data)
-            return
-        }
+        // if (isEditing) {
+        //     await onUpdate(data)
+        //     return
+        // }
 
-        await onCreate(data);
+        // await onCreate(data);
+
+        isEditing ? await onUpdate(data) : await onCreate(data);
+
+        fetchData(filter ?
+            getQueryByObject({
+                q: filter?.search,
+                startDate: filter?.dateRange[0] ? new Date(filter.dateRange[0]).toISOString() : '',
+                endDate: filter?.dateRange[0] ? new Date(filter.dateRange[1]).toISOString() : '',
+                wallets: filter?.wallets.map(item => item.id).join(','),
+                categories: filter?.categories.map(item => item.id).join(','),
+            }) :
+            ''
+        );
+
         setIsSubmitting(false)
     }
 
@@ -97,7 +111,6 @@ function Transaction() {
         if (resp.status === 'success') {
             onCloseForm()
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.create`) })
-            fetchData(filter)
             return
         }
 
@@ -112,7 +125,6 @@ function Transaction() {
         if (resp.status === 'success') {
             onCloseForm();
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.update`)})
-            fetchData(filter)
             return;
         }
 
@@ -128,7 +140,16 @@ function Transaction() {
             openNotification({ title: t(`message.success`), type: 'success', subtitle: t(`${p}.message.success.delete`) })
             onCloseDetail()
             onCloseConfirm()
-            fetchData(filter)
+            fetchData(filter ?
+                getQueryByObject({
+                    q: filter?.search,
+                    startDate: filter?.dateRange[0] ? new Date(filter.dateRange[0]).toISOString() : '',
+                    endDate: filter?.dateRange[0] ? new Date(filter.dateRange[1]).toISOString() : '',
+                    wallets: filter?.wallets.map(item => item.id).join(','),
+                    categories: filter?.categories.map(item => item.id).join(','),
+                }) :
+                ''
+            );
         }
 
         if (resp.status === 'failed') {
