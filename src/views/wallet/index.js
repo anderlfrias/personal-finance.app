@@ -21,6 +21,7 @@ function Wallet() {
     const [isEdit, setIsEdit] = useState(false)
     const [ isLoading, setIsLoading ] = useState(false)
     const [ filter, setFilter ] = useState('')
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false)
 
     const fetchData = useCallback(async(filter = '') => {
         setIsLoading(true)
@@ -81,20 +82,24 @@ function Wallet() {
         setIsFormOpen(false)
         setSelectedWallet(null)
         setIsEdit(false)
+        setIsDetailsOpen(false)
     }
 
     const onEdit = () => {
+        setIsDetailsOpen(false)
         setIsEdit(true)
         openForm()
     }
 
     const onDelete = () => {
+        setIsDetailsOpen(false)
         setIsOpenConfirm(true)
     }
 
     const onDetails = (wallet) => {
         console.log(wallet);
         setSelectedWallet(wallet)
+        setIsDetailsOpen(true)
     }
 
     const onConfirmDelete = async () => {
@@ -183,7 +188,7 @@ function Wallet() {
             </ConfirmDialog>
 
             <WalletDetails
-                isOpen={!!selectedWallet}
+                isOpen={isDetailsOpen}
                 wallet={selectedWallet}
                 onClose={onClose}
                 onEdit={onEdit}

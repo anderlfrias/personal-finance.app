@@ -383,7 +383,12 @@
             "subtitle": "ID: {id}",
             "balance": "Saldo",
             "transactions": "Transacciones",
-            "noTransactions":"No se encontraron transacciones"
+            "noTransactions":"No se encontraron transacciones",
+            "button": {
+                "delete": "Eliminar",
+                "edit": "Editar",
+                "close": "Cerrar"
+            }
         }
     },
     "category": {

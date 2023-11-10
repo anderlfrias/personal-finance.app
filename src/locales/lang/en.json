@@ -394,7 +394,12 @@
             "subtitle": "ID: {id}",
             "balance": "Balance",
             "transactions": "Transactions",
-            "noTransactions": "No transactions found"
+            "noTransactions": "No transactions found",
+            "button": {
+                "delete": "Delete",
+                "edit": "Edit",
+                "close": "Close"
+            }
         }
     },
     "category": {
