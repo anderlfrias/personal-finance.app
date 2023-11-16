@@ -8,21 +8,13 @@ import TransactionForm from './TransactionForm'
 import openNotification from 'utils/openNotification'
 import formatCurrency from 'utils/formatCurrency';
 import TransactionList from './TransactionList'
-import TransactionFilter from './TransactionFilter'
+import TransactionFilter, { defaultFilterValues } from './TransactionFilter'
 import TransactionDetails from './TransactionDetails'
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
 import { ConfirmDialog } from 'components/shared'
 import CreateButton from 'components/helpers/CreateButton'
 import DisplayFilter from './DisplayFilter'
-import { getLastHoursOfDay, getStartHoursOfDay } from 'utils/date'
 import { getQueryByObject } from 'utils/query'
-
-const defaultFilterValues = {
-    search: '',
-    dateRange: [getStartHoursOfDay(new Date()), getLastHoursOfDay(new Date())], // Por defecto solo cargan las transacciones del dia de hoy
-    wallets: [],
-    categories: []
-}
 
 const p = 'transaction' // path to translation file
 

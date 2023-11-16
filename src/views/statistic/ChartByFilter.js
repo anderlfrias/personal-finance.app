@@ -7,7 +7,8 @@ import { Button, Card } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import formatCurrency from 'utils/formatCurrency'
 import { HiOutlineAdjustments } from 'react-icons/hi'
-import TransactionFilter from 'views/transaction/TransactionFilter'
+import TransactionFilter, { defaultFilterValues } from 'views/transaction/TransactionFilter'
+import { getQueryByObject } from 'utils/query'
 
 const handleResp = ({ data }) => {
     const categories = data.map((item) => {
@@ -44,13 +45,10 @@ function ChartByFilter() {
     const [categories, setCategories] = useState([])
     const [isFilterOpen, setIsFilterOpen] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [filter, setFilter] = useState(defaultFilterValues)
 
     const openFilter = () => setIsFilterOpen(true)
     const onCloseFilter = () => setIsFilterOpen(false)
-
-    const onSubmitFilter = async(values) => {
-        await fetchData(values)
-    }
 
     const hasData = (data) => {
         if (data.length === 0) return false
@@ -69,8 +67,17 @@ function ChartByFilter() {
     }, [getStatistic, t])
 
     useEffect(() => {
-        fetchData()
-    }, [fetchData])
+        fetchData(filter ?
+            getQueryByObject({
+                q: filter?.search,
+                startDate: filter?.dateRange[0] ? new Date(filter.dateRange[0]).toISOString() : '',
+                endDate: filter?.dateRange[0] ? new Date(filter.dateRange[1]).toISOString() : '',
+                wallets: filter?.wallets.map(item => item.id).join(','),
+                categories: filter?.categories.map(item => item.id).join(','),
+            }) :
+            ''
+        );
+    }, [fetchData, filter])
 
     return (
         <>
@@ -123,7 +130,7 @@ function ChartByFilter() {
                 </Loading>
             </Card>
 
-            <TransactionFilter isOpen={isFilterOpen} onClose={onCloseFilter} onSubmit={onSubmitFilter} />
+            <TransactionFilter isOpen={isFilterOpen} onClose={onCloseFilter} filter={filter} setFilter={setFilter} />
         </>
     )
 }

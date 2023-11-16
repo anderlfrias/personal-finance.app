@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import useWallet from 'utils/hooks/custom/useWallet';
 import useCategory from 'utils/hooks/custom/useCategory';
 import useScreenSize from 'utils/hooks/custom/useScreenSize'
-import { getLastHoursOfDay } from 'utils/date';
+import { getLastHoursOfDay, getStartHoursOfDay } from 'utils/date';
 
 export const getArrayObjByIds = (arr, ids) => {
     return arr.filter(item => ids.includes(item.id))
@@ -14,6 +14,13 @@ export const getArrayObjByIds = (arr, ids) => {
 
 export const getIdsByArrayObj = (arr) => {
     return arr.map(item => item.id)
+}
+
+export const defaultFilterValues = {
+    search: '',
+    dateRange: [getStartHoursOfDay(new Date()), getLastHoursOfDay(new Date())], // Por defecto solo cargan las transacciones del dia de hoy
+    wallets: [],
+    categories: []
 }
 
 const p = 'transaction.filter';

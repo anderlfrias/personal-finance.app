@@ -33,12 +33,10 @@ function WalletDetails({ wallet, isOpen, onClose, onEdit, onDelete }) {
     const { t } = useTranslation()
     const {getTransactionByWalletId} = useTransaction()
     const [transactions, setTransactions] = useState([])
-    console.log(wallet)
 
     useEffect(() => {
         const fetchTransactions = async () => {
             const resp = await getTransactionByWalletId(wallet?.id)
-            console.log(resp)
             if (resp.status === 'success') {
                 setTransactions(resp.data.transactions)
             }

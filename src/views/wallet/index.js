@@ -97,7 +97,6 @@ function Wallet() {
     }
 
     const onDetails = (wallet) => {
-        console.log(wallet);
         setSelectedWallet(wallet)
         setIsDetailsOpen(true)
     }
