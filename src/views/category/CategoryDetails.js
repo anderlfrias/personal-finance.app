@@ -5,8 +5,6 @@ import TransactionItem from "views/transaction/TransactionItem";
 import { Avatar, Skeleton } from "components/ui";
 import { HiCreditCard } from "react-icons/hi";
 import useTransaction from "utils/hooks/custom/useTransaction";
-import formatCurrency from "utils/formatCurrency";
-import SummaryCard from "components/helpers/SummaryCard";
 
 const LoadingSkeleton = () => {
     return (

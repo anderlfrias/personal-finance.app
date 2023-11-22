@@ -8,7 +8,6 @@ import useCategory from 'utils/hooks/custom/useCategory'
 import openNotification from 'utils/openNotification'
 import CategoryForm from './CategoryForm'
 import CategoryList from './CategoryList'
-import WalletDetails from 'views/wallet/WalletDetails'
 import CategoryDetails from './CategoryDetails'
 
 
