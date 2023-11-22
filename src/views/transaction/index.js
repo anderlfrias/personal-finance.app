@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Button, Card, Drawer } from 'components/ui'
+import { Button, Card, Drawer, Pagination } from 'components/ui'
 import { useTranslation } from 'react-i18next'
 import { HiOutlineAdjustments, HiPlusCircle } from 'react-icons/hi'
 import useTransaction from 'utils/hooks/custom/useTransaction'
@@ -188,14 +188,14 @@ function Transaction() {
     const fetchData = useCallback(async (q = '') => {
         setLoading(true)
         setTransactions([])
-        // const query = `top=${top}&skip=${step * top}&${q}`
-        const resp = await getTransactions(q);
+        const query = `top=${top}&skip=${step * top}&${q}`
+        const resp = await getTransactions(query);
         if (resp.status === 'success') {
             setTransactions(resp.data.transactions);
             setTotal(resp.data.total)
         }
         setLoading(false)
-    }, [getTransactions])
+    }, [getTransactions, step, top])
 
     useEffect(() => {
         fetchData(filter ?
@@ -264,14 +264,11 @@ function Transaction() {
                         loading={loading}
                         transactions={transactions}
                         onClickItem={openDetail}
-                        paginationProps={{
-                            onChange: onPaginationChange,
-                            total: total,
-                            step: step + 1,
-                            top: top,
-                        }}
                         onPaginationChange={onPaginationChange}
                     />
+                    <div className='flex items-center justify-end mt-4'>
+                        <Pagination onChange={onPaginationChange} pageSize={top} total={total}  />
+                    </div>
                 </Card>
                 {/* </Loading> */}
             </div>
