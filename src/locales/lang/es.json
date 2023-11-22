@@ -402,7 +402,8 @@
             "name": "Nombre",
             "description": "Descripción",
             "actions": "Acciones",
-            "empty": "No hay categorías"
+            "empty": "No hay categorías",
+            "details": "Ver detalles"
         },
         "form": {
             "title": "Datos de la categoría",
@@ -452,6 +453,16 @@
         "filter": {
             "title": "Filtrar",
             "search": "Buscar categoría"
+        },
+        "details": {
+            "title": "Detalles de la categoría",
+            "subtitle": "ID: {id}",
+            "transactions": "Transacciones",
+            "button": {
+                "delete": "Eliminar",
+                "edit": "Editar",
+                "close": "Cerrar"
+            }
         }
     },
     "statistic": {

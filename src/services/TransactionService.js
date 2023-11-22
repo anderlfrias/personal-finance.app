@@ -22,6 +22,13 @@ export async function apiGetTransactionByWalletId ( id ) {
     })
 }
 
+export async function apiGetTransactionByCategoryId ( id ) {
+    return ApiService.fetchData({
+        url: `${URL}/v1/transaction/category/${id}`,
+        method: 'get',
+    })
+}
+
 export async function apiCreateTransaction ( data ) {
     return ApiService.fetchData({
         url: `${URL}/v1/transaction`,

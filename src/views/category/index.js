@@ -1,14 +1,16 @@
 import CreateButton from 'components/helpers/CreateButton'
 import { ConfirmDialog, Loading } from 'components/shared'
-import { Button, Card, Dialog, Table, Input } from 'components/ui'
+import { Button, Card, Dialog, Input } from 'components/ui'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { HiOutlineAdjustments, HiOutlineTrash, HiPencilAlt, HiPlusCircle, HiSearch } from 'react-icons/hi'
+import { HiOutlineAdjustments, HiPlusCircle, HiSearch } from 'react-icons/hi'
 import useCategory from 'utils/hooks/custom/useCategory'
 import openNotification from 'utils/openNotification'
 import CategoryForm from './CategoryForm'
+import CategoryList from './CategoryList'
+import WalletDetails from 'views/wallet/WalletDetails'
+import CategoryDetails from './CategoryDetails'
 
-const { Tr, Th, Td, THead, TBody } = Table
 
 const p = 'category' // prefix for translation key
 function Category() {
@@ -21,6 +23,7 @@ function Category() {
     const [isEdit, setIsEdit] = useState(false)
     const [loading, setLoading] = useState(false)
     const [ filter, setFilter ] = useState('')
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false)
 
     const openForm = () => {
         setIsFormOpen(true);
@@ -37,9 +40,22 @@ function Category() {
     }
 
     const onEdit = (category) => {
+        setIsDetailsOpen(false)
         setSelectedCategory(category)
         setIsEdit(true)
         setIsFormOpen(true)
+    }
+
+    const onDetails = (category) => {
+        setSelectedCategory(category)
+        setIsDetailsOpen(true)
+    }
+
+    const onClose = () => {
+        setIsFormOpen(false)
+        setSelectedCategory(null)
+        setIsEdit(false)
+        setIsDetailsOpen(false)
     }
 
     const onCloseDelete = () => {
@@ -151,38 +167,7 @@ function Category() {
                         </form>
                     </div>
                 <Loading loading={loading}>
-                    <Table>
-                        <THead>
-                            <Tr>
-                                <Th>#</Th>
-                                <Th>{t(`${p}.table.name`)}</Th>
-                                <Th>{t(`${p}.table.description`)}</Th>
-                                <Th />
-                            </Tr>
-                        </THead>
-                        <TBody>
-                            {
-                                categories.length > 0 ? categories.map((category, index) => (
-                                    <Tr key={index}>
-                                        <Td>{index + 1}</Td>
-                                        <Td>{category.name}</Td>
-                                        <Td>{category.description}</Td>
-                                        <Td>
-                                            <div className='flex gap-2'>
-                                                <Button variant='twoTone' size='sm' icon={<HiOutlineTrash />} onClick={() => onDelete(category)} color={'red-500'} />
-                                                <Button variant='twoTone' size='sm' icon={<HiPencilAlt />} onClick={() => onEdit(category)} />
-                                            </div>
-                                        </Td>
-                                    </Tr>
-                                )) :
-                                <Tr>
-                                    <Td colSpan={4} className='text-center'>
-                                        {t(`${p}.table.empty`)}
-                                    </Td>
-                                </Tr>
-                            }
-                        </TBody>
-                    </Table>
+                    <CategoryList categories={categories} onClickItem={onDetails} />
                 </Loading>
                 </Card>
             </div>
@@ -210,6 +195,14 @@ function Category() {
             >
                 {t(`${p}.confirm.delete.message`)}
             </ConfirmDialog>
+
+            <CategoryDetails
+                isOpen={isDetailsOpen}
+                category={selectedCategory}
+                onClose={onClose}
+                onEdit={onEdit}
+                onDelete={onDelete}
+            />
 
             <CreateButton onClick={openForm} />
         </>

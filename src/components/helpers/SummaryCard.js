@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { Avatar, Card } from 'components/ui'
 import React from 'react'
 import { BiLineChart, BiLineChartDown } from 'react-icons/bi'
@@ -18,22 +19,29 @@ const ArrowsDiff = ({className}) => {
 }
 
 const Icon = ({type, className}) => {
-    switch (type) {
-        case 'income':
-            return <Avatar className={`${className} bg-emerald-500 dark:bg-emerald-500`} icon={<BiLineChart />} />
-        case 'expense':
-            return <Avatar className={`${className} bg-red-500 dark:bg-red-500`} icon={<BiLineChartDown />} />
-        case 'difference':
-            return <Avatar className={`${className} bg-blue-500 dark:bg-blue-500`} icon={<ArrowsDiff />} />
-        default:
-            return <Avatar className={`${className} bg-blue-500 dark:bg-blue-500`} icon={<HiOutlineCurrencyDollar />} />
+    const icon = {
+        income: <BiLineChart />,
+        expense: <BiLineChartDown />,
+        difference: <ArrowsDiff />,
+        default: <HiOutlineCurrencyDollar />
     }
+    const classes = {
+        income: 'bg-emerald-500 dark:bg-emerald-500',
+        expense: 'bg-red-500 dark:bg-red-500',
+        difference: 'bg-blue-500 dark:bg-blue-500',
+        default: 'bg-blue-500 dark:bg-blue-500'
+    }
+
+    return (
+        <Avatar className={classNames(className, classes[type])} icon={icon[type]} />
+    )
 }
 
-function SummaryCard({ title, type, amount}) {
+function SummaryCard({ title, type, amount }) {
+
     return (
         <>
-            <Card>
+            <Card className='p-0'>
                 <div className='flex min-w-max'>
                     <Icon type={type} className='mr-4' />
                     <div className=''>

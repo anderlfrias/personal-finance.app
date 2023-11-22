@@ -413,7 +413,8 @@
             "name": "Name",
             "description": "Description",
             "action": "Action",
-            "empty": "No categories found"
+            "empty": "No categories found",
+            "details": "Details"
         },
         "form": {
             "title": "Category form",
@@ -463,6 +464,16 @@
         "filter": {
             "title": "Filter",
             "search": "Search category"
+        },
+        "details": {
+            "title": "Category details",
+            "subtitle": "ID: {id}",
+            "transactions": "Transactions",
+            "button": {
+                "delete": "Delete",
+                "edit": "Edit",
+                "close": "Close"
+            }
         }
     },
     "statistic": {
