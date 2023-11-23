@@ -28,7 +28,6 @@ function useAuth() {
 			}
 			const resp = await apiSignIn(data)
 			if (resp.data?.token) {
-				console.log(resp.data)
 				const { token } = resp.data;
 				// const decoded = jwt_decode(token); // delete this
 
