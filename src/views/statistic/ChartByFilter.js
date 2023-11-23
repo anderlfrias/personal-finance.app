@@ -9,6 +9,7 @@ import formatCurrency from 'utils/formatCurrency'
 import { HiOutlineAdjustments } from 'react-icons/hi'
 import TransactionFilter, { defaultFilterValues } from 'views/transaction/TransactionFilter'
 import { getQueryByObject } from 'utils/query'
+import DisplayFilter from 'views/transaction/DisplayFilter'
 
 const handleResp = ({ data }) => {
     const categories = data.map((item) => {
@@ -83,14 +84,17 @@ function ChartByFilter() {
         <>
             <Card>
                 <Loading loading={loading} type='cover'>
-                <div className="sm:flex justify-between gap-y-4">
-                    <h3 className="text-lg font-semibold">
+                <div className="sm:flex flex-row-reverse justify-between items-center gap-y-4 mb-4">
+                    {/* <h3 className="text-lg font-semibold">
                         {t(`${p}.title`)}
-                    </h3>
-                    <div className="mb-4">
+                    </h3> */}
+                    <div className='mb-2 sm:mb-0'>
                         <Button size='sm' icon={<HiOutlineAdjustments className='rotate-90' />} onClick={openFilter} >
                             {t(`${p}.filter.title`)}
                         </Button>
+                    </div>
+                    <div>
+                        <DisplayFilter filter={filter} setFilter={setFilter} />
                     </div>
                 </div>
 
