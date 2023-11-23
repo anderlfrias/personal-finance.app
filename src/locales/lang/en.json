@@ -520,7 +520,8 @@
                 "table": {
                     "category": "Category",
                     "amount": "Incomes",
-                    "empty":"No incomes found"
+                    "empty":"No incomes found",
+                    "total": "Total"
                 }
             },
             "expense": {
@@ -528,7 +529,8 @@
                 "table": {
                     "category": "Category",
                     "amount": "Expenses",
-                    "empty":"No expenses found"
+                    "empty":"No expenses found",
+                    "total": "Total"
                 }
             },
             "noData": "No data found"

@@ -9,24 +9,9 @@ import { useTranslation } from 'react-i18next'
 import useStatistic from 'utils/hooks/custom/useStatistic'
 import formatCurrency from 'utils/formatCurrency'
 import { Loading } from 'components/shared'
+import TFoot from 'components/ui/Table/TFoot'
 
 const { Tr, Th, Td, THead, TBody } = Table
-
-const handleResp = ({ data }) => {
-    const categories = data.map((item) => {
-        return item.category || '';
-    });
-
-    const incomes = data.map((item) => {
-        return item.incomes || 0;
-    });
-
-    const expenses = data.map((item) => {
-        return item.expenses || 0;
-    });
-
-    return { categories, incomes, expenses };
-}
 
 const p = 'statistic.chartOfCategory'
 const ChartOfCategory = ({ type = 'income' }) => {
@@ -36,8 +21,11 @@ const ChartOfCategory = ({ type = 'income' }) => {
     const [endDate, setEndDate] = useState(getEndDate())
     const [categories, setCategories] = useState([])
     const [data, setData] = useState([])
-    const [incomes, setIncomes] = useState([])
-    const [expenses, setExpenses] = useState([])
+    const [amounts, setAmounts] = useState({
+        income: [],
+        expense: []
+    })
+    const [total, setTotal] = useState({})
     const [loading, setLoading] = useState(false)
 
     const onChangeDate = (dates) => {
@@ -54,11 +42,31 @@ const ChartOfCategory = ({ type = 'income' }) => {
         const resp = await getStatisticOfCategory(query)
 
         if (resp.status === 'success') {
-            const { categories, incomes, expenses } = handleResp(resp)
-            setCategories(categories)
-            setData(resp.data)
-            setIncomes(incomes)
-            setExpenses(expenses)
+            // const { categories, incomes, expenses } = handleResp(resp, type)
+            const sortedData = resp.data.sort((a, b) => b[`${type}s`] - a[`${type}s`])
+            let newData = []
+            let newCategories = []
+            let newAmounts = {
+                income: [],
+                expense: []
+            }
+
+            for (let i = 0; i < sortedData.length; i++) {
+                const element = sortedData[i];
+                if (element[`${type}s`] === 0) continue
+                newCategories = [...newCategories, element.category]
+                newAmounts = {
+                    [type]: [...newAmounts[type], element[`${type}s`] || 0]
+                }
+                newData = [...newData, element]
+            }
+
+            setCategories(newCategories)
+            setData(newData)
+            setAmounts(newAmounts)
+            setTotal({
+                [type]: newData.reduce((acc, cur) => acc + cur[`${type}s`], 0)
+            })
         }
         setLoading(false)
     }
@@ -115,7 +123,7 @@ const ChartOfCategory = ({ type = 'income' }) => {
                                             },
                                         ],
                                     }}
-                                    series={type === 'expense' ? expenses : incomes}
+                                    series={amounts[type]}
                                     height={300}
                                     type="pie"
                                 />
@@ -138,6 +146,16 @@ const ChartOfCategory = ({ type = 'income' }) => {
                                             </Tr>
                                         ))}
                                     </TBody>
+                                    <TFoot>
+                                        <Tr>
+                                            <Td colSpan={2}>
+                                                <span className='font-bold'>
+                                                    {t(`${p}.${type}.table.total`)}
+                                                </span>
+                                            </Td>
+                                            <Td>{formatCurrency(total[type])}</Td>
+                                        </Tr>
+                                    </TFoot>
                                 </Table>
                             </div>
                         </div>

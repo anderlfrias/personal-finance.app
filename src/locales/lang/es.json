@@ -502,7 +502,8 @@
                 "table": {
                     "category": "Categoría",
                     "amount": "Cantidad",
-                    "empty": "No hay ingresos"
+                    "empty": "No hay ingresos",
+                    "total": "Total"
                 }
             },
             "expense": {
@@ -510,7 +511,8 @@
                 "table": {
                     "category": "Categoría",
                     "amount": "Cantidad",
-                    "empty": "No hay gastos"
+                    "empty": "No hay gastos",
+                    "total": "Total"
                 }
             },
             "noData": "No se han encontrado datos"
