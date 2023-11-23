@@ -9,10 +9,10 @@ import {
     apiGetTransactionByWalletId,
     apiGetTransactionByCategoryId,
 } from 'services/TransactionService'
-import { FailedResponse, SuccessResponse } from 'utils/response';
+import useResponse from './useResponse';
 
 function useTransaction() {
-
+    const { FailedResponse, SuccessResponse } = useResponse()
     const user = useSelector((state) => state.auth.user)
     const getTransactions = useCallback(async (q = '') => {
         try {
@@ -21,7 +21,7 @@ function useTransaction() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const getTransactionById = useCallback(async (id) => {
         try {
@@ -30,7 +30,7 @@ function useTransaction() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const getTransactionByWalletId = useCallback(async (id) => {
         try {
@@ -39,7 +39,7 @@ function useTransaction() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const getTransactionByCategoryId = useCallback(async (id) => {
         try {
@@ -48,7 +48,7 @@ function useTransaction() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const createTransaction = useCallback(async (data) => {
         try {
@@ -57,7 +57,7 @@ function useTransaction() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, [user.id]);
+    }, [user.id, FailedResponse, SuccessResponse]);
 
     const updateTransaction = useCallback(async (id, data) => {
         try {
@@ -66,7 +66,7 @@ function useTransaction() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const deleteTransaction = useCallback(async (id) => {
         try {
@@ -75,7 +75,7 @@ function useTransaction() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     return {
         getTransactions,

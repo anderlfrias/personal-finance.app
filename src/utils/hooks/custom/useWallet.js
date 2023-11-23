@@ -9,9 +9,10 @@ import {
     apiUpdateWallet,
     apiDeleteWallet,
 } from 'services/WalletServices';
-import { FailedResponse, SuccessResponse } from 'utils/response';
+import useResponse from './useResponse';
 
 function useWallet() {
+    const { FailedResponse, SuccessResponse } = useResponse()
     const user = useSelector((state) => state.auth.user)
     const getWallets = useCallback(async (filter = '') => {
         try {
@@ -20,7 +21,7 @@ function useWallet() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const getWalletById = useCallback(async (id) => {
         try {
@@ -29,7 +30,7 @@ function useWallet() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const createWallet = useCallback(async (data) => {
         try {
@@ -38,7 +39,7 @@ function useWallet() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, [user.id]);
+    }, [user.id, FailedResponse, SuccessResponse]);
 
     const updateWallet = useCallback(async (id, data) => {
         try {
@@ -47,7 +48,7 @@ function useWallet() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const deleteWallet = useCallback(async (id) => {
         try {
@@ -56,7 +57,7 @@ function useWallet() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     return {
         getWallets,

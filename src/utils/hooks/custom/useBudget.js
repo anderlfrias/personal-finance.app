@@ -9,9 +9,10 @@ import {
     apiUpdateBudget,
     apiDeleteBudget,
 } from 'services/BudgetService.js'
-import { FailedResponse, SuccessResponse } from 'utils/response';
+import useResponse from './useResponse';
 
 function useBudget() {
+    const { FailedResponse, SuccessResponse } = useResponse()
     const user = useSelector((state) => state.auth.user)
 
     const getBudgets = useCallback(async ({filter = '', active = false}) => {
@@ -21,7 +22,7 @@ function useBudget() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const getBudgetById = useCallback(async (id) => {
         try {
@@ -30,7 +31,7 @@ function useBudget() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const createBudget = useCallback(async (data) => {
         try {
@@ -39,7 +40,7 @@ function useBudget() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, [user.id]);
+    }, [user.id, FailedResponse, SuccessResponse]);
 
     const updateBudget = useCallback(async (id, data) => {
         try {
@@ -48,7 +49,7 @@ function useBudget() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const deleteBudget = useCallback(async (id) => {
         try {
@@ -57,7 +58,7 @@ function useBudget() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     return {
         getBudgets,

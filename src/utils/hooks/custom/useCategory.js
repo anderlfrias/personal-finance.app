@@ -9,9 +9,10 @@ import {
     apiUpdateCategory,
     apiDeleteCategory,
 } from 'services/CategoryService'
-import { FailedResponse, SuccessResponse } from 'utils/response';
+import useResponse from './useResponse';
 
 function useCategory() {
+    const { FailedResponse, SuccessResponse } = useResponse()
     const user = useSelector((state) => state.auth.user)
 
     const getCategories = useCallback(async (filter = '') => {
@@ -21,7 +22,7 @@ function useCategory() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const getCategoryById = useCallback(async (id) => {
         try {
@@ -30,7 +31,7 @@ function useCategory() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const createCategory = useCallback(async (data) => {
         try {
@@ -39,7 +40,7 @@ function useCategory() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, [user.id]);
+    }, [user.id, FailedResponse, SuccessResponse]);
 
     const updateCategory = useCallback(async (id, data) => {
         try {
@@ -48,7 +49,7 @@ function useCategory() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     const deleteCategory = useCallback(async (id) => {
         try {
@@ -57,7 +58,7 @@ function useCategory() {
         } catch (error) {
             return FailedResponse(error);
         }
-    }, []);
+    }, [FailedResponse, SuccessResponse]);
 
     return {
         getCategories,

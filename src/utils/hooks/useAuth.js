@@ -7,21 +7,21 @@ import { REDIRECT_URL_KEY } from 'constants/app.constant'
 import { useNavigate } from 'react-router-dom'
 import useQuery from './useQuery'
 import jwt_decode from "jwt-decode";
-import { FailedResponse, SuccessResponse } from 'utils/response'
 import { useCallback } from 'react'
+import useResponse from './custom/useResponse'
 
 function useAuth() {
+	const { FailedResponse, SuccessResponse } = useResponse()
+	const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
-
-    const navigate = useNavigate()
+	const navigate = useNavigate()
 
 	const query = useQuery()
 
-    const { token, signedIn, user } = useSelector((state) => state.auth.session)
+	const { token, signedIn, user } = useSelector((state) => state.auth.session)
 
-    const signIn = async (values) => {
-    try {
+	const signIn = useCallback(async (values) => {
+		try {
 			const resp = await apiSignIn(values)
 			if (resp.data?.token) {
 				console.log(resp.data)
@@ -51,10 +51,10 @@ function useAuth() {
 		} catch (errors) {
 			return FailedResponse(errors)
 		}
-    }
+	}, [FailedResponse, SuccessResponse, dispatch, navigate, query])
 
-	const signUp = async (values) => {
-        try {
+	const signUp = useCallback(async (values) => {
+		try {
 			const data = {
 				...values,
 				name: values.name.trim(),
@@ -85,7 +85,7 @@ function useAuth() {
 		} catch (errors) {
 			return FailedResponse(errors)
 		}
-    }
+	}, [FailedResponse, SuccessResponse, dispatch, navigate, query])
 
 	const confirmEmail = useCallback(async (token) => {
 		try {
@@ -94,7 +94,7 @@ function useAuth() {
 		} catch (errors) {
 			return FailedResponse(errors)
 		}
-	}, [])
+	}, [FailedResponse, SuccessResponse])
 
 	const sendConfirmEmail = useCallback(async (token) => {
 		try {
@@ -107,7 +107,7 @@ function useAuth() {
 		} catch (errors) {
 			return FailedResponse(errors)
 		}
-	}, [])
+	}, [FailedResponse, SuccessResponse])
 
 	const forgotPassword = useCallback(async (values) => {
 		try {
@@ -120,7 +120,7 @@ function useAuth() {
 		} catch (errors) {
 			return FailedResponse(errors)
 		}
-	}, [])
+	}, [FailedResponse, SuccessResponse])
 
 	const resetPassword = useCallback(async (values, token) => {
 		try {
@@ -129,30 +129,30 @@ function useAuth() {
 		} catch (errors) {
 			return FailedResponse(errors)
 		}
-	}, [])
+	}, [FailedResponse, SuccessResponse])
 
-    const handleSignOut = ()  => {
+	const handleSignOut = useCallback(() => {
 		dispatch(onSignOutSuccess())
 		dispatch(setUser(initialState))
 		navigate(appConfig.unAuthenticatedEntryPath)
-	}
+	}, [dispatch, navigate])
 
-    const signOut = async () => {
+	const signOut = useCallback(async () => {
 		handleSignOut()
-	}
+	}, [handleSignOut])
 
-    return {
-			user,
-			activated: user && user.isActive,
-			authenticated: token && signedIn,
-			signIn,
-			signUp,
-			signOut,
-			confirmEmail,
-			sendConfirmEmail,
-			forgotPassword,
-			resetPassword
-    }
+	return {
+		user,
+		activated: user && user.isActive,
+		authenticated: token && signedIn,
+		signIn,
+		signUp,
+		signOut,
+		confirmEmail,
+		sendConfirmEmail,
+		forgotPassword,
+		resetPassword
+	}
 }
 
 export default useAuth
