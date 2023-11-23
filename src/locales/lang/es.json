@@ -352,7 +352,8 @@
             "balance": "Saldo",
             "actions": "Acciones",
             "empty": "No hay cuentas",
-            "details": "Ver detalles"
+            "details": "Ver detalles",
+            "total": "Total"
         },
         "confirm": {
             "delete": {
