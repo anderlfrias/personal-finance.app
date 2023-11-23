@@ -4,6 +4,7 @@ import { initialState, setUser } from "store/auth/userSlice"
 import appConfig from "configs/app.config"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
+import openNotification from "utils/openNotification"
 
 export default function useResponse () {
 	const navigate = useNavigate()
@@ -27,6 +28,11 @@ export default function useResponse () {
     console.log(error)
     if (error?.response?.status === 403) {
       handleSignOut()
+      openNotification({
+        type: 'danger',
+        message: 'errors.forbidden',
+        description: 'errors.forbiddenDescription'
+      })
       return {
         status: 'failed',
         message: 'errors.unauthorized',

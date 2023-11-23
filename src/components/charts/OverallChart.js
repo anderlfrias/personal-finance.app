@@ -74,6 +74,7 @@ function OverallChart() {
 
     const fetchData = useCallback(async (searchRange) => {
         setLoading(true)
+        await new Promise((resolve) => setTimeout(resolve, 1000)) // fake loading
         const resp = await getStatisticsByTimeFrame(searchRange)
         if (resp.status === 'success') {
             const { series, categories } = handleResp(resp.data)

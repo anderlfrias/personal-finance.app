@@ -22,7 +22,11 @@ function useAuth() {
 
 	const signIn = useCallback(async (values) => {
 		try {
-			const resp = await apiSignIn(values)
+			const data = {
+				user: values.user.trim(),
+				password: values.password.trim(),
+			}
+			const resp = await apiSignIn(data)
 			if (resp.data?.token) {
 				console.log(resp.data)
 				const { token } = resp.data;

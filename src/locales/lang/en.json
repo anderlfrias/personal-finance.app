@@ -29,7 +29,7 @@
     },
     "home": {
         "title": "Home",
-        "welcome": "Welcome to the home page"
+        "welcome": ""
     },
     "transaction": {
         "title": "Transaction",
@@ -901,6 +901,8 @@
     "errors": {
         "invalid_credentials": "Invalid credentials",
         "unauthorized": "Unauthorized",
+        "forbidden": "Forbidden",
+        "forbiddenDescription": "You don't have permission to access this page",
         "failed_to_login": "Failed to login",
         "missing_fields": "Missing fields",
         "unexpected": "Unexpected error",

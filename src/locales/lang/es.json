@@ -15,7 +15,7 @@
     },
     "home": {
         "title": "Inicio",
-        "welcome": "Bienvenido a la página de inicio de la aplicación de ejemplo de React"
+        "welcome": ""
     },
     "transaction": {
         "title": "Transacciones",
@@ -876,6 +876,8 @@
     "errors": {
         "invalid_credentials": "Usuario y/o contraseña incorrectos",
         "unauthorized": "No tiene permiso para acceder a esta página",
+        "forbidden": "Acceso denegado",
+        "forbiddenDescription": "Inicie sesión nuevamente para continuar",
         "failed_to_login": "Error al iniciar sesión",
         "missing_fields": "Faltan campos obligatorios",
         "unexpected": "Ha ocurrido un error inesperado",
