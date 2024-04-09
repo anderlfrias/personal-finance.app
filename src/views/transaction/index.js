@@ -220,6 +220,8 @@ function Transaction() {
     useEffect(() => {
         setDifference(totalIncome - totalExpense)
     }, [totalIncome, totalExpense])
+
+    useEffect(() => setFilter(defaultFilterValues), [])
     return (
         <>
             <div className='container mx-auto'>

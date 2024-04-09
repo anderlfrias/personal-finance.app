@@ -5,9 +5,9 @@ import { HiArrowDown, HiArrowUp, HiSwitchHorizontal } from 'react-icons/hi'
 export const getIcon = (type, size = 'sm') => {
     switch (type) {
         case 'income':
-            return <TowToneIcon size={size} color={'emerald'} icon={<HiArrowUp className='rotate-45' />}/>
+            return <TowToneIcon size={size} color={'emerald'} icon={<HiArrowDown className='rotate-45' />}/>
         case 'expense':
-            return <TowToneIcon size={size} color={'red'} icon={<HiArrowDown className='rotate-45' />}/>
+            return <TowToneIcon size={size} color={'red'} icon={<HiArrowUp className='rotate-45' />}/>
         default:
             return <TowToneIcon size={size} color={'indigo'} icon={<HiSwitchHorizontal />}/>
     }
