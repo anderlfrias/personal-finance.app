@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import useWallet from 'utils/hooks/custom/useWallet';
 import useCategory from 'utils/hooks/custom/useCategory';
 import * as Yup from 'yup'
-import { Loading, SegmentItemOption } from 'components/shared';
+import { FormNumericInput, Loading, SegmentItemOption } from 'components/shared';
 import { HiCheckCircle, HiSwitchHorizontal } from 'react-icons/hi';
 import { BiLineChart, BiLineChartDown } from 'react-icons/bi';
 import useBudget from 'utils/hooks/custom/useBudget';
@@ -240,15 +240,26 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRe
                                 invalid={errors.amount && touched.amount}
                                 errorMessage={t(`${p}${errors.amount}`)}
                             >
-                                <Field
-                                    type="number"
-                                    autoComplete="off"
-                                    name="amount"
-                                    placeholder={`${t(`${p}.amount.placeholder`)}`}
-                                    component={Input}
-                                    step="any"
-                                    disabled={isEditing}
-                                />
+                                <Field name="amount">
+                                    {({ field, form }) => (
+                                        <FormNumericInput
+                                            field={field}
+                                            form={form}
+                                            placeholder={t(`${p}.amount.placeholder`)}
+                                            disabled={isEditing}
+                                            decimalScale={2}
+                                            thousandSeparator
+                                            onValueChange={(e) => {
+                                                form.setFieldValue(
+                                                    field.name,
+                                                    e.floatValue
+                                                )
+                                            }}
+                                            value={field.value}
+                                            inputPrefix={<span className='font-semibold'>$</span>}
+                                        />
+                                    )}
+                                </Field>
                             </FormItem>
 
                             <FormItem
