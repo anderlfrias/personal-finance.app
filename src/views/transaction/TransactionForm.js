@@ -25,8 +25,7 @@ const validationSchema = Yup.object().shape({
         .required('.amount.error.required'),
     description: Yup.string()
         .min(3, '.description.error.min')
-        .max(256, '.description.error.max')
-        .required('.description.error.required'),
+        .max(256, '.description.error.max'),
     date: Yup.date()
         .required('.date.error.required')
         .nullable(),
@@ -47,8 +46,8 @@ const typeOptions = [
 ]
 
 const p = 'transaction.form' // path to translation file
-const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRef  }) => {
-	const { themeColor, primaryColorLevel, mode } = useConfig()
+const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRef }) => {
+    const { themeColor, primaryColorLevel, mode } = useConfig()
     const { t } = useTranslation()
     const { getWallets } = useWallet();
     const { getCategories } = useCategory()
@@ -112,16 +111,16 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRe
     const validateFieldRequired = (values) => {
         if (values.type === 'transfer') {
             if (!values.sourceWallet) {
-                openNotification({title: 'Error', subtitle: `${p}.sourceWallet.error.required`, type: 'danger'})
+                openNotification({ title: 'Error', subtitle: `${p}.sourceWallet.error.required`, type: 'danger' })
                 return false;
             }
             if (!values.targetWallet) {
-                openNotification({title: 'Error', subtitle: `${p}.targetWallet.error.required`, type: 'danger'})
+                openNotification({ title: 'Error', subtitle: `${p}.targetWallet.error.required`, type: 'danger' })
                 return false;
             }
         } else {
             if (!values.wallet) {
-                openNotification({title: 'Error', subtitle: `${p}.wallet.error.required`, type: 'danger'})
+                openNotification({ title: 'Error', subtitle: `${p}.wallet.error.required`, type: 'danger' })
                 return false;
             }
         }
@@ -132,7 +131,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRe
     return (
         <div>
             <Formik
-                innerRef={innerRef }
+                innerRef={innerRef}
                 initialValues={initialValues || {
                     type: '',
                     amount: '',
@@ -262,21 +261,6 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRe
                                 </Field>
                             </FormItem>
 
-                            <FormItem
-                                label={`${t(`${p}.description.label`)}`}
-                                invalid={errors.description && touched.description}
-                                errorMessage={t(`${p}${errors.description}`)}
-                            >
-                                <Field
-                                    type="text"
-                                    autoComplete="off"
-                                    name="description"
-                                    placeholder={`${t(`${p}.description.placeholder`)}`}
-                                    component={Input}
-                                    textArea
-                                />
-                            </FormItem>
-
                             {
                                 values?.type === 'transfer' ? (
                                     <>
@@ -340,35 +324,6 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRe
                                 ) : (
                                     <>
                                         <FormItem
-                                            label={t(`${p}.wallet.label`)}
-                                            invalid={errors.wallet && touched.wallet}
-                                            errorMessage={t(`${p}${errors.wallet}`)}
-                                        >
-                                            <Field name="wallet">
-                                                {({ field, form }) => (
-                                                    <Select
-                                                        placeholder={t(`${p}.wallet.placeholder`)}
-                                                        field={field}
-                                                        form={form}
-                                                        options={wallets}
-                                                        value={wallets.filter(
-                                                            (option) =>
-                                                                option.value ===
-                                                                values.wallet
-                                                        )}
-                                                        onChange={(option) =>
-                                                            form.setFieldValue(
-                                                                field.name,
-                                                                option?.value || ''
-                                                            )
-                                                        }
-                                                        isDisabled={isEditing}
-                                                    />
-                                                )}
-                                            </Field>
-                                        </FormItem>
-
-                                        <FormItem
                                             label={t(`${p}.category.label`)}
                                             invalid={errors.category && touched.category}
                                             errorMessage={t(`${p}${errors.category}`)}
@@ -393,6 +348,34 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRe
                                                         }
                                                         disabled={isEditing}
                                                         isClearable
+                                                    />
+                                                )}
+                                            </Field>
+                                        </FormItem>
+                                        <FormItem
+                                            label={t(`${p}.wallet.label`)}
+                                            invalid={errors.wallet && touched.wallet}
+                                            errorMessage={t(`${p}${errors.wallet}`)}
+                                        >
+                                            <Field name="wallet">
+                                                {({ field, form }) => (
+                                                    <Select
+                                                        placeholder={t(`${p}.wallet.placeholder`)}
+                                                        field={field}
+                                                        form={form}
+                                                        options={wallets}
+                                                        value={wallets.filter(
+                                                            (option) =>
+                                                                option.value ===
+                                                                values.wallet
+                                                        )}
+                                                        onChange={(option) =>
+                                                            form.setFieldValue(
+                                                                field.name,
+                                                                option?.value || ''
+                                                            )
+                                                        }
+                                                        isDisabled={isEditing}
                                                     />
                                                 )}
                                             </Field>
@@ -437,6 +420,21 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRe
                             }
 
                             <FormItem
+                                label={`${t(`${p}.description.label`)}`}
+                                invalid={errors.description && touched.description}
+                                errorMessage={t(`${p}${errors.description}`)}
+                            >
+                                <Field
+                                    type="text"
+                                    autoComplete="off"
+                                    name="description"
+                                    placeholder={`${t(`${p}.description.placeholder`)}`}
+                                    component={Input}
+                                    textArea
+                                />
+                            </FormItem>
+
+                            <FormItem
                                 label={t(`${p}.evidence.label`)}
                                 invalid={errors.evidence && touched.evidence}
                                 errorMessage={t(`${p}${errors.evidence}`)}
@@ -462,7 +460,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRe
                                             ))}
 
                                             <Upload
-                                                onChange={(files) => handleUpload(files.pop(), (base64) => form.setFieldValue(field.name, [ ...values.evidence, base64 ]))}
+                                                onChange={(files) => handleUpload(files.pop(), (base64) => form.setFieldValue(field.name, [...values.evidence, base64]))}
                                                 className="min-h-fit"
                                                 showList={false}
                                                 multiple={false}

@@ -5,7 +5,7 @@ import formatCurrency from 'utils/formatCurrency';
 import formatDate from 'utils/formatDate';
 
 function TransactionItem({ transaction, onClick }) {
-    const { type, description, amount, date } = transaction;
+    const { type, description, amount, date, category } = transaction;
     return (
         <>
             <div className='flex justify-between items-center gap-4 p-2 cursor-pointer hover:shadow' onClick={onClick}>
@@ -15,7 +15,7 @@ function TransactionItem({ transaction, onClick }) {
                     </div>
                     <div className='flex flex-col'>
                         <h6 className="text-sm font-bold multiline-ellipsis max-h-14 overflow-hidden">
-                            {description}
+                            {description || category?.name || 'N/A'}
                         </h6>
                         <p className="text-xs text-gray-500 flex items-center min-w-max">
                             <HiCalendar className='mr-1' /> {formatDate(new Date(date))}
