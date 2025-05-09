@@ -29,7 +29,14 @@
     },
     "home": {
         "title": "Home",
-        "welcome": ""
+        "welcome": "",
+        "quickActions": "Quick actions"
+    },
+    "quickActions": {
+        "title": "Quick actions",
+        "income": "Income",
+        "expense": "Expense",
+        "transfer": "Transfer"
     },
     "transaction": {
         "title": "Transaction",

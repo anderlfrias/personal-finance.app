@@ -46,7 +46,7 @@ const typeOptions = [
 ]
 
 const p = 'transaction.form' // path to translation file
-const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRef }) => {
+const TransactionForm = ({ initialValues, onSubmit, isEditing, innerRef }) => {
     const { themeColor, primaryColorLevel, mode } = useConfig()
     const { t } = useTranslation()
     const { getWallets } = useWallet();
@@ -156,7 +156,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRe
                     setSubmitting(false)
                 }}
             >
-                {({ touched, errors, resetForm, isSubmitting, values }) => (
+                {({ touched, errors, values }) => (
                     <Form>
                         <FormContainer>
                             {/* <div className='max-h-96 overflow-y-auto px-2'> */}
@@ -256,6 +256,7 @@ const TransactionForm = ({ initialValues, onSubmit, onCancel, isEditing, innerRe
                                             }}
                                             value={field.value}
                                             inputPrefix={<span className='font-semibold'>$</span>}
+                                            autoFocus
                                         />
                                     )}
                                 </Field>

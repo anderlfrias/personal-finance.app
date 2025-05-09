@@ -15,7 +15,14 @@
     },
     "home": {
         "title": "Inicio",
-        "welcome": ""
+        "welcome": "",
+        "quickActions": "Acciones rápidas"
+    },
+    "quickActions": {
+        "title": "Acciones rápidas",
+        "income": "Ingreso",
+        "expense": "Gasto",
+        "transfer": "Transferencia"
     },
     "transaction": {
         "title": "Transacciones",
