@@ -132,7 +132,8 @@
                 "placeholder": "Enter transaction amount",
                 "error": {
                     "required": "Transaction amount is required"
-                }
+                },
+                "reset": "Clear"
             },
             "description": {
                 "label": "Description",

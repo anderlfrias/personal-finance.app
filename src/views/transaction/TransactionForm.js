@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { Input, FormItem, FormContainer, DatePicker, Select, Segment, Upload, useConfig } from 'components/ui'
+import { Input, FormItem, FormContainer, DatePicker, Select, Segment, Upload, useConfig, Button } from 'components/ui'
 import { Field, Form, Formik } from 'formik'
 import { useTranslation } from 'react-i18next'
 import useWallet from 'utils/hooks/custom/useWallet';
@@ -111,16 +111,16 @@ const TransactionForm = ({ initialValues, onSubmit, isEditing, innerRef }) => {
     const validateFieldRequired = (values) => {
         if (values.type === 'transfer') {
             if (!values.sourceWallet) {
-                openNotification({ title: 'Error', subtitle: `${p}.sourceWallet.error.required`, type: 'danger' })
+                openNotification({ title: 'Error', subtitle: `${t(`${p}.sourceWallet.error.required`)}`, type: 'danger' })
                 return false;
             }
             if (!values.targetWallet) {
-                openNotification({ title: 'Error', subtitle: `${p}.targetWallet.error.required`, type: 'danger' })
+                openNotification({ title: 'Error', subtitle: `${t(`${p}.targetWallet.error.required`)}`, type: 'danger' })
                 return false;
             }
         } else {
             if (!values.wallet) {
-                openNotification({ title: 'Error', subtitle: `${p}.wallet.error.required`, type: 'danger' })
+                openNotification({ title: 'Error', subtitle: `${t(`${p}.wallet.error.required`)}`, type: 'danger' })
                 return false;
             }
         }
@@ -156,7 +156,7 @@ const TransactionForm = ({ initialValues, onSubmit, isEditing, innerRef }) => {
                     setSubmitting(false)
                 }}
             >
-                {({ touched, errors, values }) => (
+                {({ touched, errors, values, setFieldValue }) => (
                     <Form>
                         <FormContainer>
                             {/* <div className='max-h-96 overflow-y-auto px-2'> */}
@@ -234,6 +234,7 @@ const TransactionForm = ({ initialValues, onSubmit, isEditing, innerRef }) => {
                                     )}
                                 </Field>
                             </FormItem>
+
                             <FormItem
                                 label={`${t(`${p}.amount.label`)}`}
                                 invalid={errors.amount && touched.amount}
@@ -261,6 +262,28 @@ const TransactionForm = ({ initialValues, onSubmit, isEditing, innerRef }) => {
                                     )}
                                 </Field>
                             </FormItem>
+
+                            <div className="grid grid-cols-4 gap-2 mb-6">
+                                {[1000, 500, 100, 50, 10, 5, 1].map((value) => (
+                                    <Button
+                                        key={value}
+                                        size="xs"
+                                        // variant="outline"
+                                        type="button"
+                                        onClick={() => setFieldValue('amount', (values.amount || 0) + value)}
+                                    >
+                                        ${value.toLocaleString()}
+                                    </Button>
+                                ))}
+                                <Button
+                                    size="xs"
+                                    // variant="outline"
+                                    type="button"
+                                    onClick={() => setFieldValue('amount', '')}
+                                >
+                                    {t(`${p}.amount.reset`)}
+                                </Button>
+                            </div>
 
                             {
                                 values?.type === 'transfer' ? (

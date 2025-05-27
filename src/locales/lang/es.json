@@ -91,7 +91,8 @@
                 "placeholder": "Introduzca la cantidad de la transacción",
                 "error": {
                     "required": "La cantidad es obligatoria"
-                }
+                },
+                "reset": "Limpiar"
             },
             "wallet": {
                 "label": "Cuenta",
